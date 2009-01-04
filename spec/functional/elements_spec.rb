@@ -15,8 +15,8 @@ describe DataMapper::Forms::Elements do
   end
   
   it "should create textfields" do
-    s = textfield :name => :phone, :value => 'Enter phone number'
-    s.should == '<intput type="textfield" value="Enter phone number" />'
+    s = textfield :phone, :value => 'Enter phone number'
+    s.should == '<input type="textfield" name="phone" value="Enter phone number" />'
   end
   
 end

@@ -16,7 +16,7 @@ module DataMapper
       
       def tag name, options = {}
         self_closing = options[:self_closing]
-        value = options[:attributes].delete(:value) if self_closing rescue ''
+        value = options[:attributes].delete(:value) unless self_closing rescue ''
         s = "<#{name} #{options[:attributes].attributize}"
         s << if self_closing
             " />"
@@ -28,8 +28,9 @@ module DataMapper
       ##
       # Generates an HTML textfield.
       
-      def textfield attributes = {}
-        
+      def textfield name, attributes = {}
+        attributes.merge! :type => :textfield, :name => name 
+        tag :input, :self_closing => true, :attributes => attributes
       end
     end
   end
