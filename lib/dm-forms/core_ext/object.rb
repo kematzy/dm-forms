@@ -1,5 +1,9 @@
 
 class Object
+  
+  ##
+  # Converts an object to html element attributes.
+  
   def attributize
     to_html_attributes
   end
