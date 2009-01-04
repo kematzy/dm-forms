@@ -32,6 +32,10 @@ module DataMapper
         attributes.merge! :type => :textfield, :name => name 
         tag :input, :self_closing => true, :attributes => attributes
       end
+      
+      ELEMENTS = {
+        :textfield => { :name => :input, :options => { :self_closing => true, :attributes => { :type => :textfield } } }
+      }
     end
   end
 end
