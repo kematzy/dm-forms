@@ -1,0 +1,15 @@
+
+require 'rubygems'
+require 'rake'
+require 'echoe'
+require './lib/dm-forms.rb'
+
+Echoe.new("dm-forms", DataMapper::Forms::VERSION::STRING) do |p|
+  p.author = "TJ Holowaychuk"
+  p.email = "tj@vision-media.ca"
+  p.summary = "DataMapper model form generation"
+  p.url = "http://github.com/visionmedia/dm-forms"
+  p.runtime_dependencies = ['dm-core']
+end
+
+Dir['tasks/**/*.rake'].sort.each { |lib| load lib }
