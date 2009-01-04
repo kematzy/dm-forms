@@ -9,7 +9,7 @@ describe DataMapper::Forms::Elements do
   end
   
   it "should create generic tags" do
-    
+    tag(:input, :attributes => { :type => :textfield }).should == '<input type="textfield" />'
   end
   
 end
