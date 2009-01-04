@@ -4,12 +4,14 @@ include DataMapper::Forms::Elements
 describe DataMapper::Forms::Elements do
   
   it "should attributeize a hash" do
-    { 'foo' => 'bar' }.attributeize.should == 'foo="bar"'
-    { :type => :textfield, :value => 'Submit' }.attributeize.should == 'type="textfield" value="Submit"'
+    { 'foo' => 'bar' }.attributize.should == 'foo="bar"'
+    { :type => :textfield, :value => 'Submit' }.attributize.should == 'type="textfield" value="Submit"'
   end
   
   it "should create generic tags" do
-    tag(:input, :attributes => { :type => :textfield }).should == '<input type="textfield" />'
+    tag(:textarea).should == '<textarea  /></textarea>'
+    tag(:input, :self_closing => true).should == '<input  />'
+    tag(:input, :attributes => { :type => :textfield }, :self_closing => true).should == '<input type="textfield" />'
   end
   
 end

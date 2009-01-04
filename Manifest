@@ -5,6 +5,7 @@ lib/dm-forms.rb
 lib/dm-forms/version.rb
 lib/dm-forms/core_ext.rb
 lib/dm-forms/core_ext/hash.rb
+lib/dm-forms/core_ext/object.rb
 lib/dm-forms/elements.rb
 spec/functional/elements_spec.rb
 spec/spec_helper.rb
