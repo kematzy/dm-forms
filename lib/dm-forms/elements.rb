@@ -36,12 +36,17 @@ module DataMapper
       # and IDE purposes these element methods are not created dynamically.
       #++
       
+      def form name, attributes = {}
+        
+      end
+      
       ##
       # Generates a textfield.
       
       def textfield name, attributes = {}
-        attributes.merge! :type => :textfield, :name => name 
-        tag :input, :self_closing => true, :attributes => attributes
+        a = { :type => :textfield, :name => name }
+        a.merge! attributes  
+        tag :input, :self_closing => true, :attributes => a
       end
       
       ##
