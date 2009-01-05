@@ -42,6 +42,14 @@ describe DataMapper::Forms::Elements do
     HTML
   end
   
+  it "should create textareas with labels using :title for unification" do
+    s = textarea :comments, :value => 'Enter your comments here', :title => 'Comments'
+    s.should == <<-HTML.deindent
+      <label for="comments">Comments:</label>
+      <textarea name="comments">Enter your comments here</textarea>
+    HTML
+  end
+    
   it "should create textareas with labels which are required" do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments', :required => true
     s.should == <<-HTML.deindent
