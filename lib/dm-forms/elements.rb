@@ -17,19 +17,18 @@ module DataMapper
       #
       
       def tag name, options = {}
-        s = ''
-        attributes = options[:attributes]
-        attributes[:class] = element_class(name, options) if add_element_class? name
-        self_closing = options[:self_closing]
-        value = attributes.delete(:value) unless self_closing rescue ''
-        label = attributes.delete(:label) || attributes.delete(:title) rescue nil
-        label_required = attributes.delete(:required) rescue false
-        description = attributes.delete(:description) rescue false
-        after = "\n" << attributes.delete(:after) rescue ''
-        before = attributes.delete(:before) << "\n" rescue ''
+        s, o, a = '', options, options[:attributes]
+        a[:class] = element_class(name, options) if add_element_class? name
+        self_closing = o[:self_closing]
+        value = a.delete(:value) unless self_closing rescue ''
+        label = a.delete(:label) || a.delete(:title) rescue nil
+        label_required = a.delete(:required) rescue false
+        description = a.delete(:description) rescue false
+        after = "\n" << a.delete(:after) rescue ''
+        before = a.delete(:before) << "\n" rescue ''
         s << before.to_s
-        s << self.label(label, :for => attributes[:name], :required => label_required) if label
-        s << "<#{name} #{attributes.to_html_attributes}"
+        s << self.label(label, :for => a[:name], :required => label_required) if label
+        s << "<#{name} #{a.to_html_attributes}"
         s << if self_closing
             " />"
           else
@@ -39,11 +38,6 @@ module DataMapper
         s << after.to_s
         s << "\n"
       end
-      
-      #--
-      # These methods could use a little DRY love, however for documentation 
-      # and IDE purposes these element methods are not created dynamically.
-      #++
       
       ##
       # Generates a form.
