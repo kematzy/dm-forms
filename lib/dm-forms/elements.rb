@@ -15,14 +15,20 @@ module DataMapper
       #
       
       def tag name, options = {}
+        s = ''
         self_closing = options[:self_closing]
+        # TODO: no rescue ... clean up with .blank? or something ... or no options INSIDE attributes? || '' ?
         value = options[:attributes].delete(:value) unless self_closing rescue ''
-        s = "<#{name} #{options[:attributes].attributize}"
+        label = options[:attributes].delete(:label) rescue nil
+        required = ' <em>*</em>' if options[:attributes].delete(:required) rescue ''
+        s << %(<label for="#{options[:attributes][:name]}">#{label}#{required}</label>\n) if label
+        s << "<#{name} #{options[:attributes].attributize}"
         s << if self_closing
             " />"
           else
-            " />#{value}</#{name}>"
+            ">#{value}</#{name}>"
           end
+        s << "\n"
       end
       
       ##
@@ -33,9 +39,10 @@ module DataMapper
         tag :input, :self_closing => true, :attributes => attributes
       end
       
-      ELEMENTS = {
-        :textfield => { :name => :input, :options => { :self_closing => true, :attributes => { :type => :textfield } } }
-      }
+      def textarea name, attributes = {}
+        attributes.merge! :name => name
+        tag :textarea, :attributes => attributes
+      end
     end
   end
 end

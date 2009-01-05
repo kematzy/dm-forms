@@ -1,11 +1,15 @@
 
 == Major:
 
-* Nothing
+* seperate form DSL
+* meta goodness
+* merging of classes (always additive, cannot override? )
+* http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 
 == Minor:
 
-* Nothing
+* Aggregate / faux elements (name?) ... 
+  * datefield :start, :format => 'YYYY-MM-DD'
 
 == Brainstorming:
 
