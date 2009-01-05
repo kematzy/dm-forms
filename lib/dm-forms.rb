@@ -23,6 +23,8 @@
 
 $:.unshift File.dirname(__FILE__)
 
+require 'rubygems'
+require 'extlib'
 require 'dm-forms/version'
 require 'dm-forms/core_ext'
 require 'dm-forms/elements'

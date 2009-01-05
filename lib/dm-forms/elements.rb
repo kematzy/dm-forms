@@ -22,7 +22,7 @@ module DataMapper
         label = options[:attributes].delete(:label) rescue nil
         required = ' <em>*</em>' if options[:attributes].delete(:required) rescue ''
         s << %(<label for="#{options[:attributes][:name]}">#{label}#{required}</label>\n) if label
-        s << "<#{name} #{options[:attributes].attributize}"
+        s << "<#{name} #{options[:attributes].to_html_attributes}"
         s << if self_closing
             " />"
           else

@@ -3,11 +3,6 @@ include DataMapper::Forms::Elements
 
 describe DataMapper::Forms::Elements do
   
-  it "should attributeize a hash" do
-    { 'foo' => 'bar' }.attributize.should == 'foo="bar"'
-    { :type => :textfield, :value => 'Submit' }.attributize.should == 'type="textfield" value="Submit"'
-  end
-  
   it "should create generic tags" do
     tag(:textarea).should == "<textarea ></textarea>\n"
     tag(:input, :self_closing => true).should == "<input  />\n"
