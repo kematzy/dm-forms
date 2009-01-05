@@ -19,7 +19,7 @@ module DataMapper
         attributes = options[:attributes]
         self_closing = options[:self_closing]
         value = options[:attributes].delete(:value) unless self_closing rescue ''
-        label = options[:attributes].delete(:label) rescue nil
+        label = options[:attributes].delete(:label) || options[:attributes].delete(:title) rescue nil
         label_required = options[:attributes].delete(:required) rescue false
         s << self.label(label, :for => options[:attributes][:name], :required => label_required) if label
         s << "<#{name} #{attributes.to_html_attributes}"
@@ -39,51 +39,51 @@ module DataMapper
       ##
       # Generates a form.
       
-      def form name, attributes = {}
-        attributes = { :method => :post }.merge! attributes
-        tag :form, :attributes => attributes
+      def form name, options = {}
+        options = { :method => :post }.merge! options
+        tag :form, :attributes => options
       end
       
       ##
       # Generates a label.
       
-      def label value, attributes = {}
+      def label value, options = {}
         value << ':'
-        value << '<em>*</em>' if attributes.delete :required
-        attributes.merge! :value => value
-        tag :label, :attributes => attributes
+        value << '<em>*</em>' if options.delete :required
+        options.merge! :value => value
+        tag :label, :attributes => options
       end
       
       ##
       # Generates a textfield.
       
-      def textfield name, attributes = {}
-        attributes.merge! :type => :textfield, :name => name 
-        tag :input, :self_closing => true, :attributes => attributes
+      def textfield name, options = {}
+        options.merge! :type => :textfield, :name => name 
+        tag :input, :self_closing => true, :attributes => options
       end
       
       ##
       # Generates a textarea.
       
-      def textarea name, attributes = {}
-        attributes.merge! :name => name
-        tag :textarea, :attributes => attributes
+      def textarea name, options = {}
+        options.merge! :name => name
+        tag :textarea, :attributes => options
       end
             
       ##
       # Generates a submit button.
       
-      def submit name, attributes = {}
-        attributes.merge! :type => :submit, :name => name
-        tag :input, :self_closing => true, :attributes => attributes
+      def submit name, options = {}
+        options.merge! :type => :submit, :name => name
+        tag :input, :self_closing => true, :attributes => options
       end
       
       ##
       # Generates a button.
       
-      def button name, attributes = {}
-        attributes.merge! :type => :button, :name => name
-        tag :input, :self_closing => true, :attributes => attributes
+      def button name, options = {}
+        options.merge! :type => :button, :name => name
+        tag :input, :self_closing => true, :attributes => options
       end
     end
   end
