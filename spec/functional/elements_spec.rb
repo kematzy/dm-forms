@@ -1,7 +1,7 @@
 
-include DataMapper::Forms::Elements
-
 describe DataMapper::Forms::Elements do
+  
+  include DataMapper::Forms::Elements
   
   it "should create generic tags" do
     tag(:textarea).should == "<textarea ></textarea>\n"

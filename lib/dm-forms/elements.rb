@@ -31,6 +31,11 @@ module DataMapper
         s << "\n"
       end
       
+      #--
+      # These methods could use a little DRY love, however for documentation 
+      # and IDE purposes these element methods are not created dynamically.
+      #++
+      
       ##
       # Generates a textfield.
       
