@@ -1,7 +1,15 @@
 
-= dm-forms
+= DataMapper Forms
 
-DataMapper model form generation
+DataMapper model form generation.
+
+== Features:
+
+* Coming soon
+
+== Examples:
+
+* Coming soon
 
 == License:
 
