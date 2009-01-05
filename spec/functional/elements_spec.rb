@@ -28,6 +28,14 @@ describe DataMapper::Forms::Elements do
     s.should == %(<label for="email">Email:<em>*</em></label>\n)
   end
   
+  it "should allow descriptions" do
+    s = textarea :comments, :description => 'Please enter your comments.'
+    s.should == <<-HTML.deindent
+      <textarea class="form-textarea form-comments" name="comments"></textarea>
+      <p class="description">Please enter your comments.</p>
+    HTML
+  end
+    
   it "should allow prefixing of arbitrary markup" do
     s = textarea :comments, :before => '<h1>Comments</h1>'
     s.should == <<-HTML.deindent

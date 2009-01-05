@@ -24,6 +24,7 @@ module DataMapper
         value = attributes.delete(:value) unless self_closing rescue ''
         label = attributes.delete(:label) || attributes.delete(:title) rescue nil
         label_required = attributes.delete(:required) rescue false
+        description = attributes.delete(:description) rescue false
         after = "\n" << attributes.delete(:after) rescue ''
         before = attributes.delete(:before) << "\n" rescue ''
         s << before.to_s
@@ -34,6 +35,7 @@ module DataMapper
           else
             ">#{value}</#{name}>"
           end
+        s << desc(description) if description
         s << after.to_s
         s << "\n"
       end
@@ -91,6 +93,13 @@ module DataMapper
       def button name, options = {}
         options.merge! :type => :button, :name => name
         tag :input, :self_closing => true, :attributes => options
+      end
+      
+      ##
+      # Generates a description.
+      
+      def desc text
+        %(\n<p class="description">#{text}</p>)
       end
       
       private 
