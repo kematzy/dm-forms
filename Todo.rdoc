@@ -2,7 +2,7 @@
 == Major:
 
 * seperate form DSL
-* meta goodness
+* meta goodness (benchmark before/after with branch)
 * merging of classes (always additive, cannot override? )
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 

@@ -19,6 +19,16 @@ describe DataMapper::Forms::Elements do
     s.should == %(<input type="textfield" name="phone" value="Enter phone number" />\n)
   end
   
+  it "should create submit buttons" do
+    s = submit :op, :value => 'Submit'
+    s.should == %(<input type="submit" name="op" value="Submit" />\n)
+  end
+  
+  it "should create buttons" do
+    s = button :op, :value => 'Edit'
+    s.should == %(<input type="button" name="op" value="Edit" />\n)    
+  end
+  
   it "should create textareas with labels" do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
     s.should == <<-HTML
@@ -28,7 +38,7 @@ HTML
   end
   
   it "should create textareas with labels which are required" do
-    s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments:'
+    s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
     s.should == <<-HTML
 <label for="comments">Comments: <em>*</em></label>
 <textarea name="comments">Enter your comments here</textarea>

@@ -32,16 +32,35 @@ module DataMapper
       end
       
       ##
-      # Generates an HTML textfield.
+      # Generates a textfield.
       
       def textfield name, attributes = {}
         attributes.merge! :type => :textfield, :name => name 
         tag :input, :self_closing => true, :attributes => attributes
       end
       
+      ##
+      # Generates a textarea.
+      
       def textarea name, attributes = {}
         attributes.merge! :name => name
         tag :textarea, :attributes => attributes
+      end
+      
+      ##
+      # Generates a submit button.
+      
+      def submit name, attributes = {}
+        attributes.merge! :type => :submit, :name => name
+        tag :input, :self_closing => true, :attributes => attributes
+      end
+      
+      ##
+      # Generates a button.
+      
+      def button name, attributes = {}
+        attributes.merge! :type => :button, :name => name
+        tag :input, :self_closing => true, :attributes => attributes
       end
     end
   end
