@@ -2,26 +2,20 @@
 describe DataMapper::Forms::Elements do
   
   include DataMapper::Forms::Elements
-  
-  it "should create generic tags" do
-    tag(:textarea).should == "<textarea ></textarea>\n"
-    tag(:input, :self_closing => true).should == "<input  />\n"
-    tag(:input, :attributes => { :type => :textfield }, :self_closing => true).should == %(<input type="textfield" />\n)
-  end
-  
+
   it "should create textfields" do
     s = textfield :phone, :value => 'Enter phone number'
-    s.should == %(<input type="textfield" name="phone" value="Enter phone number" />\n)
+    s.should == %(<input type="textfield" class="form-textfield form-phone" name="phone" value="Enter phone number" />\n)
   end
   
   it "should create submit buttons" do
     s = submit :op, :value => 'Submit'
-    s.should == %(<input type="submit" name="op" value="Submit" />\n)
+    s.should == %(<input type="submit" class="form-submit form-op" name="op" value="Submit" />\n)
   end
   
   it "should create buttons" do
     s = button :op, :value => 'Edit'
-    s.should == %(<input type="button" name="op" value="Edit" />\n)    
+    s.should == %(<input type="button" class="form-button form-op" name="op" value="Edit" />\n)    
   end
   
   it "should create labels" do
@@ -38,7 +32,7 @@ describe DataMapper::Forms::Elements do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
     s.should == <<-HTML.deindent
       <label for="comments">Comments:</label>
-      <textarea name="comments">Enter your comments here</textarea>
+      <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
     HTML
   end
   
@@ -46,7 +40,7 @@ describe DataMapper::Forms::Elements do
     s = textarea :comments, :value => 'Enter your comments here', :title => 'Comments'
     s.should == <<-HTML.deindent
       <label for="comments">Comments:</label>
-      <textarea name="comments">Enter your comments here</textarea>
+      <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
     HTML
   end
     
@@ -54,7 +48,7 @@ describe DataMapper::Forms::Elements do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments', :required => true
     s.should == <<-HTML.deindent
       <label for="comments">Comments:<em>*</em></label>
-      <textarea name="comments">Enter your comments here</textarea>
+      <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
     HTML
   end
     

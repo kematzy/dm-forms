@@ -3,6 +3,8 @@ module DataMapper
   module Forms
     module Elements
       
+      PREVENT_CLASSES_ON_ELEMENTS = :form, :label
+      
       ##
       # Generates a generic HTML +name+ tag. Although this method is 
       # generally used internally by dm-forms, you may utilize it directly
@@ -17,11 +19,12 @@ module DataMapper
       def tag name, options = {}
         s = ''
         attributes = options[:attributes]
+        attributes[:class] = element_class(name, options) if add_element_class? name
         self_closing = options[:self_closing]
-        value = options[:attributes].delete(:value) unless self_closing rescue ''
-        label = options[:attributes].delete(:label) || options[:attributes].delete(:title) rescue nil
-        label_required = options[:attributes].delete(:required) rescue false
-        s << self.label(label, :for => options[:attributes][:name], :required => label_required) if label
+        value = attributes.delete(:value) unless self_closing rescue ''
+        label = attributes.delete(:label) || attributes.delete(:title) rescue nil
+        label_required = attributes.delete(:required) rescue false
+        s << self.label(label, :for => attributes[:name], :required => label_required) if label
         s << "<#{name} #{attributes.to_html_attributes}"
         s << if self_closing
             " />"
@@ -85,6 +88,21 @@ module DataMapper
         options.merge! :type => :button, :name => name
         tag :input, :self_closing => true, :attributes => options
       end
+      
+      private 
+      
+      ##
+      # Generates element class(es) such as form-submit, etc.
+      
+      def element_class name, options = {}
+        suffix = name == :input ? options[:attributes][:type] : name
+        "form-#{suffix} form-#{options[:attributes][:name]}"
+      end
+      
+      def add_element_class? name #:nodoc:
+        !PREVENT_CLASSES_ON_ELEMENTS.include? name
+      end
+      
     end
   end
 end
