@@ -28,6 +28,22 @@ describe DataMapper::Forms::Elements do
     s.should == %(<label for="email">Email:<em>*</em></label>\n)
   end
   
+  it "should allow prefixing of arbitrary markup" do
+    s = textarea :comments, :before => '<h1>Comments</h1>'
+    s.should == <<-HTML.deindent
+      <h1>Comments</h1>
+      <textarea class="form-textarea form-comments" name="comments"></textarea>
+    HTML
+  end
+  
+  it "should allow arbitrary markup after" do
+    s = textarea :comments, :after => '<p>Custom markup</p>'
+    s.should == <<-HTML.deindent
+      <textarea class="form-textarea form-comments" name="comments"></textarea>
+      <p>Custom markup</p>
+    HTML
+  end
+      
   it "should create textareas with labels" do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
     s.should == <<-HTML.deindent
@@ -37,21 +53,21 @@ describe DataMapper::Forms::Elements do
   end
   
   it "should create textareas with labels using :title for unification" do
-    s = textarea :comments, :value => 'Enter your comments here', :title => 'Comments'
+    s = textarea :comments, :title => 'Comments'
     s.should == <<-HTML.deindent
       <label for="comments">Comments:</label>
-      <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
+      <textarea class="form-textarea form-comments" name="comments"></textarea>
     HTML
   end
     
   it "should create textareas with labels which are required" do
-    s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments', :required => true
+    s = textarea :comments, :label => 'Comments', :required => true
     s.should == <<-HTML.deindent
       <label for="comments">Comments:<em>*</em></label>
-      <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
+      <textarea class="form-textarea form-comments" name="comments"></textarea>
     HTML
   end
-    
+      
   it "should create forms defaulting to method of post" do
     s = form :register
     s.should == %(<form method="post"></form>\n)

@@ -24,6 +24,9 @@ module DataMapper
         value = attributes.delete(:value) unless self_closing rescue ''
         label = attributes.delete(:label) || attributes.delete(:title) rescue nil
         label_required = attributes.delete(:required) rescue false
+        after = "\n" << attributes.delete(:after) rescue ''
+        before = attributes.delete(:before) << "\n" rescue ''
+        s << before.to_s
         s << self.label(label, :for => attributes[:name], :required => label_required) if label
         s << "<#{name} #{attributes.to_html_attributes}"
         s << if self_closing
@@ -31,6 +34,7 @@ module DataMapper
           else
             ">#{value}</#{name}>"
           end
+        s << after.to_s
         s << "\n"
       end
       
