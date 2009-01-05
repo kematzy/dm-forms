@@ -1,6 +1,10 @@
 
 == Major:
 
+* use extlib ... blank? to_html_attributes ... ext
+* DSL for creating elements?
+* Markup verbosity options? 
+* XHTML ... validate 
 * seperate form DSL
 * meta goodness (benchmark before/after with branch)
 * merging of classes (always additive, cannot override? )
