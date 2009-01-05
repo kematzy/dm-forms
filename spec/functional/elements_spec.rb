@@ -56,5 +56,10 @@ describe DataMapper::Forms::Elements do
     s = form :register
     s.should == %(<form method="post"></form>\n)
   end
-        
+  
+  it "should create forms with custom methods" do
+    s = form :register, :method => :get
+    s.should == %(<form method="get"></form>\n)
+  end
+          
 end
