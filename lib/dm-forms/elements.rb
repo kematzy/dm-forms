@@ -20,7 +20,7 @@ module DataMapper
         # TODO: no rescue ... clean up with .blank? or something ... or no options INSIDE attributes? || '' ?
         value = options[:attributes].delete(:value) unless self_closing rescue ''
         label = options[:attributes].delete(:label) rescue nil
-        required = ' <em>*</em>' if options[:attributes].delete(:required) rescue ''
+        required = '<em>*</em>' if options[:attributes].delete(:required) rescue ''
         s << %(<label for="#{options[:attributes][:name]}">#{label}#{required}</label>\n) if label
         s << "<#{name} #{options[:attributes].to_html_attributes}"
         s << if self_closing
@@ -36,17 +36,30 @@ module DataMapper
       # and IDE purposes these element methods are not created dynamically.
       #++
       
+      ##
+      # Generates a form.
+      
       def form name, attributes = {}
-        
+        attributes = { :method => :post }.merge! attributes
+        tag :form, :attributes => attributes
+      end
+      
+      ##
+      # Generates a label.
+      
+      def label value, attributes = {}
+        value << ':'
+        value << '<em>*</em>' if attributes.delete :required
+        attributes.merge! :value => value
+        tag :label, :attributes => attributes
       end
       
       ##
       # Generates a textfield.
       
       def textfield name, attributes = {}
-        a = { :type => :textfield, :name => name }
-        a.merge! attributes  
-        tag :input, :self_closing => true, :attributes => a
+        attributes.merge! :type => :textfield, :name => name 
+        tag :input, :self_closing => true, :attributes => attributes
       end
       
       ##
