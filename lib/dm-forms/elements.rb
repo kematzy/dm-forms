@@ -16,13 +16,13 @@ module DataMapper
       
       def tag name, options = {}
         s = ''
+        attributes = options[:attributes]
         self_closing = options[:self_closing]
-        # TODO: no rescue ... clean up with .blank? or something ... or no options INSIDE attributes? || '' ?
         value = options[:attributes].delete(:value) unless self_closing rescue ''
         label = options[:attributes].delete(:label) rescue nil
-        required = '<em>*</em>' if options[:attributes].delete(:required) rescue ''
-        s << %(<label for="#{options[:attributes][:name]}">#{label}#{required}</label>\n) if label
-        s << "<#{name} #{options[:attributes].to_html_attributes}"
+        label_required = options[:attributes].delete(:required) rescue false
+        s << self.label(label, :for => options[:attributes][:name], :required => label_required) if label
+        s << "<#{name} #{attributes.to_html_attributes}"
         s << if self_closing
             " />"
           else

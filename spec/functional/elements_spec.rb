@@ -37,13 +37,13 @@ describe DataMapper::Forms::Elements do
   it "should create textareas with labels" do
     s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
     s.should == <<-HTML.deindent
-      <label for="comments">Comments</label>
+      <label for="comments">Comments:</label>
       <textarea name="comments">Enter your comments here</textarea>
     HTML
   end
   
   it "should create textareas with labels which are required" do
-    s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
+    s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments', :required => true
     s.should == <<-HTML.deindent
       <label for="comments">Comments:<em>*</em></label>
       <textarea name="comments">Enter your comments here</textarea>
