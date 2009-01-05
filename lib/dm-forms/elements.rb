@@ -1,6 +1,6 @@
 
 module DataMapper
-  module Forms
+  module Form
     module Elements
       
       PREVENT_CLASSES_ON_ELEMENTS = :form, :label

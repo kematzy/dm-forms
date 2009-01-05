@@ -4,7 +4,7 @@ require 'rake'
 require 'echoe'
 require './lib/dm-forms.rb'
 
-Echoe.new("dm-forms", DataMapper::Forms::VERSION::STRING) do |p|
+Echoe.new("dm-forms", DataMapper::Form::VERSION::STRING) do |p|
   p.author = "TJ Holowaychuk"
   p.email = "tj@vision-media.ca"
   p.summary = "DataMapper model form generation"
