@@ -1,17 +1,14 @@
 
 == Major:
 
-* use extlib ... blank? to_html_attributes ... ext
-* DSL for creating elements?
-* Markup verbosity options? 
 * XHTML ... validate 
-* seperate form DSL
-* meta goodness (benchmark before/after with branch)
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
+* Refactor some methods ... were done in a lame way haha..
 * preview rdoc
 
 == Minor:
 
+* Integrate jQuery?
 * Aggregate / faux elements (name?) ... 
   * datefield :start, :format => 'YYYY-MM-DD'
 
