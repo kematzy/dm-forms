@@ -3,7 +3,7 @@ module DataMapper
   module Form
     module Elements
       
-      PREVENT_CLASSES_ON_ELEMENTS = :form, :label
+      module_function
       
       ##
       # Generates a generic HTML +name+ tag. Although this method is 
@@ -17,26 +17,7 @@ module DataMapper
       #
       
       def tag name, options = {}
-        s, o, a = '', options, options[:attributes]
-        a[:class] = element_class(name, options) if add_element_class? name
-        self_closing = o[:self_closing]
-        value = a.delete(:value) unless self_closing rescue ''
-        label = a.delete(:label) || a.delete(:title) rescue nil
-        label_required = a.delete(:required) rescue false
-        description = a.delete(:description) rescue false
-        after = "\n" << a.delete(:after) rescue ''
-        before = a.delete(:before) << "\n" rescue ''
-        s << before.to_s
-        s << self.label(label, :for => a[:name], :required => label_required) if label
-        s << "<#{name} #{a.to_html_attributes}"
-        s << if self_closing
-            " />"
-          else
-            ">#{value}</#{name}>"
-          end
-        s << desc(description) if description
-        s << after.to_s
-        s << "\n"
+        Tag.new(name, options).render
       end
       
       ##
@@ -94,20 +75,6 @@ module DataMapper
       
       def desc text
         %(\n<p class="description">#{text}</p>)
-      end
-      
-      private 
-      
-      ##
-      # Generates element class(es) such as form-submit, etc.
-      
-      def element_class name, options = {}
-        suffix = name == :input ? options[:attributes][:type] : name
-        "form-#{suffix} form-#{options[:attributes][:name]}"
-      end
-      
-      def add_element_class? name #:nodoc:
-        !PREVENT_CLASSES_ON_ELEMENTS.include? name
       end
       
     end

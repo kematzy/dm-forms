@@ -8,6 +8,7 @@
 * seperate form DSL
 * meta goodness (benchmark before/after with branch)
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
+* preview rdoc
 
 == Minor:
 
