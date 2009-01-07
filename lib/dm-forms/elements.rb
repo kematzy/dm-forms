@@ -34,8 +34,7 @@ module DataMapper
       def label value, options = {}
         value << ':'
         value << '<em>*</em>' if options.delete :required
-        options.merge! :value => value
-        tag :label, :attributes => options
+        %(<label for="#{options[:for]}">#{value}</label>\n)
       end
       
       ##

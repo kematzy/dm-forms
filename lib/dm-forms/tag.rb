@@ -3,6 +3,8 @@ module DataMapper
   module Form
     module Elements
       class Tag
+        
+        VALID_TITLE_KEYS = :title, :label, :legend, :caption
       
         attr_accessor :name, :options
             
@@ -23,7 +25,6 @@ module DataMapper
 #{description}
 #{after}
 HTML
-          tag
         end
         alias :to_s :render
       
@@ -46,10 +47,14 @@ HTML
         # Attempt to pull title from :title, :label, :legend, etc.
       
         def title
-          @title ||= [:title, :label, :legend, :caption].each do |key|
-            value = attribute key
-            return value unless value.blank?
-          end
+          @title ||= attribute title_key
+        end
+        
+        ##
+        # Attempt to find and return valid title key or ''.
+        
+        def title_key
+          VALID_TITLE_KEYS.find { |key| @attributes.has_key? key }
         end
       
         ##
