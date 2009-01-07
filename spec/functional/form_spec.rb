@@ -1,6 +1,8 @@
 
 describe DataMapper::Form do
   
+  include DataMapper::Forms::Elements
+  
   it "should create forms defaulting to method of post" do
     s = form :register
     s.should == %(<form method="post"></form>\n)

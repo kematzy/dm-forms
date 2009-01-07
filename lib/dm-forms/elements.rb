@@ -25,7 +25,7 @@ module DataMapper
       # the inner html for this form element.
       
       def form name, options = {}, &block
-
+        form = Form.new name
         options[:value] = yield '' if block_given?
         options = { :method => :post }.merge options
         tag :form, :attributes => options
