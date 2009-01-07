@@ -37,7 +37,7 @@ describe DataMapper::Form::Elements do
   end
     
   it "should allow prefixing of arbitrary markup" do
-    s = textarea :comments, :before => '<h1>Comments</h1>'
+    s = textarea :comments, :before => "<h1>Comments</h1>\n"
     s.should == <<-HTML.deindent
       <h1>Comments</h1>
       <textarea class="form-textarea form-comments" name="comments"></textarea>

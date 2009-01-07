@@ -20,9 +20,10 @@ module DataMapper
       
         def render
           @attributes[:class] = classes unless classes.blank?
-          open = "<#{@name} #{@attributes.to_html_attributes}"
+          title = render_title
           close = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
-          tag = before << render_title << open << close << description << after << "\n"
+          open = "<#{@name} #{@attributes.to_html_attributes}"
+          tag = before << title << open << close << description << after << "\n"
         end
         alias :to_s :render
       
