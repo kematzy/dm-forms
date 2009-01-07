@@ -33,5 +33,10 @@ describe DataMapper::Form::Elements::Tag do
       tag.render_title
     end.should_not raise_error
   end
+  
+  it "should grab inner html for non self-closing tags" do
+    tag = Tag.new :textarea, :self_closing => false, :attributes => { :value => 'BOOYAH' }
+    tag.inner_html.should == 'BOOYAH'
+  end
     
 end
