@@ -17,7 +17,7 @@ module DataMapper
         # Render final markup of this element or 'tag'.
       
         def render
-          @attributes[:class] = classes
+          @attributes[:class] = classes unless classes.blank?
           closure = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
           tag = before << render_title << "<#{@name} #{@attributes.to_html_attributes}" << closure << description << after << "\n"
         end
@@ -126,11 +126,7 @@ module DataMapper
         # within the HTML are not cluttered with ad-hoc keys.
       
         def attribute attribute, default = nil
-          if attr = @attributes.delete(attribute)
-            attr
-          else
-            default
-          end   
+          @attributes.delete(attribute) || default 
         end
       
       end
