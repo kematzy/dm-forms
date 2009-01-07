@@ -1,10 +1,12 @@
 
 module DataMapper
-  class Form
-    include Forms::Elements
-    
-    def initialize name
-      @name = name
+  module Form
+    class Base
+      include Elements
+
+      def initialize name
+        @name = name
+      end
     end
   end
 end

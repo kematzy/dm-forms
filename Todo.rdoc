@@ -1,6 +1,7 @@
 
 == Major:
 
+* Anything wrong with using Form as namespace as well as the class?
 * XHTML ... validate 
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 * Refactor / disambiguate title

@@ -1,6 +1,6 @@
 
 module DataMapper
-  module Forms
+  module Form
     class Tag
       
       VALID_TITLE_KEYS = :title, :label, :legend, :caption

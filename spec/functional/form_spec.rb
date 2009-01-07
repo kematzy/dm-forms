@@ -1,7 +1,7 @@
 
-describe DataMapper::Form do
+describe DataMapper::Form::Base do
   
-  include DataMapper::Forms::Elements
+  include DataMapper::Form::Elements
   
   it "should create forms defaulting to method of post" do
     s = form :register

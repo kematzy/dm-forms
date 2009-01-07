@@ -1,7 +1,7 @@
 
-describe DataMapper::Forms::Elements do
+describe DataMapper::Form::Elements do
   
-  include DataMapper::Forms::Elements
+  include DataMapper::Form::Elements
 
   it "should create textfields" do
     s = textfield :phone, :value => 'Enter phone number'
