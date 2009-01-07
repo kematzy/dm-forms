@@ -41,7 +41,7 @@ module DataMapper
       # Generates a textfield.
       
       def textfield name, options = {}
-        options.merge! :type => :textfield, :name => name 
+        options = { :type => :textfield, :name => name }.merge! options
         tag :input, :self_closing => true, :attributes => options
       end
       
@@ -49,7 +49,7 @@ module DataMapper
       # Generates a textarea.
       
       def textarea name, options = {}
-        options.merge! :name => name
+        options = { :name => name }.merge! options
         tag :textarea, :attributes => options
       end
             
@@ -57,7 +57,7 @@ module DataMapper
       # Generates a submit button.
       
       def submit name, options = {}
-        options.merge! :type => :submit, :name => name
+        options = { :type => :submit, :name => name }.merge! options
         tag :input, :self_closing => true, :attributes => options
       end
       
@@ -65,7 +65,7 @@ module DataMapper
       # Generates a button.
       
       def button name, options = {}
-        options.merge! :type => :button, :name => name
+        options = { :type => :button, :name => name }.merge! options
         tag :input, :self_closing => true, :attributes => options
       end
       
@@ -73,7 +73,7 @@ module DataMapper
       # Generates a description.
       
       def desc text
-        %(\n<p class="description">#{text}</p>)
+        %(\n<p class="description">#{text}</p>) unless text.blank?
       end
       
     end

@@ -5,17 +5,17 @@ describe DataMapper::Form::Elements do
 
   it "should create textfields" do
     s = textfield :phone, :value => 'Enter phone number'
-    s.should == %(<input type="textfield" class="form-textfield form-phone" name="phone" value="Enter phone number" />\n)
+    s.should == %(<input type="textfield" class="form-textfield form-phone" value="Enter phone number" name="phone" />\n)
   end
   
   it "should create submit buttons" do
     s = submit :op, :value => 'Submit'
-    s.should == %(<input type="submit" class="form-submit form-op" name="op" value="Submit" />\n)
+    s.should == %(<input type="submit" class="form-submit form-op" value="Submit" name="op" />\n)
   end
   
   it "should create buttons" do
     s = button :op, :value => 'Edit'
-    s.should == %(<input type="button" class="form-button form-op" name="op" value="Edit" />\n)    
+    s.should == %(<input type="button" class="form-button form-op" value="Edit" name="op" />\n)    
   end
   
   it "should create labels" do
@@ -45,7 +45,7 @@ describe DataMapper::Form::Elements do
   end
   
   it "should allow arbitrary markup after" do
-    s = textarea :comments, :after => '<p>Custom markup</p>'
+    s = textarea :comments, :after => "\n<p>Custom markup</p>"
     s.should == <<-HTML.deindent
       <textarea class="form-textarea form-comments" name="comments"></textarea>
       <p>Custom markup</p>
