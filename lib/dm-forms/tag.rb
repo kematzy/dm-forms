@@ -12,7 +12,7 @@ module DataMapper
         def initialize name, options = {}
           @name, @options, @attributes = name, options, options[:attributes]
           @before, @after = attribute(:before, ''), attribute(:after, '')
-          @description = Elements.desc(attribute :description) || ''
+          @description = Elements.desc(attribute(:description)) || ''
         end
       
         ##
