@@ -21,14 +21,12 @@ module DataMapper
       end
       
       ##
-      # Generates a form. Accepts an optional +block+ to which contains
-      # the inner html for this form element.
+      # Generates a form.
       
       def form name, options = {}, &block
-        form = Form::Base.new name
-        options[:value] = yield '' if block_given?
-        options = { :method => :post }.merge options
-        tag :form, :attributes => options
+        form = Form::Base.new name, options
+        form.instance_eval &block if block_given?
+        form.render
       end
       
       ##
