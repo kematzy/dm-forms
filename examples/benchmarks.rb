@@ -3,7 +3,7 @@ $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'dm-forms'
 require 'benchmark'
 
-include DataMapper::Form::Elements
+include DataMapper::Forms::Elements
 
 Benchmark.bm(25) do |x|
   x.report("10 elements") {

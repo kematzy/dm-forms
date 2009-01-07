@@ -1,7 +1,7 @@
 
-describe DataMapper::Form::Elements do
+describe DataMapper::Forms::Elements do
   
-  include DataMapper::Form::Elements
+  include DataMapper::Forms::Elements
 
   it "should create textfields" do
     s = textfield :phone, :value => 'Enter phone number'
@@ -75,15 +75,5 @@ describe DataMapper::Form::Elements do
       <textarea class="form-textarea form-comments" name="comments"></textarea>
     HTML
   end
-      
-  it "should create forms defaulting to method of post" do
-    s = form :register
-    s.should == %(<form method="post"></form>\n)
-  end
-  
-  it "should create forms with custom methods" do
-    s = form :register, :method => :get
-    s.should == %(<form method="get"></form>\n)
-  end
-          
+              
 end

@@ -1,7 +1,7 @@
 
-describe DataMapper::Form::Elements::Tag do
+describe DataMapper::Forms::Tag do
   
-  Tag = DataMapper::Form::Elements::Tag
+  Tag = DataMapper::Forms::Tag
   
   it "should pull titles from :title, :legend, :caption, etc" do
     tag = Tag.new :input, :attributes => { :title => 'Comments' }

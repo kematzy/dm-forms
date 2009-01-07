@@ -1,6 +1,6 @@
 
 module DataMapper
-  module Form
+  module Forms
     module Elements
       
       module_function
@@ -21,9 +21,12 @@ module DataMapper
       end
       
       ##
-      # Generates a form.
+      # Generates a form. Accepts an optional +block+ to which contains
+      # the inner html for this form element.
       
-      def form name, options = {}
+      def form name, options = {}, &block
+
+        options[:value] = yield '' if block_given?
         options = { :method => :post }.merge options
         tag :form, :attributes => options
       end

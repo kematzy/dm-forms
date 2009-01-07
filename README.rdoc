@@ -5,7 +5,7 @@ DataMapper model form generation.
 
 == Features:
 
-* Coming soon
+* Fast; over 1000 elements in 0.1 seconds (rake benchmark)
 
 == Examples:
 
