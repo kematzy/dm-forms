@@ -44,9 +44,10 @@ describe DataMapper::Form::Elements::Tag do
     tag.inner_html.should == 'BOOYAH'
   end
   
-  it "should allow descriptions" do
+  it "should allow descriptions and remove from attributes" do
     tag = Tag.new :input, :attributes => { :description => 'testing one two three' }
-    tag.description.should == %(\n<p class=\"description\">testing one two three</p>)    
+    tag.description.should == %(\n<p class=\"description\">testing one two three</p>)  
+    tag.attributes.has_key?(:description).should be_false  
   end
     
 end

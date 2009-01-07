@@ -1,13 +1,13 @@
 
 module DataMapper
   module Form
-    module Elements
+    module Elements 
       class Tag
         
         VALID_TITLE_KEYS = :title, :label, :legend, :caption
         IGNORE_CLASSES_ON_ELEMENTS = :form, :label
       
-        attr_accessor :name, :options
+        attr_accessor :name, :options, :attributes
             
         def initialize name, options = {}
           @name, @options, @attributes = name, options, options[:attributes]
@@ -18,8 +18,9 @@ module DataMapper
       
         def render
           @attributes[:class] = classes unless classes.blank?
-          closure = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
-          tag = before << render_title << "<#{@name} #{@attributes.to_html_attributes}" << closure << description << after << "\n"
+          open = "<#{@name} #{@attributes.to_html_attributes}"
+          close = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
+          tag = before << render_title << open << close << description << after << "\n"
         end
         alias :to_s :render
       
