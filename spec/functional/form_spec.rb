@@ -22,12 +22,14 @@ describe DataMapper::Form::Base do
     s = form :login do 
       textfield :name, :title => 'Username'
       textfield :pass, :title => 'Password'
-      submit :op, :title => 'Login'
+      submit :op, :value => 'Login'
     end
-    p s
     s.should == <<-HTML.deindent
-      <form method="post"><label for="op">Login:</label>
-      <input type="submit" class="form-submit form-op" name="op" />
+      <form method="post"><label for="name">Username:</label>
+      <input type="textfield" class="form-textfield form-name" name="name" />
+      <label for="pass">Password:</label>
+      <input type="textfield" class="form-textfield form-pass" name="pass" />
+      <input type="submit" class="form-submit form-op" value="Login" name="op" />
       </form>
     HTML
   end
