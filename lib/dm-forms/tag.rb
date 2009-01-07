@@ -5,6 +5,7 @@ module DataMapper
       class Tag
         
         VALID_TITLE_KEYS = :title, :label, :legend, :caption
+        IGNORE_CLASSES_ON_ELEMENTS = :form, :label
       
         attr_accessor :name, :options
             
@@ -119,11 +120,13 @@ HTML
         # Wither or not classes should be added to this element.
       
         def add_classes?
-          ![:form, :label].include? @name
+          !IGNORE_CLASSES_ON_ELEMENTS.include? @name
         end
       
         ##
-        # Return an +attribute+ or its +default+ value.
+        # Return an +attribute+ or its +default+ value, removing
+        # it from @attributes so that final attributes rendered
+        # within the HTML are not cluttered with ad-hoc keys.
       
         def attribute attribute, default = nil
           if attr = @attributes.delete(attribute)
