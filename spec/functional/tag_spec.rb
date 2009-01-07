@@ -12,7 +12,12 @@ describe DataMapper::Form::Elements::Tag do
     tag.title.should == 'Comments'
   end
   
-  it "should prepare and merge classes" do
+  it "should generate classes" do
+    tag = Tag.new :input, :attributes => { :name => 'email', :type => :textfield }
+    tag.send(:classes).should == 'form-textfield form-email'    
+  end
+  
+  it "should generate and merge classes" do
     tag = Tag.new :input, :attributes => { :class => 'foo bar', :name => 'email', :type => :textfield }
     tag.send(:classes).should == 'foo bar form-textfield form-email'
   end
