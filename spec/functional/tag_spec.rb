@@ -38,5 +38,10 @@ describe DataMapper::Form::Elements::Tag do
     tag = Tag.new :textarea, :self_closing => false, :attributes => { :value => 'BOOYAH' }
     tag.inner_html.should == 'BOOYAH'
   end
+  
+  it "should allow descriptions" do
+    tag = Tag.new :input, :attributes => { :description => 'testing one two three' }
+    tag.description.should == %(\n<p class=\"description\">testing one two three</p>)    
+  end
     
 end
