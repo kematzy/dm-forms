@@ -3,12 +3,11 @@ module DataMapper
   module Form
     class Base
       
-      DEFAULTS = { :method => :post }
-      
       attr_accessor :elements
       
       def initialize name, options
-        @elements, @name, @options = '', name, DEFAULTS.merge(options)
+        @elements, @name, = '', name
+        @options = { :method => :post, :id => "form-#{@name}" }.merge options
       end
       
       def render

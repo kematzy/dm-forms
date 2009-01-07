@@ -4,3 +4,6 @@ require 'dm-forms'
 
 include DataMapper::Form::Elements
 
+puts form :login do
+  
+end
