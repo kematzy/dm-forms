@@ -30,6 +30,19 @@ module DataMapper
       end
       
       ##
+      # Generates a fieldset.
+      
+      def fieldset name, options = {}, &block
+        options = { :class => "fieldset-#{name}" }.merge options
+        if legend = options.delete(:legend)
+          inner_html = options.delete :value
+          options[:value] = %(<legend>#{legend}</legend>)
+          options[:value] << inner_html
+        end
+        tag :fieldset, :attributes => options
+      end
+      
+      ##
       # Generates a label.
       
       def label value, options = {}

@@ -75,5 +75,12 @@ describe DataMapper::Form::Elements do
       <textarea class="form-textarea form-comments" name="comments"></textarea>
     HTML
   end
-              
+  
+  it "should create fieldsets with arbitrary inner html" do
+    s = fieldset :details, :legend => 'Details', :value => 'WAHOO!'
+    s.should == <<-HTML.deindent
+      <fieldset class="fieldset-details form-fieldset"><legend>Details</legend>WAHOO!</fieldset>
+    HTML
+  end
+                
 end

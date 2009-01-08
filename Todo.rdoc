@@ -1,12 +1,14 @@
 
 == Major:
 
+* Default labels using name? fieldset :some_details #	=> Some Details
+* Utilize inheritance chain and super to add DM functionality
 * Button should be able to use :title etc for :value ... 
 * Get examples working
 * Anything wrong with using Form as namespace as well as the class?
 * XHTML ... validate 
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
-* Refactor / disambiguate title
+* Refactor!! / disambiguate title ... no legend
 * preview rdoc
 
 == Minor:
