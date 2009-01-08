@@ -24,9 +24,7 @@ module DataMapper
       # Generates a form.
       
       def form name, options = {}, &block
-        form = Form::Base.new name, options
-        form.instance_eval &block if block_given?
-        form.render
+        # { :method => :post, :id => "form-#{@name}" }.merge options
       end
       
       ##
