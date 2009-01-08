@@ -4,7 +4,7 @@ module DataMapper
     class Tag
       
       VALID_TITLE_KEYS = :title, :label, :legend, :caption
-      IGNORE_CLASSES_ON_ELEMENTS = :form, :label
+      IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset
     
       attr_accessor :name, :options, :attributes, :before, :after, :description
           

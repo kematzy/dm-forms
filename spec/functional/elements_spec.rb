@@ -104,7 +104,7 @@ describe DataMapper::Form::Elements do
     it "should create fieldsets" do
       s = fieldset :details, :legend => 'Details', :value => 'WAHOO!'
       s.should == <<-HTML.deindent
-        <fieldset class="fieldset-details form-fieldset">
+        <fieldset class="fieldset-details">
         <legend>Details</legend>WAHOO!</fieldset>
       HTML
     end
@@ -112,7 +112,7 @@ describe DataMapper::Form::Elements do
     it "should create fieldsets without legends, auto-generating them from the fieldset name" do
       s = fieldset :some_legend, :value => 'WAHOO!'
       s.should == <<-HTML.deindent
-        <fieldset class="fieldset-some_legend form-fieldset">
+        <fieldset class="fieldset-some_legend">
         <legend>Some legend</legend>WAHOO!</fieldset>
       HTML
     end
