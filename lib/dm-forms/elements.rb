@@ -25,8 +25,7 @@ module DataMapper
       
       def form name, options = {}, &block
         options = { :method => :post, :id => "form-#{name}" }.merge options
-        (options[:value] ||= '') << capture_elements(&block) if block_given?
-        tag :form, :attributes => options
+        tag :form, :attributes => options, &block
       end
       
       ##
@@ -36,8 +35,7 @@ module DataMapper
         legend_value = options.has_key?(:legend) ? options.delete(:legend) : name.humanize.capitalize
         options = { :class => "fieldset-#{name}" }.merge options
         options[:value] = "\n" << legend(legend_value) << (options.delete(:value) || '')
-        options[:value] << capture_elements(&block) if block_given?
-        tag :fieldset, :attributes => options
+        tag :fieldset, :attributes => options, &block
       end
       
       ##

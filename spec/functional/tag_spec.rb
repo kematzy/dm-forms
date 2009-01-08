@@ -28,5 +28,17 @@ describe DataMapper::Form::Tag do
     tag.description.should == %(\n<p class=\"description\">testing one two three</p>)  
     tag.attributes.has_key?(:description).should be_false  
   end
+  
+  it "should allow capturing of elements when not self closing" do
+    tag = Tag.new :fieldset, :self_closing => false, :attributes => { :id => 'something' } do
+      button :one
+      button :two
+    end
+    tag.render.should == <<-HTML.deindent
+      <fieldset id="something"><input type="button" class="form-button form-one" name="one" />
+      <input type="button" class="form-button form-two" name="two" />
+      </fieldset>
+    HTML
+  end
     
 end

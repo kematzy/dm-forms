@@ -7,10 +7,11 @@ module DataMapper
     
       attr_accessor :name, :options, :attributes, :before, :after, :description
           
-      def initialize name, options = {}
-        @name, @options, @attributes = name, options, options[:attributes]
+      def initialize name, options = {}, &block
+        @name, @options, @attributes = name, options, (options[:attributes] ||= {})
         @before, @after = attribute(:before, ''), attribute(:after, '')
         @description = Elements.desc(attribute(:description)) || ''
+        (@attributes[:value] ||= '') << Elements.capture_elements(&block) if block_given? and not self_closing?
       end
     
       ##
@@ -18,9 +19,10 @@ module DataMapper
     
       def render
         @attributes[:class] = classes unless classes.blank?
+        before << label
         close = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
         open = "<#{@name} #{@attributes.to_html_attributes}"
-        tag = before << label << open << close << description << after << "\n"
+        tag = before << open << close << description << after << "\n"
       end
       alias :to_s :render
     
@@ -50,7 +52,7 @@ module DataMapper
       # Generates a label when needed.
       
       def label
-        has_label? ? Elements.label(@attributes[:label], :for => @attributes[:name], :required => required?) : ''
+        @label ||= has_label? ? Elements.label(@attributes.delete(:label), :for => @attributes[:name], :required => required?) : ''
       end
       
       ##
