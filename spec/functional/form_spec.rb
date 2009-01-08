@@ -19,7 +19,7 @@ describe DataMapper::Form::Base do
   end
     
   it "should create forms with a block for inner html context" do
-    s = form :login do 
+    s = form :login do
       textfield :name, :title => 'Username'
       textfield :pass, :title => 'Password'
       submit :op, :value => 'Login'

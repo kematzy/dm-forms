@@ -8,8 +8,8 @@ lib/dm-forms/elements.rb
 lib/dm-forms/form.rb
 lib/dm-forms/tag.rb
 examples/benchmarks.rb
-examples/login.rb
-examples/datamapper-login.rb
+examples/elements.rb
+examples/datamapper.rb
 spec/functional/elements_spec.rb
 spec/functional/tag_spec.rb
 spec/functional/form_spec.rb

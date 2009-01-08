@@ -4,8 +4,10 @@ require 'dm-forms'
 
 include DataMapper::Form::Elements
 
-puts form :login do 
+markup = form :login do 
   textfield :name, :title => 'Username'
   textfield :pass, :title => 'Password'
   submit :op, :value => 'Login'
 end
+
+puts markup
