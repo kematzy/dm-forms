@@ -16,7 +16,7 @@ describe DataMapper::Form::Elements do
       end
       s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n)
     end
-    
+        
     it "should capture using nested captures" do
       s = capture_elements do
         label 'Name', :for => :name
@@ -118,6 +118,10 @@ describe DataMapper::Form::Elements do
     end
     
   end
+  
+  #--
+  # Form specifics
+  #++
   
   describe "forms" do
     

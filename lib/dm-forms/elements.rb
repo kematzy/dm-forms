@@ -99,7 +99,7 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
-        capture = class << Object.new
+        c = class << Object.new
           def self.method_missing meth, *args, &block
             @elements ||= ''
             @elements << Elements.send(meth, *args, &block) unless meth == :render
@@ -107,8 +107,8 @@ module DataMapper
           end
           self
         end
-        capture.instance_eval &block
-        capture.render
+        c.instance_eval &block
+        c.render
       end
       
     end
