@@ -9,4 +9,8 @@ describe "#humanize" do
     :some_Cool_symbol.humanize.should == 'some Cool symbol'
   end
   
+  it "should not mess with already human readable strings" do
+    'i am already VERY readable'.humanize.should == 'i am already VERY readable'
+  end
+  
 end
