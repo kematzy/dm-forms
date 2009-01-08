@@ -4,10 +4,28 @@ require 'dm-forms'
 
 include DataMapper::Form::Elements
 
-markup = form :login do 
-  textfield :name, :title => 'Username'
-  textfield :pass, :title => 'Password'
-  submit :op, :value => 'Login'
+def example before, &block
+  puts before << "\n\n"
+  puts yield.gsub!(/^/, '    ')
+  puts
 end
 
-puts markup
+example %(textarea :comments) do
+  textarea :comments
+end
+
+example %(textarea :comments, :label => 'Comments', :description => 'Tell us what you think') do
+  textarea :comments, :label => 'Comments', :description => 'Tell us what you think'
+end
+
+example %(textfield :email, :label => 'Email', :required => true) do
+  textfield :email, :label => 'Email', :required => true
+end
+
+example 'Login' do
+  form :login do
+    textfield :name
+    textfield :pass
+    submit :op, :value => 'Login'
+  end
+end

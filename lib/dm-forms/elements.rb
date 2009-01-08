@@ -89,14 +89,6 @@ module DataMapper
       end
       
       ##
-      # Generates a button.
-      
-      def button name, options = {}
-        options = { :type => :button, :name => name }.merge options
-        tag :input, :self_closing => true, :attributes => options
-      end
-      
-      ##
       # Generates a description.
       
       def desc text

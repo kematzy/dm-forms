@@ -1,6 +1,7 @@
 
 == Major:
 
+* wrap all in div class="form-field" and adjust spec...
 * benchmark capture_elements / use on Form ? use Class.new ?
 * Default labels using name? fieldset :some_details #	=> Some Details
 * Utilize inheritance chain and super to add DM functionality
