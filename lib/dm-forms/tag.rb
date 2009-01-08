@@ -3,7 +3,6 @@ module DataMapper
   module Form
     class Tag
       
-      VALID_TITLE_KEYS = :title, :label, :legend, :caption
       IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset
     
       attr_accessor :name, :options, :attributes, :before, :after, :description
@@ -19,10 +18,9 @@ module DataMapper
     
       def render
         @attributes[:class] = classes unless classes.blank?
-        title = render_title
         close = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
         open = "<#{@name} #{@attributes.to_html_attributes}"
-        tag = before << title << open << close << description << after << "\n"
+        tag = before << label << open << close << description << after << "\n"
       end
       alias :to_s :render
     
@@ -40,37 +38,26 @@ module DataMapper
       def inner_html
         attribute :value, '' unless self_closing?
       end
-    
-      ##
-      # Attempt to pull title from :title, :label, :legend, etc.
-    
-      def title
-        @title ||= attribute title_key
-      end
-      
-      ##
-      # Attempt to find and return valid title key or ''.
-      
-      def title_key
-        VALID_TITLE_KEYS.find { |key| @attributes.has_key? key }
-      end
-    
-      ##
-      # Render title for this element.
-    
-      def render_title
-        if title.blank?
-          ''
-        else
-          Elements.label title, :for => @attributes[:name], :required => required?
-        end
-      end
           
       ##
       # Is the element required.
     
       def required?
         attribute :required, false
+      end
+      
+      ##
+      # Generates a label when needed.
+      
+      def label
+        has_label? ? Elements.label(@attributes[:label], :for => @attributes[:name], :required => required?) : ''
+      end
+      
+      ##
+      # Wither or not this tag has a label.
+      
+      def has_label?
+        !@attributes[:label].blank?
       end
 
       ##

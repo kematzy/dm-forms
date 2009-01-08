@@ -142,8 +142,8 @@ describe DataMapper::Form::Elements do
 
     it "should create with a block for inner html" do
       s = form :login do
-        textfield :name, :title => 'Username'
-        textfield :pass, :title => 'Password'
+        textfield :name, :label => 'Username'
+        textfield :pass, :label => 'Password'
         submit :op, :value => 'Login'
       end
       s.should == <<-HTML.deindent
