@@ -1,6 +1,7 @@
 
 == Major:
 
+* benchmark capture_elements / use on Form ? use Class.new ?
 * Default labels using name? fieldset :some_details #	=> Some Details
 * Utilize inheritance chain and super to add DM functionality
 * Button should be able to use :title etc for :value ... 
@@ -9,7 +10,7 @@
 * XHTML ... validate 
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 * Refactor!! / disambiguate title ... no legend
-* preview rdoc
+* preview rdoc / finish documenting ... why form is first class object etc
 
 == Minor:
 

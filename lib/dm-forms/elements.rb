@@ -35,7 +35,8 @@ module DataMapper
       def fieldset name, options = {}, &block
         legend_value = options.has_key?(:legend) ? options.delete(:legend) : name.humanize.capitalize
         options = { :class => "fieldset-#{name}" }.merge options
-        options[:value] = "\n" << legend(legend_value) << options.delete(:value)
+        options[:value] = "\n" << legend(legend_value) << (options.delete(:value) || '')
+        options[:value] << capture_elements(&block) if block_given?
         tag :fieldset, :attributes => options
       end
       
@@ -100,6 +101,22 @@ module DataMapper
       
       def desc text
         %(\n<p class="description">#{text}</p>) unless text.blank?
+      end
+      
+      ##
+      # Capture results of elements called within +block+.
+      
+      def capture_elements &block
+        capture = class << Object.new
+          def self.method_missing meth, *args, &block
+            @elements ||= ''
+            @elements << Elements.send(meth, *args, &block) unless meth == :render
+            @elements
+          end
+          self
+        end
+        capture.instance_eval &block
+        capture.render
       end
       
     end

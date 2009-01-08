@@ -28,6 +28,14 @@ describe DataMapper::Form::Elements do
     s.should == %(<label for="email">Email:<em>*</em></label>\n)
   end
   
+  it "should capture elements in a block" do
+    s = capture_elements do
+      label 'Name', :for => :name
+      label 'Email', :for => :email
+    end
+    s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n)
+  end
+  
   it "should allow descriptions" do
     s = textarea :comments, :description => 'Please enter your comments.'
     s.should == <<-HTML.deindent
@@ -94,11 +102,13 @@ describe DataMapper::Form::Elements do
   
   it "should create fieldsets using a block for nesting" do
     s = fieldset :login do
-      button :op, :title => 'Sign In'
+      textfield :password
+      button :op, :value => 'Sign In'
     end
     s.should == <<-HTML.deindent
       <fieldset class="fieldset-login form-fieldset">
-      <legend>Login</legend><input type="button" class="form-button form-op" value="Sign In" name="op" />
+      <legend>Login</legend><input type=\"textfield\" class=\"form-textfield form-password\" name=\"password\" />
+      <input type="button" class="form-button form-op" value="Sign In" name="op" />
       </fieldset>
     HTML
   end
