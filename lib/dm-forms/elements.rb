@@ -34,11 +34,13 @@ module DataMapper
       
       def fieldset name, options = {}, &block
         options = { :class => "fieldset-#{name}" }.merge options
-        if legend = options.delete(:legend)
-          inner_html = options.delete :value
-          options[:value] = %(<legend>#{legend}</legend>)
-          options[:value] << inner_html
-        end
+        options[:value] = if legend = options.delete(:legend)
+            inner_html = options.delete :value
+            legend(legend) << inner_html
+          else
+            inner_html = options.delete :value
+            legend(name.humanize.capitalize) << inner_html
+          end
         tag :fieldset, :attributes => options
       end
       
@@ -49,6 +51,13 @@ module DataMapper
         value << ':'
         value << '<em>*</em>' if options.delete :required
         %(<label for="#{options[:for]}">#{value}</label>\n)
+      end
+      
+      ##
+      # Generates a legend.
+      
+      def legend value
+        %(<legend>#{value}</legend>)
       end
       
       ##
