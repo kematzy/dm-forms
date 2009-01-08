@@ -36,6 +36,17 @@ describe DataMapper::Form::Elements do
     s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n)
   end
   
+  it "should capture using nested captures" do
+    s = capture_elements do
+      label 'Name', :for => :name
+      label 'Email', :for => :email
+      capture_elements do
+        label 'Phone', :for => :phone
+      end
+    end
+    s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n<label for="phone">Phone:</label>\n)
+  end
+  
   it "should allow descriptions" do
     s = textarea :comments, :description => 'Please enter your comments.'
     s.should == <<-HTML.deindent
