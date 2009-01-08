@@ -24,7 +24,9 @@ module DataMapper
       # Generates a form.
       
       def form name, options = {}, &block
-        # { :method => :post, :id => "form-#{@name}" }.merge options
+        options = { :method => :post, :id => "form-#{name}" }.merge options
+        (options[:value] ||= '') << capture_elements(&block) if block_given?
+        tag :form, :attributes => options
       end
       
       ##
