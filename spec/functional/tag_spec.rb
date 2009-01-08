@@ -17,6 +17,11 @@ describe DataMapper::Form::Tag do
     tag.send(:classes).should == 'form-textfield form-email'    
   end
   
+  it "should generate classes when no name is present" do
+    tag = Tag.new :input, :attributes => { :type => :textfield }
+    tag.send(:classes).should == 'form-textfield'    
+  end
+  
   it "should generate and merge classes" do
     tag = Tag.new :input, :attributes => { :class => 'foo bar', :name => 'email', :type => :textfield }
     tag.send(:classes).should == 'foo bar form-textfield form-email'

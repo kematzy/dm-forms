@@ -88,7 +88,9 @@ module DataMapper
               
       def generate_classes
         suffix = @name == :input ? @attributes[:type] : @name
-        "form-#{suffix} form-#{@attributes[:name]}"
+        classes = "form-#{suffix}"
+        classes << " form-#{@attributes[:name]}" unless @attributes[:name].blank?
+        classes
       end
     
       ##
