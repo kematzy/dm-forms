@@ -7,6 +7,7 @@ describe "#humanize" do
   
   it "should humanize symbols" do
     :some_Cool_symbol.humanize.should == 'some Cool symbol'
+    :login.humanize.should == 'login'
   end
   
   it "should not mess with already human readable strings" do

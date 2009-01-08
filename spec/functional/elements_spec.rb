@@ -79,14 +79,27 @@ describe DataMapper::Form::Elements do
   it "should create fieldsets with arbitrary inner html" do
     s = fieldset :details, :legend => 'Details', :value => 'WAHOO!'
     s.should == <<-HTML.deindent
-      <fieldset class="fieldset-details form-fieldset"><legend>Details</legend>WAHOO!</fieldset>
+      <fieldset class="fieldset-details form-fieldset">
+      <legend>Details</legend>WAHOO!</fieldset>
     HTML
   end
   
-  it "should create fieldsets without legends" do
+  it "should create fieldsets without legends, auto-generating them" do
     s = fieldset :some_legend, :value => 'WAHOO!'
     s.should == <<-HTML.deindent
-      <fieldset class="fieldset-some_legend form-fieldset"><legend>Some legend</legend>WAHOO!</fieldset>
+      <fieldset class="fieldset-some_legend form-fieldset">
+      <legend>Some legend</legend>WAHOO!</fieldset>
+    HTML
+  end
+  
+  it "should create fieldsets using a block for nesting" do
+    s = fieldset :login do
+      button :op, :title => 'Sign In'
+    end
+    s.should == <<-HTML.deindent
+      <fieldset class="fieldset-login form-fieldset">
+      <legend>Login</legend><input type="button" class="form-button form-op" value="Sign In" name="op" />
+      </fieldset>
     HTML
   end
                 

@@ -17,7 +17,7 @@ class String
   #
   
   def humanize
-    gsub!(/[^a-zA-Z\d]/, ' ')
+    gsub!(/[^a-zA-Z\d]/, ' ') || self
   end
 end
 

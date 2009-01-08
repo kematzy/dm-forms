@@ -35,7 +35,7 @@ module DataMapper
       def fieldset name, options = {}, &block
         legend_value = options.has_key?(:legend) ? options.delete(:legend) : name.humanize.capitalize
         options = { :class => "fieldset-#{name}" }.merge options
-        options[:value] = legend(legend_value) << options.delete(:value)
+        options[:value] = "\n" << legend(legend_value) << options.delete(:value)
         tag :fieldset, :attributes => options
       end
       
