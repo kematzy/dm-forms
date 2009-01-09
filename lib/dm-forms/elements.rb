@@ -10,14 +10,14 @@ module DataMapper
       # generally used internally by dm-forms, you may utilize it directly
       # passing any of the following +options+.
       #
-      # Options:
+      # === Options:
       #
       #   :self_closing   Wither or not the element should self-close (<br />)
       #   :attributes     Hash of attributes such as :type => :textfield
       #
       
-      def tag name, options = {}
-        Tag.new(name, options).render
+      def tag name, options = {}, &block
+        Tag.new(name, options, &block).render
       end
       
       ##
@@ -65,9 +65,9 @@ module DataMapper
       ##
       # Generates a textarea.
       
-      def textarea name, options = {}
+      def textarea name, options = {}, &block
         options = { :name => name }.merge options
-        tag :textarea, :attributes => options
+        tag :textarea, :attributes => options, &block
       end
             
       ##
@@ -97,6 +97,7 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
+        raise ArgumentError, 'Block must be passed to capture elements', caller unless block_given?
         c = class << Object.new
           def self.method_missing meth, *args, &block
             @elements ||= ''

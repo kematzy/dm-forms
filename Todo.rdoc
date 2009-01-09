@@ -8,6 +8,7 @@
 * Anything wrong with using Form as namespace as well as the class?
 * XHTML ... validate 
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
+* perform some indenting (or all but make it optional)
 * preview rdoc / finish documenting ... why form is first class object etc
 
 == Minor:

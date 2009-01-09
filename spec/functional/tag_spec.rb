@@ -30,7 +30,7 @@ describe DataMapper::Form::Tag do
   end
   
   it "should allow capturing of elements when not self closing" do
-    tag = Tag.new :fieldset, :self_closing => false, :attributes => { :id => 'something' } do
+    tag = Tag.new :fieldset, :attributes => { :id => 'something' } do
       button :one
       button :two
     end

@@ -11,7 +11,7 @@ module DataMapper
         @name, @options, @attributes = name, options, (options[:attributes] ||= {})
         @before, @after = attribute(:before, ''), attribute(:after, '')
         @description = Elements.desc(attribute(:description)) || ''
-        (@attributes[:value] ||= '') << Elements.capture_elements(&block) if block_given? and not self_closing?
+        (@attributes[:value] ||= '') << Elements.capture_elements(&block) if block_given?
       end
     
       ##
@@ -46,7 +46,7 @@ module DataMapper
     
       def required?
         attribute :required, false
-      end
+      end 
       
       ##
       # Generates a label when needed.

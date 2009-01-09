@@ -109,6 +109,19 @@ describe DataMapper::Form::Elements do
       HTML
     end
 
+    it "should create fieldsets with element capturing block" do
+      s = fieldset :details, :id => 'details' do
+        button :one
+        button :two
+      end
+      s.should == <<-HTML.deindent
+        <fieldset class="fieldset-details" id="details">
+        <legend>Details</legend><input type="button" class="form-button form-one" name="one" />
+        <input type="button" class="form-button form-two" name="two" />
+        </fieldset>
+      HTML
+    end
+
     it "should create fieldsets without legends, auto-generating them from the fieldset name" do
       s = fieldset :some_legend, :value => 'WAHOO!'
       s.should == <<-HTML.deindent
