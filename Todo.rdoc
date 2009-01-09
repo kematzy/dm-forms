@@ -2,7 +2,6 @@
 == Major:
 
 * wrap all in div class="form-field" and adjust spec...
-* Default labels using name? fieldset :some_details #	=> Some Details
 * Utilize inheritance chain and super to add DM functionality
 * Get examples working
 * Anything wrong with using Form as namespace as well as the class?

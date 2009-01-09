@@ -97,7 +97,6 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
-        raise ArgumentError, 'Block must be passed to capture elements', caller unless block_given?
         c = class << Object.new
           def self.method_missing meth, *args, &block
             @elements ||= ''
