@@ -159,6 +159,7 @@ describe DataMapper::Form::Elements do
         textfield :pass, :label => 'Password'
         submit :op, :value => 'Login'
       end
+      p s
       s.should == <<-HTML.deindent
         <form method="post" id="form-login"><label for="name">Username:</label>
         <input type="textfield" class="form-textfield form-name" name="name" />
