@@ -70,7 +70,7 @@ Benchmark.bm(25) do |x|
         f.textfield :name, :label => 'Username', :required => true
         f.textfield :email, :label => 'Email', :required => true
         f.textfield :pass, :label => 'Password', :required => true
-        f.textfield :pass_confirm
+        f.password :pass_confirm
       end
       f.fieldset :details do |f|
         f.textfield :city, :label => 'City'

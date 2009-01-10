@@ -72,6 +72,14 @@ module DataMapper
       end
       
       ##
+      # Generates a password field.
+      
+      def password name, options = {}
+        options = { :type => :password, :name => name }.merge options
+        tag :input, :self_closing => true, :attributes => options
+      end
+      
+      ##
       # Generates a textarea.
       
       def textarea name, options = {}, &block
