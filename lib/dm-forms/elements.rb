@@ -99,7 +99,8 @@ module DataMapper
       # Generates a button.
       
       def button name, options = {}
-        options = { :type => :button, :name => name }.merge options
+        type = options.has_key?(:src) ? :image : :button
+        options = { :type => type, :name => name }.merge options
         tag :input, :self_closing => true, :attributes => options
       end
       

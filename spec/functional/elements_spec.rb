@@ -66,6 +66,11 @@ describe DataMapper::Form::Elements do
       s.should == %(<input type="button" class="form-button form-op" value="Edit" name="op" />\n)    
     end
     
+    it "should create image buttons" do
+      s = button :op, :value => 'Edit', :src => 'path/to/image.png'
+      s.should == %(<input type="image" class="form-image form-op" value="Edit" name="op" src="path/to/image.png" />\n)    
+    end
+    
     it "should create textareas" do
       s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
       s.should == <<-HTML.deindent
