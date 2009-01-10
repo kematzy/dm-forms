@@ -3,6 +3,12 @@ module DataMapper
   module Form
     module Elements
       
+      class Proxy
+        def method_missing meth, *args, &block
+          (@elements ||= []) << Elements.send(meth, *args, &block)
+        end
+      end
+      
       module_function
       
       ##
@@ -97,16 +103,7 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
-        c = class << Object.new
-          def self.method_missing meth, *args, &block
-            @elements ||= ''
-            @elements << Elements.send(meth, *args, &block) unless meth == :render
-            @elements
-          end
-          self
-        end
-        c.instance_eval &block
-        c.render
+        proxy = Proxy.new.instance_eval(&block).join
       end
       
     end

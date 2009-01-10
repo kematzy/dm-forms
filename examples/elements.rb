@@ -24,8 +24,8 @@ end
 
 example 'Login' do
   form :login do
-    textfield :name
-    textfield :pass
+    textfield :name, :label => 'Username'
+    textfield :pass, :label => 'Password'
     submit :op, :value => 'Login'
   end
 end

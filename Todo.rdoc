@@ -1,21 +1,21 @@
 
 == Major:
 
+* fix issue with methods resolving to outter scope even when using instance_eval ... might work fine with EventContext
 * wrap all in div class="form-field" and adjust spec...
 * Utilize inheritance chain and super to add DM functionality
 * Get examples working
-* Anything wrong with using Form as namespace as well as the class?
 * XHTML ... validate 
 * http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 * perform some indenting (or all but make it optional)
-* preview rdoc / finish documenting ... why form is first class object etc
+* preview rdoc / finish documenting ...
 
 == Minor:
 
-* Integrate jQuery?
-* Aggregate / faux elements (name?) ... 
-  * datefield :start, :format => 'YYYY-MM-DD'
+* Aggregate / faux elements ... 
+  * datefield :bday, :format => 'YYYY-MM-DD', :value => '1987-05-25'
 
 == Brainstorming:
 
-* Nothing
+* Auto-removal of :default_value (:default) but not :value
+* Optionally integrate jQuery validation

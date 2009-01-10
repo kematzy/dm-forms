@@ -1,34 +1,7 @@
 
-describe DataMapper::Form::Elements do
-  
-  include DataMapper::Form::Elements
-  
-  #--
-  # Helpers
-  #++
-  
-  describe "helpers" do
+include DataMapper::Form::Elements
 
-    it "should capture elements in a block" do
-      s = capture_elements do
-        label 'Name', :for => :name
-        label 'Email', :for => :email
-      end
-      s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n)
-    end
-        
-    it "should capture using nested captures" do
-      s = capture_elements do
-        label 'Name', :for => :name
-        label 'Email', :for => :email
-        capture_elements do
-          label 'Phone', :for => :phone
-        end
-      end
-      s.should == %(<label for="name">Name:</label>\n<label for="email">Email:</label>\n<label for="phone">Phone:</label>\n)
-    end
-      
-  end
+describe DataMapper::Form::Elements do
   
   #--
   # Element aspecs
@@ -110,9 +83,9 @@ describe DataMapper::Form::Elements do
     end
 
     it "should create fieldsets with element capturing block" do
-      s = fieldset :details, :id => 'details' do
-        button :one
-        button :two
+      s = fieldset :details, :id => 'details' do |f|
+        f.button :one
+        f.button :two
       end
       s.should == <<-HTML.deindent
         <fieldset class="fieldset-details" id="details">
@@ -154,12 +127,11 @@ describe DataMapper::Form::Elements do
     end
 
     it "should create with a block for inner html" do
-      s = form :login do
-        textfield :name, :label => 'Username'
-        textfield :pass, :label => 'Password'
-        submit :op, :value => 'Login'
+      s = form :login do |f|
+        f.textfield :name, :label => 'Username'
+        f.textfield :pass, :label => 'Password'
+        f.submit :op, :value => 'Login'
       end
-      p s
       s.should == <<-HTML.deindent
         <form method="post" id="form-login"><label for="name">Username:</label>
         <input type="textfield" class="form-textfield form-name" name="name" />
