@@ -3,6 +3,9 @@ module DataMapper
   module Form
     module Elements
       
+      ##
+      # Proxy object for capturing elements. See Elements#capture_elements.
+      
       class Proxy
         def method_missing meth, *args, &block
           (@elements ||= []) << Elements.send(meth, *args, &block)
@@ -103,7 +106,7 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
-        proxy = Proxy.new.instance_eval(&block).join
+        Proxy.new.instance_eval(&block).join rescue ''
       end
       
     end

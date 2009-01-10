@@ -1,6 +1,7 @@
 
 == Major:
 
+* rescue is faster than conditionals ... refactor terminal-table and dm-forms etc
 * fix issue with methods resolving to outter scope even when using instance_eval ... might work fine with EventContext
 * wrap all in div class="form-field" and adjust spec...
 * Utilize inheritance chain and super to add DM functionality

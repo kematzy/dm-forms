@@ -23,9 +23,9 @@ example %(textfield :email, :label => 'Email', :required => true) do
 end
 
 example 'Login' do
-  form :login do
-    textfield :name, :label => 'Username'
-    textfield :pass, :label => 'Password'
-    submit :op, :value => 'Login'
+  form :login do |f|
+    f.textfield :name, :label => 'Username'
+    f.textfield :pass, :label => 'Password'
+    f.submit :op, :value => 'Login'
   end
 end

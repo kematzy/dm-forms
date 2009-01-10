@@ -29,23 +29,23 @@ puts
 puts 'Capture elements within a fieldset'
 Benchmark.bm(25) do |x|
   x.report("10 elements") {
-    10.times do
-      fieldset :comments do
-        textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
+    5.times do
+      fieldset :comments do |f|
+        f.textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
       end
     end
   }
   x.report("100 elements") {
-    100.times do
-      fieldset :comments do
-        textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
+    50.times do
+      fieldset :comments do |f|
+        f.textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
       end
     end
   }
   x.report("1000 elements") {
-    1000.times do
-      fieldset :comments do
-        textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
+    500.times do
+      fieldset :comments do |f|
+        f.textarea :comments, :value => 'Enter your comments here', :label => 'Comments:', :required => true
       end
     end
   }
@@ -56,30 +56,30 @@ puts
 puts 'Entire forms'
 Benchmark.bm(25) do |x|
   x.report("Login") {
-    fieldset :login do
-      textfield :name, :label => 'Username', :required => true
-      textfield :email, :label => 'Email', :required => true
-      textfield :pass, :label => 'Password', :required => true
-      submit :op, :value => 'Login'
+    form :login do |f|
+      f.textfield :name, :label => 'Username', :required => true
+      f.textfield :email, :label => 'Email', :required => true
+      f.textfield :pass, :label => 'Password', :required => true
+      f.submit :op, :value => 'Login'
     end
   }
   
   x.report("Register") {
-    fieldset :register do
-      fieldset :general do
-        textfield :name, :label => 'Username', :required => true
-        textfield :email, :label => 'Email', :required => true
-        textfield :pass, :label => 'Password', :required => true
-        textfield :pass_confirm
+    form :register do |f|
+      f.fieldset :general do |f|
+        f.textfield :name, :label => 'Username', :required => true
+        f.textfield :email, :label => 'Email', :required => true
+        f.textfield :pass, :label => 'Password', :required => true
+        f.textfield :pass_confirm
       end
-      fieldset :details do
-        textfield :city, :label => 'City'
-        textfield :zip, :label => 'Postal Code'
+      f.fieldset :details do |f|
+        f.textfield :city, :label => 'City'
+        f.textfield :zip, :label => 'Postal Code'
       end
-      fieldset :forums do
-        textarea :signature, :label => 'Signature', :description => 'Enter a signature which will appear below your forum posts.'
+      f.fieldset :forums do |f|
+        f.textarea :signature, :label => 'Signature', :description => 'Enter a signature which will appear below your forum posts.'
       end
-      submit :op, :value => 'Register'
+      f.submit :op, :value => 'Register'
     end
   }
 end
