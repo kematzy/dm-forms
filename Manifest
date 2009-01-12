@@ -13,6 +13,7 @@ spec/functional/elements_spec.rb
 spec/functional/tag_spec.rb
 spec/functional/core_ext_spec.rb
 spec/integration/haml_spec.rb
+spec/integration/datamapper_spec.rb
 spec/spec_helper.rb
 tasks/docs.rake
 tasks/gemspec.rake
