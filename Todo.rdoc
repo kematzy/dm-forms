@@ -1,7 +1,7 @@
 
 == Major:
 
-spec matchers for fields ...
+use have_tag matcher
 * add enctype automatically
 * support other form methods (store in hidden _method or something) make sure it works with sinatra
 * Fix select option ordering ... 
