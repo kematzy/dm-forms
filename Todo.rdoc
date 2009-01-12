@@ -1,6 +1,7 @@
 
 == Major:
 
+* remove before / after? since you can just use HAML and strings ..... or place before / after AFTER label and BEFORE desc ?
 http://github.com/carllerche/merb-forms/tree/master/lib/merb-forms
 * escape xml in attrs
 * attrs need escaping?(sanitize) check to_html_attributes ... document that no escaping is done from dm-forms

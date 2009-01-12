@@ -3,10 +3,45 @@ module DataMapper
   module Form
     class Tag
       
+      ##
+      # Boolean attributes.
+      
       BOOLEAN_ATTRIBUTES = :disabled, :readonly, :multiple, :checked, :selected
+      
+      ##
+      # Elements which should not include auto-generated classes.
+      
       IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset
-    
-      attr_accessor :name, :options, :attributes, :before, :after, :description
+      
+      ##
+      # Name of element (input, fieldset, etc).
+      
+      attr_accessor :name
+      
+      ##
+      # Options passed to the constructor.
+      
+      attr_accessor :options
+      
+      ##
+      # Attributes pulled from #options.
+      
+      attr_accessor :attributes
+      
+      ##
+      # Markup placed before the element.
+      
+      attr_accessor :before
+      
+      ##
+      # Markup placed after the element.
+      
+      attr_accessor :after
+      
+      ##
+      # Tag's description.
+      
+      attr_accessor :description
           
       def initialize name, options = {}, &block
         @name, @options, @attributes = name, options, (options[:attributes] ||= {})
@@ -94,8 +129,7 @@ module DataMapper
       # Generates element class(es) such as form-submit.
               
       def generate_classes
-        suffix = @name == :input ? @attributes[:type] : @name
-        classes = "form-#{suffix}"
+        classes = "form-#{@name == :input ? @attributes[:type] : @name}"
         classes << " form-#{@attributes[:name]}" unless @attributes[:name].blank?
         classes
       end
