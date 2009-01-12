@@ -19,6 +19,13 @@ class String
   def humanize
     gsub(/[^a-zA-Z\d]/, ' ') || self
   end
+  
+  ##
+  # Indent a string with pseudo +tabs+ (spaces). Defaults to a single tab.
+  
+  def indent tabs = 1 
+    gsub /^/, '  ' * tabs
+  end
 end
 
 class Symbol

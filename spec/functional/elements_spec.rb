@@ -71,6 +71,21 @@ describe DataMapper::Form::Elements do
       s.should == %(<input type="image" class="form-image form-op" value="Edit" name="op" src="path/to/image.png" />\n)    
     end
     
+    it "should create a checkbox" do
+      s = checkbox :agree_to_terms, :value => 'Agree to terms', :checked => true
+      s.should == %(<input type="checkbox" class="form-checkbox form-agree_to_terms" value="Agree to terms" checked="checked" name="agree_to_terms" />\n)    
+    end
+    
+    it "should create a file field" do
+      s = file :image
+      s.should == %(<input type="file" class="form-file form-image" name="image" />\n)    
+    end
+    
+    it "should create a radio button" do
+      s = radio :sex, :value => 'Male'
+      s.should == %(<input type="radio" class="form-radio form-sex" value="Male" name="sex" />\n)
+    end
+    
     it "should create textareas" do
       s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
       s.should == <<-HTML.deindent(8)
@@ -105,6 +120,32 @@ describe DataMapper::Form::Elements do
       s.should == <<-HTML.deindent(8)
         <fieldset class="fieldset-some_legend">
         <legend>Some legend</legend>WAHOO!</fieldset>
+      HTML
+    end
+    
+    it "should create select fields" do
+      s = select :color, :options => { :red => 'Red', :green => 'Green', :blue => 'Blue' }
+      s.should == <<-HTML.deindent(8)
+        <select class="form-select form-color" name="color">
+        <option value="blue">Blue</option>
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        </select>
+      HTML
+    end
+    
+    it "should create select fields with block" do
+      s = select :color do |s|
+        s.option :red, 'Red'
+        s.option :green, 'Green'
+        s.option :blue, 'Blue'
+      end
+      s.should == <<-HTML.deindent(8)
+        <select class="form-select form-color" name="color">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        </select>
       HTML
     end
     

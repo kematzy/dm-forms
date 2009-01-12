@@ -1,6 +1,11 @@
 
 == Major:
 
+spec matchers for fields ...
+* add enctype automatically
+* support other form methods (store in hidden _method or something) make sure it works with sinatra
+* Fix select option ordering ... 
+* Add nesting to select options, and select groups
 * remove before / after? since you can just use HAML and strings ..... or place before / after AFTER label and BEFORE desc ?
 http://github.com/carllerche/merb-forms/tree/master/lib/merb-forms
 * escape xml in attrs

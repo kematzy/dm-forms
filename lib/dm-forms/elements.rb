@@ -80,6 +80,47 @@ module DataMapper
       end
       
       ##
+      # Generates a checkbox.
+      
+      def checkbox name, options = {}
+        options = { :type => :checkbox, :name => name }.merge options
+        tag :input, :self_closing => true, :attributes => options        
+      end
+      
+      ##
+      # Generates a radio button.
+      
+      def radio name, options = {}
+        options = { :type => :radio, :name => name }.merge options
+        tag :input, :self_closing => true, :attributes => options        
+      end
+      
+      ##
+      # Generates a file field.
+      
+      def file name, options = {}
+        options = { :type => :file, :name => name }.merge options
+        tag :input, :self_closing => true, :attributes => options        
+      end
+      
+      ##
+      # Generates a select field.
+      
+      def select name, options = {}, &block
+        options = { :name => name, :value => "\n" }.merge options
+        options[:value] << capture_elements(&block) if block_given?
+        options[:value] << select_options(options) if options.include? :options
+        tag :select, :attributes => options
+      end
+      
+      ##
+      # Generates an option.
+      
+      def option value, title
+        %(<option value="#{value}">#{title}</option>\n)
+      end
+      
+      ##
       # Generates a textarea.
       
       def textarea name, options = {}, &block
@@ -117,6 +158,12 @@ module DataMapper
       def capture_elements &block
         elements = yield Proxy.new
         elements.join
+      end
+      
+      private
+      
+      def select_options options
+        options.delete(:options).collect { |value, title| option(value, title) }.join
       end
       
     end
