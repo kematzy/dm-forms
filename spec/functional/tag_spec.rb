@@ -2,17 +2,22 @@
 describe DataMapper::Form::Tag do
   
   Tag = DataMapper::Form::Tag
-  
+
   it "should generate classes" do
     tag = Tag.new :input, :attributes => { :name => 'email', :type => :textfield }
     tag.send(:classes).should == 'form-textfield form-email'    
   end
-  
+
   it "should generate classes when no name is present" do
     tag = Tag.new :input, :attributes => { :type => :textfield }
     tag.send(:classes).should == 'form-textfield'    
   end
   
+  it "should auto-assign boolean attributes" do
+    tag = Tag.new :input, :attributes => { :name => 'email', :type => :textfield, :disabled => true }
+    tag.render.should == %(<input type="textfield" class="form-textfield form-email" name="email" disabled="disabled"></input>\n)
+  end
+    
   it "should generate and merge classes" do
     tag = Tag.new :input, :attributes => { :class => 'foo bar', :name => 'email', :type => :textfield }
     tag.send(:classes).should == 'foo bar form-textfield form-email'
@@ -25,7 +30,7 @@ describe DataMapper::Form::Tag do
   
   it "should allow descriptions and remove from attributes" do
     tag = Tag.new :input, :attributes => { :description => 'testing one two three' }
-    tag.description.should == %(\n<p class=\"description\">testing one two three</p>)  
+    tag.description.should == %(\n<p class="description">testing one two three</p>)  
     tag.attributes.has_key?(:description).should be_false  
   end
   

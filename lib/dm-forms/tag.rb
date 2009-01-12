@@ -3,6 +3,7 @@ module DataMapper
   module Form
     class Tag
       
+      BOOLEAN_ATTRIBUTES = :disabled, :readonly, :multiple, :checked, :selected
       IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset
     
       attr_accessor :name, :options, :attributes, :before, :after, :description
@@ -19,12 +20,29 @@ module DataMapper
     
       def render
         @attributes[:class] = classes unless classes.blank?
+        prepare_boolean_attributes
         before << label
         close = self_closing? ? " />" : ">#{inner_html}</#{@name}>"
         open = "<#{@name} #{@attributes.to_html_attributes}"
         tag = before << open << close << description << after << "\n"
       end
       alias :to_s :render
+      
+      ##
+      # Prepare boolean attribute values, so that the user may
+      # utilize :multiple => true, instead of :multiple => :multiple.
+      
+      def prepare_boolean_attributes
+        @attributes.each_pair do |key, value|
+          if BOOLEAN_ATTRIBUTES.include? key
+            if value
+              @attributes[key] = key
+            else
+              @attributes.delete key
+            end
+          end
+        end
+      end
     
       ##
       # Wither or not a tag is self-closing (<br />).

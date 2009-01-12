@@ -1,9 +1,8 @@
 
 == Major:
 
-* rename Elements to Fields ... since its not just one element field vs tag vs element
 http://github.com/carllerche/merb-forms/tree/master/lib/merb-forms
-* refactor initialize and render for Tag
+* escape xml in attrs
 * attrs need escaping?(sanitize) check to_html_attributes ... document that no escaping is done from dm-forms
 * check out new middleware for rack
 * Support both instance_eval and block by checking arity ... use Builder not Proxy
@@ -21,7 +20,8 @@ http://github.com/carllerche/merb-forms/tree/master/lib/merb-forms
 
 == Minor:
 
-* Aggregate / faux elements ... 
+* Aggregate / faux elements ...
+  *  
   * date_field :bday, :format => 'YYYY-MM-DD', :value => '1987-05-25'
 
 == Brainstorming:
