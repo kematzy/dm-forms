@@ -29,7 +29,7 @@ describe DataMapper::Form::Tag do
     tag.attributes.has_key?(:description).should be_false  
   end
   
-  it "should allow capturing of elements when not self closing" do
+  it "should allow capturing of elements via block" do
     tag = Tag.new :fieldset, :attributes => { :id => 'something' } do |f|
       f.button :one
       f.button :two

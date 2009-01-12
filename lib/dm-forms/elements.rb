@@ -115,7 +115,8 @@ module DataMapper
       # Capture results of elements called within +block+.
       
       def capture_elements &block
-        Proxy.new.instance_eval(&block).join rescue ''
+        elements = yield Proxy.new
+        elements.join
       end
       
     end
