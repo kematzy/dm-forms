@@ -18,10 +18,10 @@ describe "Haml + dm-forms" do
     engine.render.should == <<-HTML.deindent
       <div class='comments'>
         <h1>Comments</h1>
-        <input type=\"textfield\" class=\"form-textfield form-name\" name=\"name\" />
-        <input type=\"textfield\" class=\"form-textfield form-email\" name=\"email\" />
-        <textarea class=\"form-textarea form-comments\" name=\"comments\"></textarea>
-        <input type=\"submit\" class=\"form-submit form-op\" value=\"Submit\" name=\"op\" />
+        <input type="textfield" class="form-textfield form-name" name="name" />
+        <input type="textfield" class="form-textfield form-email" name="email" />
+        <textarea class="form-textarea form-comments" name="comments"></textarea>
+        <input type="submit" class="form-submit form-op" value="Submit" name="op" />
       </div>
     HTML
   end
