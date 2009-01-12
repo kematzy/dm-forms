@@ -88,6 +88,14 @@ module DataMapper
       end
       
       ##
+      # Generates a hidden field.
+      
+      def hidden name, options = {}
+        options = { :type => :hidden, :name => name }.merge options
+        tag :input, :self_closing => true, :attributes => options        
+      end
+      
+      ##
       # Generates a radio button.
       
       def radio name, options = {}

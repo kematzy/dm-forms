@@ -81,6 +81,11 @@ describe DataMapper::Form::Elements do
       s.should == %(<input type="file" class="form-file form-image" name="image" />\n)    
     end
     
+    it "should create hidden fields" do
+      s = hidden :_method, :value => 'put'
+      s.should == %(<input type="hidden" class="form-hidden form-_method" value="put" name="_method" />\n)    
+    end
+    
     it "should create a radio button" do
       s = radio :sex, :value => 'Male'
       s.should == %(<input type="radio" class="form-radio form-sex" value="Male" name="sex" />\n)
