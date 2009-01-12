@@ -30,6 +30,36 @@ module DataMapper
       end
       
       ##
+      # Generates a label.
+      
+      def label value, options = {}
+        value << ':'
+        value << '<em>*</em>' if options.delete :required
+        %(<label for="#{options[:for]}">#{value}</label>\n)
+      end
+      
+      ##
+      # Generates a legend.
+      
+      def legend value
+        %(<legend>#{value}</legend>)
+      end
+      
+      ##
+      # Generates a description.
+      
+      def desc text
+        %(\n<p class="description">#{text}</p>) unless text.blank?
+      end
+           
+      ##
+      # Generates an option.
+      
+      def option value, title
+        %(<option value="#{value}">#{title}</option>\n)
+      end
+      
+      ##
       # Generates a form.
       
       def form name, options = {}, &block
@@ -46,23 +76,7 @@ module DataMapper
         options[:value] = "\n" << legend(legend_value) << (options.delete(:value) || '')
         tag :fieldset, :attributes => options, &block
       end
-      
-      ##
-      # Generates a label.
-      
-      def label value, options = {}
-        value << ':'
-        value << '<em>*</em>' if options.delete :required
-        %(<label for="#{options[:for]}">#{value}</label>\n)
-      end
-      
-      ##
-      # Generates a legend.
-      
-      def legend value
-        %(<legend>#{value}</legend>)
-      end
-      
+              
       ##
       # Generates a textfield.
       
@@ -122,13 +136,6 @@ module DataMapper
       end
       
       ##
-      # Generates an option.
-      
-      def option value, title
-        %(<option value="#{value}">#{title}</option>\n)
-      end
-      
-      ##
       # Generates a textarea.
       
       def textarea name, options = {}, &block
@@ -151,13 +158,6 @@ module DataMapper
         type = options.has_key?(:src) ? :image : :button
         options = { :type => type, :name => name }.merge options
         tag :input, :self_closing => true, :attributes => options
-      end
-      
-      ##
-      # Generates a description.
-      
-      def desc text
-        %(\n<p class="description">#{text}</p>) unless text.blank?
       end
       
       ##
