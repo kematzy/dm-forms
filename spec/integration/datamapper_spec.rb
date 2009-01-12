@@ -30,4 +30,23 @@ describe DataMapper::Form::ModelElements do
     HTML
   end
   
+  it "should create model specific forms" do
+    results = form_for @user do |f|
+      f.textfield :name
+      f.textfield :email
+      f.submit :op, :value => 'Save'
+    end
+    results.should == <<-HTML.deindent
+      <ul class="messages error">
+      <li>Name has an invalid format</li>
+      <li>Email has an invalid format</li>
+      </ul>
+      <form id="form-user">
+      <input type="textfield" name="name" />
+      <input type="textfield" name="email" />
+      <input type="submit" name="op" />
+      </form>
+    HTML
+  end
+  
 end
