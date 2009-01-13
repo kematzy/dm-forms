@@ -44,11 +44,10 @@ module DataMapper
       attr_accessor :description
           
       def initialize name, options = {}, &block
-        @model = options[:model]
         @name, @options, @attributes = name, options, (options[:attributes] ||= {})
         @before, @after = attribute(:before, ''), attribute(:after, '')
         @description = Elements.desc(attribute(:description)) || ''
-        (@attributes[:value] ||= '') << Elements.capture_elements(@model, &block) if block_given?
+        (@attributes[:value] ||= '') << Elements.capture_elements(attribute(:model), &block) if block_given?
       end
     
       ##

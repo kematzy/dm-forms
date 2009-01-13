@@ -11,9 +11,7 @@ module DataMapper
       def form_for model, options = {}, &block
         id = model.class.to_s.downcase
         method = model.new_record? ? :post : :put
-        # options = { :method => method, :id => "form-#{model.class.to_s.downcase}", :before => errors_for(model) }.merge options
-        # tag :form, :attributes => options, :model => model, &block
-        form id, :method => method, :before => errors_for(model)
+        form id, :model => model, :method => method, :before => errors_for(model), &block
       end
       
       ##
