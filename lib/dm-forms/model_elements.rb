@@ -19,10 +19,12 @@ module DataMapper
       # Return markup for errors on +model+.
       
       def errors_for model
-        unless model.all_valid?
+        if not model.all_valid?
           s = %(<ul class="messages error">\n)
           s << model.errors.collect { |error| "<li>#{error.first}</li>" }.join("\n") 
           s << "\n</ul>\n"
+        else
+          ''
         end
       end
       
