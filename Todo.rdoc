@@ -12,6 +12,7 @@
 * wrap all in div class="form-TYPE" and adjust spec...
 * XHTML ... validate 
 * perform some indenting (or all but make it optional)
+* increase performance
 * preview rdoc / finish documenting ...
 
 == Minor:
