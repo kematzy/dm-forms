@@ -73,7 +73,7 @@ describe DataMapper::Form::Elements do
     
     it "should create a checkbox" do
       s = checkbox :agree_to_terms, :value => 'Agree to terms', :checked => true
-      s.should == %(<input type="checkbox" class="form-checkbox form-agree_to_terms" value="Agree to terms" checked="checked" name="agree_to_terms" />\n)    
+      s.should == %(<input type="checkbox" class="form-checkbox form-agree_to_terms" value="Agree to terms" name="agree_to_terms" checked="checked" />\n)    
     end
     
     it "should create a file field" do

@@ -15,7 +15,7 @@ describe DataMapper::Form::Tag do
   
   it "should auto-assign boolean attributes" do
     tag = Tag.new :input, :attributes => { :name => 'email', :type => :textfield, :disabled => true }
-    tag.render.should == %(<input type="textfield" class="form-textfield form-email" name="email" disabled="disabled"></input>\n)
+    tag.render.should == %(<input disabled="disabled" type="textfield" class="form-textfield form-email" name="email"></input>\n)
   end
     
   it "should generate and merge classes" do

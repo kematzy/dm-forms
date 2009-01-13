@@ -7,7 +7,14 @@ module DataMapper
       # Proxy object for capturing elements. See Elements#capture_elements.
       
       class Proxy
+        def initialize model = nil
+          @model = model
+        end
+
         def method_missing meth, *args, &block
+          if @model and @model.errors.on args.first
+            ((args[1] ||= {})[:class] ||= '') << ' error'
+          end
           (@elements ||= []) << Elements.send(meth, *args, &block)
         end
       end
@@ -161,10 +168,12 @@ module DataMapper
       end
       
       ##
-      # Capture results of elements called within +block+.
+      # Capture results of elements called within +block+. Optionally
+      # a DataMapper model may be passed, at which point error classes
+      # will be applied to invalid elements.
       
-      def capture_elements &block
-        elements = yield Proxy.new
+      def capture_elements model = nil, &block
+        elements = yield Proxy.new model
         elements.join
       end
       

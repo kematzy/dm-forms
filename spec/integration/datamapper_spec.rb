@@ -9,8 +9,8 @@ DataMapper.setup :default, 'sqlite3::memory:'
 class User
   include DataMapper::Resource
   property :id,    Serial
-  property :name,  String, :format => :email_address
-  property :email, String, :format => /^[\w]+$/
+  property :name,  String, :format => /^[\w]+$/
+  property :email, String, :format => :email_address
 end
 
 DataMapper.auto_migrate!
@@ -18,14 +18,13 @@ DataMapper.auto_migrate!
 describe DataMapper::Form::ModelElements do
   
   before :each do
-    @user = User.new :name => 'invalid username', :email => 'invalid email @-lame.com'
+    @user = User.new :name => 'invalid username', :email => 'is_valid@email.com'
   end
   
-  it "should test hpricot" do
+  it "should create a list of errors when a model is invalid" do
     errors_for(@user).should == <<-HTML.deindent
       <ul class="messages error">
       <li>Name has an invalid format</li>
-      <li>Email has an invalid format</li>
       </ul>
     HTML
   end
@@ -39,12 +38,10 @@ describe DataMapper::Form::ModelElements do
     results.should == <<-HTML.deindent
       <ul class="messages error">
       <li>Name has an invalid format</li>
-      <li>Email has an invalid format</li>
       </ul>
-      <form id="form-user">
-      <input type="textfield" name="name" />
-      <input type="textfield" name="email" />
-      <input type="submit" name="op" />
+      <form method="post" id="form-user"><input type="textfield" class="error form-textfield form-name" name="name" />
+      <input type="textfield" class="form-textfield form-email" name="email" />
+      <input type="submit" class="form-submit form-op" value="Save" name="op" />
       </form>
     HTML
   end
