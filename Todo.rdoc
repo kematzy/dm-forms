@@ -21,5 +21,4 @@
 
 == Brainstorming:
 
-* Auto-removal of :default_value (:default) but not :value
-* Optionally integrate jQuery validation
+* Nothing
