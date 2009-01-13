@@ -19,8 +19,8 @@ example.
 
    errors_for @user
    form_for @user, :action => '/user' do |f|
-     f.textfield :name
-     f.textfield :email
+     f.textfield :name, :label => 'Name'
+     f.textfield :email, :label => 'Email'
      f.submit :op, :value => 'Update'
    end
 
@@ -29,7 +29,9 @@ example.
    </ul>
    <form action="/user" method="post" id="form-user">
      <input type="hidden" name="_method" value="put" />
+     <label for="name">Name:</label>
      <input type="textfield" class="error form-textfield form-name" name="name" />
+     <label for="email">Email:</label>
      <input type="textfield" class="form-textfield form-email" name="email" />
      <input type="submit" class="form-submit form-op" value="Update" name="op" />
    </form>

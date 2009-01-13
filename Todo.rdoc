@@ -1,6 +1,7 @@
 
 == Major:
 
+* assign :required based on model?
 * use have_tag matcher
 * add enctype automatically
 * Fix select option ordering ... poor unordered hashes :(

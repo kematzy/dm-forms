@@ -31,9 +31,8 @@ user.save
 
 s = errors_for(user)
 s << form_for(user, :action => '/user') do |f|
-  f.textarea :name
-  f.textarea :email
+  f.textarea :name, :label => 'Name'
+  f.textarea :email, :label => 'Email'
   f.submit :op, :value => 'Update'
 end
-
 puts s

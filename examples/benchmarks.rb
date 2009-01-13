@@ -2,8 +2,29 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'dm-forms'
 require 'benchmark'
+require 'dm-core'
+require 'dm-validations'
+DataMapper.setup :default, 'sqlite3::memory:'
+include DataMapper::Form::ModelElements
 
-include DataMapper::Form::Elements
+#--
+# Models
+#++
+
+class User
+  include DataMapper::Resource
+  property :id,    Serial
+  property :name,  String, :format => /^[\w]+$/
+  property :email, String, :format => :email_address
+end
+
+DataMapper.auto_migrate!
+
+$user = User.new :name => 'tj', :email => 'invalid email@lame.com'
+
+#--
+# Benchmarks
+#++
 
 puts
 puts 'Single element'
@@ -80,6 +101,18 @@ Benchmark.bm(25) do |x|
         f.textarea :signature, :label => 'Signature', :description => 'Enter a signature which will appear below your forum posts.'
       end
       f.submit :op, :value => 'Register'
+    end
+  }
+end
+
+puts
+puts 'Entires form with #form_for'
+Benchmark.bm(25) do |x|
+  x.report("User") {
+    form_for $user do |f|
+      f.textfield :name, :label => 'Username', :required => true
+      f.textfield :email, :label => 'Email', :required => true
+      f.submit :op, :value => 'Login'
     end
   }
 end
