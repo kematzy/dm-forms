@@ -83,7 +83,7 @@ describe DataMapper::Form::Elements do
     
     it "should create hidden fields" do
       s = hidden :_method, :value => 'put'
-      s.should == %(<input type="hidden" class="form-hidden form-_method" value="put" name="_method" />\n)    
+      s.should == %(<input type="hidden" value="put" name="_method" />\n)    
     end
     
     it "should create a radio button" do
@@ -176,7 +176,18 @@ describe DataMapper::Form::Elements do
       s = form :register, :method => :get, :value => 'COOKIE!'
       s.should == %(<form method="get" id="form-register">COOKIE!</form>\n)
     end
-
+    
+    it "should store arbitrary methods in _method" do
+      s = form :login, :method => :put do |f|
+        f.submit :op, :value => 'Submit'
+      end
+      s.should == <<-HTML.deindent(8)
+        <form method="post" id="form-login"><input type="hidden" value="put" name="_method" />
+        <input type="submit" class="form-submit form-op" value="Submit" name="op" />
+        </form>
+      HTML
+    end
+    
     it "should create with a block for inner html" do
       s = form :login do |f|
         f.textfield :name, :label => 'Username'

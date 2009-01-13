@@ -10,7 +10,7 @@ module DataMapper
         def initialize model = nil
           @model = model
         end
-
+        
         def method_missing meth, *args, &block
           if @model and @model.errors.on args.first
             ((args[1] ||= {})[:class] ||= '') << ' error'
@@ -71,6 +71,10 @@ module DataMapper
       
       def form name, options = {}, &block
         options = { :method => :post, :id => "form-#{name}" }.merge options
+        unless valid_http_verb? options
+          options[:value] = hidden(:_method, :value => options[:method]) << (options[:value] || '')
+          options[:method] = :post
+        end
         tag :form, :attributes => options, &block
       end
       
@@ -179,8 +183,12 @@ module DataMapper
       
       private
       
-      def select_options options
+      def select_options options #:nodoc:
         options.delete(:options).collect { |value, title| option(value, title) }.join
+      end
+      
+      def valid_http_verb? options #:nodoc:
+        [:get, :post].include? options[:method]
       end
       
     end

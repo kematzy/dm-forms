@@ -11,7 +11,7 @@ module DataMapper
       ##
       # Elements which should not include auto-generated classes.
       
-      IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset
+      IGNORE_CLASSES_ON_ELEMENTS = :form, :label, :fieldset, :hidden
       
       ##
       # Name of element (input, fieldset, etc).
@@ -139,7 +139,7 @@ module DataMapper
       # Wither or not classes should be added to this element.
     
       def should_add_classes?
-        !IGNORE_CLASSES_ON_ELEMENTS.include? @name
+        !(IGNORE_CLASSES_ON_ELEMENTS.include? @name or IGNORE_CLASSES_ON_ELEMENTS.include? @attributes[:type])
       end
     
       ##
