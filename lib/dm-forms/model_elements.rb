@@ -11,7 +11,8 @@ module DataMapper
       def form_for model, options = {}, &block
         id = model.class.to_s.downcase
         method = model.new_record? ? :post : :put
-        form id, :model => model, :method => method, :before => errors_for(model), &block
+        options = { :model => model, :method => method, :before => errors_for(model) }.merge options
+        form id, options, &block
       end
       
       ##
