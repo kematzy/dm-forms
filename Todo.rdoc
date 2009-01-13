@@ -1,32 +1,21 @@
 
 == Major:
-use have_tag matcher
+
+* Fix DM example rb
+* use have_tag matcher
 * add enctype automatically
-* support other form methods (store in hidden _method or something) make sure it works with sinatra
-* Fix select option ordering ... 
+* Fix select option ordering ... poor unordered hashes :(
 * Add nesting to select options, and select groups
-* remove before / after? since you can just use HAML and strings ..... or place before / after AFTER label and BEFORE desc ?
-http://github.com/carllerche/merb-forms/tree/master/lib/merb-forms
 * escape xml in attrs
-* attrs need escaping?(sanitize) check to_html_attributes ... document that no escaping is done from dm-forms
-* check out new middleware for rack
-* Support both instance_eval and block by checking arity ... use Builder not Proxy
-  * is not working because the method does not exist so outer scope is checked ...
-  * use Form as builder
-  * ensure that views will work with block like Merb
-* rescue is faster than conditionals ... refactor terminal-table and dm-forms etc
-* wrap all in div class="form-field" and adjust spec...
-* Utilize inheritance chain and super to add DM functionality
-* Get examples working
+* Support both instance_eval and block
+* wrap all in div class="form-TYPE" and adjust spec...
 * XHTML ... validate 
-* http://vision-media.ca/files/images/cheatsheets/formapi-p--0-1.png
 * perform some indenting (or all but make it optional)
 * preview rdoc / finish documenting ...
 
 == Minor:
 
 * Aggregate / faux elements ...
-  *  
   * date_field :bday, :format => 'YYYY-MM-DD', :value => '1987-05-25'
 
 == Brainstorming:
