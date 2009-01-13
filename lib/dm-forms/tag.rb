@@ -47,7 +47,8 @@ module DataMapper
         @name, @options, @attributes = name, options, (options[:attributes] ||= {})
         @before, @after = attribute(:before, ''), attribute(:after, '')
         @description = Elements.desc(attribute(:description)) || ''
-        (@attributes[:value] ||= '') << Elements.capture_elements(attribute(:model), &block) if block_given?
+        @model = attribute :model
+        (@attributes[:value] ||= '') << Elements.capture_elements(@model, &block) if block_given?
       end
     
       ##
