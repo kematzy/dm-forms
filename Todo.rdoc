@@ -1,7 +1,6 @@
 
 == Major:
 
-* Fix DM example rb (model still in attrs)
 * use have_tag matcher
 * add enctype automatically
 * Fix select option ordering ... poor unordered hashes :(

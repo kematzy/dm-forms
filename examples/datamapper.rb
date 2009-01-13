@@ -18,19 +18,22 @@ DataMapper.auto_migrate!
 
 user = User.new :name => 'tj', :email => 'invalid email@lame.com'
 
-puts errors_for(user)
-puts form_for(user, :action => '/user') do |f|
+s = errors_for(user)
+s << form_for(user, :action => '/user') do |f|
   f.textarea :name
   f.textarea :email
   f.submit :op, :value => 'Add'
 end
+puts s
 
 user.email = 'tj@vision-media.ca'
 user.save
 
-puts errors_for(user)
-puts form_for(user, :action => '/user') do |f|
+s = errors_for(user)
+s << form_for(user, :action => '/user') do |f|
   f.textarea :name
   f.textarea :email
   f.submit :op, :value => 'Update'
 end
+
+puts s
