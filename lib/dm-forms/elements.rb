@@ -191,7 +191,7 @@ module DataMapper
       # will be applied to invalid elements.
       
       def capture_elements model = nil, &block
-        elements = yield Proxy.new model
+        elements = yield Proxy.new(model)
         elements.join
       end
       
