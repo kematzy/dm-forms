@@ -27,18 +27,22 @@ describe DataMapper::Form::ModelElements do
       <li>Name has an invalid format</li>
       </ul>
     HTML
+    @user.email = 'invalid email@ something.com'
+    errors_for(@user).should == <<-HTML.deindent
+      <ul class="messages error">
+      <li>Name has an invalid format</li>
+      <li>Email has an invalid format</li>
+      </ul>
+    HTML
   end
   
-  it "should create model specific forms" do
+  it "should create model specific forms with errors on elements" do
     results = form_for @user do |f|
       f.textfield :name
       f.textfield :email
       f.submit :op, :value => 'Save'
     end
     results.should == <<-HTML.deindent
-      <ul class="messages error">
-      <li>Name has an invalid format</li>
-      </ul>
       <form method="post" id="form-user"><input type="textfield" class="error form-textfield form-name" name="name" />
       <input type="textfield" class="form-textfield form-email" name="email" />
       <input type="submit" class="form-submit form-op" value="Save" name="op" />

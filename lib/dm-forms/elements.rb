@@ -8,14 +8,20 @@ module DataMapper
       
       class Proxy
         def initialize model = nil
-          @model = model
+          @model = model 
         end
         
         def method_missing meth, *args, &block
-          if @model and @model.errors.on args.first
-            ((args[1] ||= {})[:class] ||= '') << ' error'
-          end
+          add_error_class_to args if has_a_model_with_errors_on? args.first
           (@elements ||= []) << Elements.send(meth, *args, &block)
+        end
+        
+        def add_error_class_to args
+          ((args[1] ||= {})[:class] ||= '') << ' error'
+        end
+        
+        def has_a_model_with_errors_on? meth
+          @model and !@model.valid? and @model.errors.on meth
         end
       end
       
