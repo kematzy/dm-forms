@@ -9,8 +9,11 @@ module DataMapper
       # Generates a form.
       
       def form_for model, options = {}, &block
-        options = { :method => :post, :id => "form-#{model_name(model)}", :before => errors_for(model) }.merge options
-        tag :form, :attributes => options, :model => model, &block
+        id = model.class.to_s.downcase
+        method = model.new_record? ? :post : :put
+        # options = { :method => method, :id => "form-#{model.class.to_s.downcase}", :before => errors_for(model) }.merge options
+        # tag :form, :attributes => options, :model => model, &block
+        form id, :method => method, :before => errors_for(model)
       end
       
       ##
@@ -22,12 +25,6 @@ module DataMapper
           s << model.errors.collect { |error| "<li>#{error.first}</li>" }.join("\n") 
           s << "\n</ul>\n"
         end
-      end
-      
-      private
-      
-      def model_name model #:nodoc:
-        model.class.to_s.downcase
       end
       
     end

@@ -46,4 +46,21 @@ describe DataMapper::Form::ModelElements do
     HTML
   end
   
+  it "should use _method put for updating records" do
+    @user.name = 'tj'
+    @user.save
+    results = form_for @user do |f|
+      f.textfield :name
+      f.textfield :email
+      f.submit :op, :value => 'Save'
+    end
+    results.should == <<-HTML.deindent
+      <form method="post" id="form-user"><input type="hidden" value="put" name="_method" />
+      <input type="textfield" class="form-textfield form-name" name="name" />
+      <input type="textfield" class="form-textfield form-email" name="email" />
+      <input type="submit" class="form-submit form-op" value="Save" name="op" />
+      </form>
+    HTML
+  end
+  
 end
