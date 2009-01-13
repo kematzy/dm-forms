@@ -15,7 +15,6 @@ class User
 end
 
 DataMapper.auto_migrate!
-
 user = User.new :name => 'tj', :email => 'invalid email@lame.com'
 
 s = errors_for(user)
