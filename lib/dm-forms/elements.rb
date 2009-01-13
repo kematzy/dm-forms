@@ -72,7 +72,7 @@ module DataMapper
       def form name, options = {}, &block
         options = { :method => :post, :id => "form-#{name}" }.merge options
         unless valid_http_verb? options
-          options[:value] = hidden(:_method, :value => options[:method]) << (options[:value] || '')
+          options[:value] = hidden_method(options[:method]) << (options[:value] || '')
           options[:method] = :post
         end
         tag :form, :attributes => options, &block
@@ -120,6 +120,13 @@ module DataMapper
         tag :input, :self_closing => true, :attributes => options        
       end
       
+      ##
+      # Creates hidden _method, with value of +method+.
+      
+      def hidden_method method
+        hidden :_method, :value => method
+      end
+            
       ##
       # Generates a radio button.
       
