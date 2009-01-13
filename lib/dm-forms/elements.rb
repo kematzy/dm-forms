@@ -72,7 +72,8 @@ module DataMapper
       def form name, options = {}, &block
         options = { :method => :post, :id => "form-#{name}" }.merge options
         unless valid_http_verb? options
-          options[:value] = hidden_method(options[:method]) << (options[:value] || '')
+          old_value = options[:value] || ''
+          options[:value] = hidden_method(options[:method]) << old_value
           options[:method] = :post
         end
         tag :form, :attributes => options, &block
