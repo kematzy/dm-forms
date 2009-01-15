@@ -1,6 +1,8 @@
 
 == Major:
 
+* match messages markup to jquery ui if reasonable
+* <optgroup label
 * assign :required based on model?
 * clean up examples
 * use have_tag matcher
