@@ -38,15 +38,15 @@ describe "core ext" do
     end
     
     it "should indent multi-line strings" do
-      string = <<-EOF.deindent
+      string = <<-EOF.dedent
       foo
       bar
       EOF
-      string.indent.should == <<-EOF.deindent
+      string.indent.should == <<-EOF.dedent
         foo
         bar
       EOF
-      string.indent(2).should == <<-EOF.deindent
+      string.indent(2).should == <<-EOF.dedent
           foo
           bar
       EOF

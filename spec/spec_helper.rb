@@ -1,10 +1,13 @@
 
 require 'dm-forms'
 require 'rspec_hpricot_matchers'
-include RspecHpricotMatchers
+
+Spec::Runner.configure do |config|
+  config.include RspecHpricotMatchers
+end
   
 class String
-  def deindent spaces = 6
+  def dedent spaces = 6
     gsub /^ {0,#{spaces}}/, ''
   end
 end

@@ -1,9 +1,8 @@
 
 == Major:
 
-* match messages markup to jquery ui if reasonable
 * <optgroup label
-* assign :required based on model?
+* assign :required based on model property
 * clean up examples
 * use have_tag matcher
 * add enctype automatically
@@ -15,6 +14,7 @@
 * XHTML ... validate 
 * perform some indenting (or all but make it optional)
 * increase performance
+* Use humanize in extlib (better way is to create mod with to_s, then include into symbol and str)
 * preview rdoc / finish documenting ...
 
 == Minor:

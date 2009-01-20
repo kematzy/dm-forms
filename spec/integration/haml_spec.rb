@@ -7,7 +7,7 @@ include DataMapper::Form::Elements
 describe "Haml + dm-forms" do
       
   it "should create pretty forms :D" do
-    engine = Haml::Engine.new <<-HAML.deindent
+    engine = Haml::Engine.new <<-HAML.dedent
       .comments
         %h1 Comments
         = textfield :name
@@ -15,7 +15,7 @@ describe "Haml + dm-forms" do
         = textarea :comments
         = submit :op, :value => 'Submit'
     HAML
-    engine.render.should == <<-HTML.deindent
+    engine.render.should == <<-HTML.dedent
       <div class='comments'>
         <h1>Comments</h1>
         <input type="textfield" class="form-textfield form-name" name="name" />

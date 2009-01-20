@@ -11,7 +11,7 @@ describe DataMapper::Form::Elements do
             
     it "should allow descriptions" do
       s = textarea :comments, :description => 'Please enter your comments.'
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <textarea class="form-textarea form-comments" name="comments"></textarea>
         <p class="description">Please enter your comments.</p>
       HTML
@@ -19,7 +19,7 @@ describe DataMapper::Form::Elements do
 
     it "should allow prefixing of arbitrary markup" do
       s = textarea :comments, :before => "<h1>Comments</h1>\n"
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <h1>Comments</h1>
         <textarea class="form-textarea form-comments" name="comments"></textarea>
       HTML
@@ -27,7 +27,7 @@ describe DataMapper::Form::Elements do
 
     it "should allow arbitrary markup after" do
       s = textarea :comments, :after => "\n<p>Custom markup</p>"
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <textarea class="form-textarea form-comments" name="comments"></textarea>
         <p>Custom markup</p>
       HTML
@@ -93,7 +93,7 @@ describe DataMapper::Form::Elements do
     
     it "should create textareas" do
       s = textarea :comments, :value => 'Enter your comments here', :label => 'Comments'
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <label for="comments">Comments:</label>
         <textarea class="form-textarea form-comments" name="comments">Enter your comments here</textarea>
       HTML
@@ -101,7 +101,7 @@ describe DataMapper::Form::Elements do
     
     it "should create fieldsets" do
       s = fieldset :details, :legend => 'Details', :value => 'WAHOO!'
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <fieldset class="fieldset-details">
         <legend>Details</legend>WAHOO!</fieldset>
       HTML
@@ -112,7 +112,7 @@ describe DataMapper::Form::Elements do
         f.button :one
         f.button :two
       end
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <fieldset class="fieldset-details" id="details">
         <legend>Details</legend><input type="button" class="form-button form-one" name="one" />
         <input type="button" class="form-button form-two" name="two" />
@@ -122,7 +122,7 @@ describe DataMapper::Form::Elements do
 
     it "should create fieldsets without legends, auto-generating them from the fieldset name" do
       s = fieldset :some_legend, :value => 'WAHOO!'
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <fieldset class="fieldset-some_legend">
         <legend>Some legend</legend>WAHOO!</fieldset>
       HTML
@@ -130,7 +130,7 @@ describe DataMapper::Form::Elements do
     
     it "should create select fields" do
       s = select :color, :options => { :red => 'Red', :green => 'Green', :blue => 'Blue' }
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <select class="form-select form-color" name="color">
         <option value="blue">Blue</option>
         <option value="red">Red</option>
@@ -145,7 +145,7 @@ describe DataMapper::Form::Elements do
         s.option :green, 'Green'
         s.option :blue, 'Blue'
       end
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <select class="form-select form-color" name="color">
         <option value="red">Red</option>
         <option value="green">Green</option>
@@ -181,7 +181,7 @@ describe DataMapper::Form::Elements do
       s = form :login, :method => :put do |f|
         f.submit :op, :value => 'Submit'
       end
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <form method="post" id="form-login"><input type="hidden" value="put" name="_method" />
         <input type="submit" class="form-submit form-op" value="Submit" name="op" />
         </form>
@@ -194,7 +194,7 @@ describe DataMapper::Form::Elements do
         f.textfield :pass, :label => 'Password'
         f.submit :op, :value => 'Login'
       end
-      s.should == <<-HTML.deindent(8)
+      s.should == <<-HTML.dedent(8)
         <form method="post" id="form-login"><label for="name">Username:</label>
         <input type="textfield" class="form-textfield form-name" name="name" />
         <label for="pass">Password:</label>

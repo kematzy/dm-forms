@@ -22,13 +22,13 @@ describe DataMapper::Form::ModelElements do
   end
   
   it "should create a list of errors when a model is invalid" do
-    errors_for(@user).should == <<-HTML.deindent
+    errors_for(@user).should == <<-HTML.dedent
       <ul class="messages error">
       <li>Name has an invalid format</li>
       </ul>
     HTML
     @user.email = 'invalid email@ something.com'
-    errors_for(@user).should == <<-HTML.deindent
+    errors_for(@user).should == <<-HTML.dedent
       <ul class="messages error">
       <li>Name has an invalid format</li>
       <li>Email has an invalid format</li>
@@ -42,7 +42,7 @@ describe DataMapper::Form::ModelElements do
       f.textfield :email
       f.submit :op, :value => 'Save'
     end
-    results.should == <<-HTML.deindent
+    results.should == <<-HTML.dedent
       <form method="post" id="form-user"><input type="textfield" class="error form-textfield form-name" name="name" />
       <input type="textfield" class="form-textfield form-email" name="email" />
       <input type="submit" class="form-submit form-op" value="Save" name="op" />
@@ -58,7 +58,7 @@ describe DataMapper::Form::ModelElements do
       f.textfield :email
       f.submit :op, :value => 'Save'
     end
-    results.should == <<-HTML.deindent
+    results.should == <<-HTML.dedent
       <form method="post" action="/register" id="form-user"><input type="hidden" value="put" name="_method" />
       <input type="textfield" class="form-textfield form-name" name="name" />
       <input type="textfield" class="form-textfield form-email" name="email" />

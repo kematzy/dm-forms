@@ -39,7 +39,7 @@ describe DataMapper::Form::Tag do
       f.button :one
       f.button :two
     end
-    tag.render.should == <<-HTML.deindent
+    tag.render.should == <<-HTML.dedent
       <fieldset id="something"><input type="button" class="form-button form-one" name="one" />
       <input type="button" class="form-button form-two" name="two" />
       </fieldset>
