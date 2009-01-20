@@ -15,7 +15,7 @@ describe DataMapper::Form::Tag do
   
   it "should auto-assign boolean attributes" do
     tag = Tag.new :input, :attributes => { :name => 'email', :type => :textfield, :disabled => true }
-    tag.render.should == %(<input disabled="disabled" type="textfield" class="form-textfield form-email" name="email"></input>\n)
+    tag.should have_tag('input[@disabled="disabled"]')
   end
     
   it "should generate and merge classes" do
@@ -30,8 +30,8 @@ describe DataMapper::Form::Tag do
   
   it "should allow descriptions and remove from attributes" do
     tag = Tag.new :input, :attributes => { :description => 'testing one two three' }
-    tag.description.should == %(\n<p class="description">testing one two three</p>)  
-    tag.attributes.has_key?(:description).should be_false  
+    tag.description.should have_tag('p[@class="description"]', 'testing one two three')
+    tag.attributes.has_key?(:description).should be_false
   end
   
   it "should allow capturing of elements via block" do
@@ -39,11 +39,9 @@ describe DataMapper::Form::Tag do
       f.button :one
       f.button :two
     end
-    tag.render.should == <<-HTML.dedent
-      <fieldset id="something"><input type="button" class="form-button form-one" name="one" />
-      <input type="button" class="form-button form-two" name="two" />
-      </fieldset>
-    HTML
+    tag.should have_tag('fieldset[@id="something"]') do |fieldset|
+      fieldset.should have_tag('input[@type="button"]', :count => 2)
+    end
   end
     
 end

@@ -22,18 +22,14 @@ describe DataMapper::Form::ModelElements do
   end
   
   it "should create a list of errors when a model is invalid" do
-    errors_for(@user).should == <<-HTML.dedent
-      <ul class="messages error">
-      <li>Name has an invalid format</li>
-      </ul>
-    HTML
+    errors_for(@user).should have_tag('ul[@class="messages error"]') do |ul|
+      ul.should have_tag('li', 'Name has an invalid format')
+    end
     @user.email = 'invalid email@ something.com'
-    errors_for(@user).should == <<-HTML.dedent
-      <ul class="messages error">
-      <li>Name has an invalid format</li>
-      <li>Email has an invalid format</li>
-      </ul>
-    HTML
+    errors_for(@user).should have_tag('ul[@class="messages error"]') do |ul|
+      ul.should have_tag('li', 'Name has an invalid format')
+      ul.should have_tag('li', 'Email has an invalid format')
+    end
   end
   
   it "should create model specific forms with errors on elements" do
@@ -42,12 +38,9 @@ describe DataMapper::Form::ModelElements do
       f.textfield :email
       f.submit :op, :value => 'Save'
     end
-    results.should == <<-HTML.dedent
-      <form method="post" id="form-user"><input type="textfield" class="error form-textfield form-name" name="name" />
-      <input type="textfield" class="form-textfield form-email" name="email" />
-      <input type="submit" class="form-submit form-op" value="Save" name="op" />
-      </form>
-    HTML
+    results.should have_tag('form[@method="post"]') do |form|
+      form.should have_tag('input', :count => 3)
+    end
   end
   
   it "should use _method put for updating records" do
@@ -58,13 +51,13 @@ describe DataMapper::Form::ModelElements do
       f.textfield :email
       f.submit :op, :value => 'Save'
     end
-    results.should == <<-HTML.dedent
-      <form method="post" action="/register" id="form-user"><input type="hidden" value="put" name="_method" />
-      <input type="textfield" class="form-textfield form-name" name="name" />
-      <input type="textfield" class="form-textfield form-email" name="email" />
-      <input type="submit" class="form-submit form-op" value="Save" name="op" />
-      </form>
-    HTML
+    results.should have_tag('form[@action="/register"]') do |form|
+      form.should have_tag('input', :count => 4)
+      form.should have_tag('input[@type="hidden"]') do |hidden|
+        hidden[:value].should == 'put'
+        hidden[:name].should == '_method'
+      end
+    end
   end
   
 end
