@@ -2,19 +2,18 @@
 == Major:
 
 * <optgroup label
-* assign :required based on model property
-* clean up examples
-* add enctype automatically
+* Add; assign :required based on model property
+* Add enctype automatically
 * Fix select option ordering ... poor unordered hashes :(
-* Add nesting to select options, and select groups
-* escape xml in attrs
-* Support both instance_eval and block
-* wrap all in div class="form-TYPE" and adjust spec...
-* XHTML ... validate 
-* perform some indenting (or all but make it optional)
-* increase performance
-* Use humanize in extlib (better way is to create mod with to_s, then include into symbol and str)
-* preview rdoc / finish documenting ...
+* Add support for nesting in select options, and select groups
+* Add; escape xml in attrs
+* Add support for both instance_eval and block
+* Change; wrap all in div class="form-TYPE" and adjust spec...
+* Validate xhtml
+* Add some optional post indenting
+* Change; Use humanize in extlib
+* Change; preview rdoc / finish documenting ...
+* Change; clean up examples
 
 == Minor:
 
