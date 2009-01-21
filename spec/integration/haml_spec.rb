@@ -15,15 +15,11 @@ describe "Haml + dm-forms" do
         = textarea :comments
         = submit :op, :value => 'Submit'
     HAML
-    engine.render.should == <<-HTML.dedent
-      <div class='comments'>
-        <h1>Comments</h1>
-        <input type="textfield" class="form-textfield form-name" name="name" />
-        <input type="textfield" class="form-textfield form-email" name="email" />
-        <textarea class="form-textarea form-comments" name="comments"></textarea>
-        <input type="submit" class="form-submit form-op" value="Submit" name="op" />
-      </div>
-    HTML
+    engine.render.should have_tag('div[@class="comments"]') do |div|
+      div.should have_tag('h1', 'Comments')
+      div.should have_tag('input', :count => 3)
+      div.should have_tag('textarea')
+    end
   end
   
 end
