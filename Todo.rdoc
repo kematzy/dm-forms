@@ -4,7 +4,6 @@
 * <optgroup label
 * assign :required based on model property
 * clean up examples
-* use have_tag matcher
 * add enctype automatically
 * Fix select option ordering ... poor unordered hashes :(
 * Add nesting to select options, and select groups

@@ -10,7 +10,7 @@ Echoe.new("dm-forms", DataMapper::Form::VERSION::STRING) do |p|
   p.summary = "DataMapper model form generation"
   p.url = "http://github.com/visionmedia/dm-forms"
   p.runtime_dependencies = ['dm-core']
-  p.development_dependencies = ['rspec_hpricot_matchers']
+  p.development_dependencies = ['rspec_hpricot_matchers', 'visionmedia-rgauge']
 end
 
 Dir['tasks/**/*.rake'].sort.each { |lib| load lib }

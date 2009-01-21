@@ -6,7 +6,7 @@ DataMapper model form generation.
 == Features:
 
 * Integrates with DataMapper
-* Fast; over 1000 elements in 0.1 seconds (rake benchmark)
+* Fast; large forms render in under 0.000477 seconds (rake benchmark)
 * Error reporting
 * Handles restful HTTP verbs
 * Provides low-level form elements uncoupled from DataMapper
