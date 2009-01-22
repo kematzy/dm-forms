@@ -2,6 +2,7 @@
 == Major:
 
 * <optgroup label
+* Allow :action, :href, and :src to be :url as well, to conform to Rails and others
 * Add; assign :required based on model property
 * Add enctype automatically
 * Fix select option ordering ... poor unordered hashes :(
