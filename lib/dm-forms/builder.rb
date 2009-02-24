@@ -9,7 +9,7 @@ module DataMapper
 
       class Base
 
-        include Evo::Helpers::Tag
+        include DataMapper::Form::Helpers
 
         def initialize obj, name, origin 
           @obj, @origin = obj, origin
