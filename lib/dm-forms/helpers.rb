@@ -7,37 +7,26 @@ module DataMapper
       # Borrowed / adapted from Merb
       #++
       
-      def _singleton_form_context
-        @_default_builder ||= Builder::Base
-        @_singleton_form_context ||= @_default_builder.new(nil, nil, self)
-      end
-
-      def form_contexts
-        @_form_contexts ||= []
-      end
-
-      def current_form_context
-        form_contexts.last || _singleton_form_context
-      end
-
-      def _new_form_context name, builder 
-        if name.is_a?(String) || name.is_a?(Symbol)
-          ivar = instance_variable_get("@#{name}")
-        else
-          ivar, name = name, name.class.to_s.snake_case
-        end
-        builder ||= current_form_context.class if current_form_context
-        (builder || @_default_builder).new(ivar, name, self)
-      end
-
-      def with_form_context name, builder 
-        form_contexts.push(_new_form_context(name, builder))
-        ret = yield
-        form_contexts.pop
-        ret
+      def new_form_context
+        Builder::Base.new
       end
       
+      # TODO: private?
 
+      def contexts
+        @__contexts ||= []
+      end
+      
+      def current_context
+        contexts.last
+      end
+
+      def with_context name, &block
+        form_contexts.push new_form_context
+        ret = yield
+        contexts.pop
+        ret
+      end
 
       ##
       # Generates a form tag, which accepts a block that is not directly based on resource attributes
@@ -67,8 +56,8 @@ module DataMapper
       #   </form>
       #
       
-      def form *args, &blk 
-        _singleton_form_context.form(*args, &blk)
+      def form *args, &block 
+        new_form_context.form *args, &block
       end
 
       ##
@@ -102,9 +91,9 @@ module DataMapper
       #   </form>
       #
       
-      def form_for name, attrs = {}, &blk 
-        with_form_context(name, attrs.delete(:builder)) do
-          current_form_context.form(attrs, &blk)
+      def form_for name, attrs = {}, &block 
+        with_form_context name do
+          current_context.form attrs, &block 
         end
       end
   
@@ -123,10 +112,9 @@ module DataMapper
       #   <% end =%>
       #
       
-      def fields_for name, attrs = {}, &blk 
-        attrs ||= {}
-        with_form_context(name, attrs.delete(:builder)) do
-          capture(&blk)
+      def fields_for name, &block 
+        with_form_context name do
+          capture &block
         end
       end
       
@@ -158,13 +146,13 @@ module DataMapper
       #   </fieldset>
       #
       
-      def fieldset attrs = {}, &blk 
-        _singleton_form_context.fieldset(attrs, &blk)
+      def fieldset attrs = {}, &block
+        new_form_context.fieldset attrs, &block 
       end
 
-      def fieldset_for name, attrs = {}, &blk 
-        with_form_context(name, attrs.delete(:builder)) do
-          current_form_context.fieldset(attrs, &blk)
+      def fieldset_for name, attrs = {}, &block 
+        with_form_context name do
+          current_context.fieldset attrs, &block
         end
       end
 
@@ -386,6 +374,9 @@ module DataMapper
       #
       
       def text_field; end
+      
+      # TODO: better means of metaprogramming unbound versions
+      # TODO: pull them into this... not Base
 
       # @todo radio_group helper still needs to be implemented
       %w(text_field password_field hidden_field file_field
@@ -393,9 +384,9 @@ module DataMapper
         self.class_eval <<-RUBY, __FILE__, __LINE__ + 1
           def #{kind}(*args)
             if bound?(*args)
-              current_form_context.bound_#{kind}(*args)
+              current_context.bound_#{kind}(*args)
             else
-              current_form_context.unbound_#{kind}(*args)
+              current_context.unbound_#{kind}(*args)
             end
           end
         RUBY
@@ -422,7 +413,7 @@ module DataMapper
       #
       
       def button contents, attrs = {} 
-        current_form_context.button(contents, attrs)
+        current_form_context.button contents, attrs 
       end
   
       ##

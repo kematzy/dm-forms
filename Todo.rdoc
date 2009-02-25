@@ -1,6 +1,7 @@
 
 == Major:
 
+* self closing tags auto self-close
 * DSL DSL for indentations
 * Add examples / benchmarks again
 * Builder mixins

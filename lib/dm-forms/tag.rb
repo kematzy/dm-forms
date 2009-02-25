@@ -46,7 +46,7 @@ module DataMapper
       # Note: This tag will need to be closed
       
       def open_tag name, attrs = nil
-        "<#{name}#{attributes(attrs)}>"
+        "<#{name}#{ ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty? }>"
       end
     
       ##
@@ -63,11 +63,7 @@ module DataMapper
       # +attrs+ : a hash where all members will be mapped to key="value"
       
       def self_closing_tag name, attrs = nil
-        "<#{name}#{attributes(attrs)}/>"
-      end
-      
-      def attributes attrs #:nodoc:
-        ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty?
+        "<#{name}#{ ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty? }/>"
       end
       
       def capture &block #:nodoc:
