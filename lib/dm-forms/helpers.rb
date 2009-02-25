@@ -463,35 +463,6 @@ module DataMapper
         current_form_context.submit(contents, attrs)
       end
 
-      ##
-      # Provides a HTML formatted display of resource errors in an unordered list with a h2 form submission error
-      #
-      # ==== Parameters
-      # obj<Object>:: Model or Resource
-      # error_class<String>:: CSS class to use for error container
-      # build_li<String>:: Custom li tag to wrap each error in
-      # header<String>:: Custom header text for the error container
-      # before<Boolean>:: Display the errors before or inside of the form
-      #
-      # ==== Returns
-      # String:: HTML
-      #
-      # ==== Examples
-      #   <%= error_messages_for @person %>
-      #   <%= error_messages_for @person {|errors| "You can has probs nao: #{errors.size} of em!"}
-      #   <%= error_messages_for @person, lambda{|error| "<li class='aieeee'>#{error.join(' ')}"} %>
-      #   <%= error_messages_for @person, nil, 'bad_mojo' %>
-      #
-      
-      def error_messages_for obj = nil, opts = {} 
-        # TODO: tweak as needed ... remove header
-        current_form_context.error_messages_for(obj, opts[:error_class] || "error", 
-          opts[:build_li] || "<li>%s</li>", 
-          opts[:header] || "<h2>Form submission failed because of %s problem%s</h2>",
-          opts.key?(:before) ? opts[:before] : true)
-      end
-      alias error_messages error_messages_for
-
       private
       
       #:stopdoc:
