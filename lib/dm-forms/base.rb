@@ -3,6 +3,7 @@ module DataMapper
   module Form
     class Base
       
+      REGULAR_ELEMENTS = :textarea, :select
       SELF_CLOSING_ELEMENTS = :textfield, :submit, :file, :button, :hidden, :password, :radio, :checkbox
       
       include Tag
@@ -24,8 +25,9 @@ module DataMapper
         origin.buffer << tag(:fieldset, legend_tag + origin.capture(&block), attrs)
       end
       
-      %w( textarea select ).each do |type|
+      REGULAR_ELEMENTS.each do |type|
         define_method :"unbound_#{type}" do |attrs|
+          process_unbound_element type, attrs
           origin.buffer << tag(type, attrs)
         end
       end
