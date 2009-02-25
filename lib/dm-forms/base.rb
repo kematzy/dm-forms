@@ -38,7 +38,6 @@ module DataMapper
       end
       
       private 
-      #attrs[:checked] = attrs.key?(:on) ? val == attrs[:on] : considered_true?(val)
       
       def process_unbound_element type, attrs
         attrs ||= {}
@@ -56,6 +55,10 @@ module DataMapper
 
       def faux_method method
         unbound_hidden :name => '_method', :value => method
+      end
+      
+      def considered_true? value 
+        value && value != "0" && value != 0
       end
 
     end
