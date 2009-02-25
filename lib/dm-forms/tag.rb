@@ -45,7 +45,7 @@ module DataMapper
       #
       # Note: This tag will need to be closed
       
-      def open_tag name, attrs = nil
+      def open_tag name, attrs = {}
         "<#{name}#{optional_attrs(attrs)}>"
       end
     
@@ -62,7 +62,7 @@ module DataMapper
       # +name+ : the name of the tag to create
       # +attrs+ : a hash where all members will be mapped to key="value"
       
-      def self_closing_tag name, attrs = nil
+      def self_closing_tag name, attrs = {}
         "<#{name}#{optional_attrs(attrs)}/>"
       end
       
@@ -70,8 +70,8 @@ module DataMapper
       
       #:stopdoc:
       
-      def optional_attrs attrs = nil
-        ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty?
+      def optional_attrs attrs = {}
+        ' ' + attrs.to_html_attributes unless attrs.blank?
       end
       
     end
