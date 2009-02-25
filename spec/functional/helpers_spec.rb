@@ -57,6 +57,11 @@ describe DataMapper::Form::Helpers do
         form.should have_tag('input[@name=op]')
       end
     end
+    
+    it "should create a form with get method" do
+      markup = form :action => '/login', :method => :get
+      puts markup
+    end
   end
   
   describe "#form" do
