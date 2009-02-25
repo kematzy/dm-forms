@@ -3,42 +3,6 @@
 
 DataMapper model form generation.
 
-<<<<<<< HEAD:README.rdoc
-=======
-== Features:
-
-* Integrates with DataMapper
-* Fast; over 1000 elements in 0.1 seconds (rake benchmark)
-* Error reporting
-* Handles restful HTTP verbs
-* Provides low-level form elements uncoupled from DataMapper
-
-== Examples:
-
-Pretend in a magical world we have a User model, and only the email is valid while we are updating.
-Based on the situation above, the form would render similar to the markup beneath the
-example.
-
-   errors_for @user
-   form_for @user, :action => '/user' do |f|
-     f.textfield :name, :label => 'Name'
-     f.textfield :email, :label => 'Email'
-     f.submit :op, :value => 'Update'
-   end
-
-   <ul class="messages error">
-     <li>Name has an invalid format</li>
-   </ul>
-   <form action="/user" method="post" id="form-user">
-     <input type="hidden" name="_method" value="put" />
-     <label for="name">Name:</label>
-     <input type="textfield" class="error form-textfield form-name" name="name" />
-     <label for="email">Email:</label>
-     <input type="textfield" class="form-textfield form-email" name="email" />
-     <input type="submit" class="form-submit form-op" value="Update" name="op" />
-   </form>
-
->>>>>>> 568a4a0... - Updated benchmarks:README.rdoc
 == License:
 
 (The MIT License)

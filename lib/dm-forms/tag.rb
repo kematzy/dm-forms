@@ -35,7 +35,7 @@ module DataMapper
       
       def tag name, contents = nil, attrs = {}, &block
         attrs, contents = contents, nil if contents.is_a? Hash 
-        contents = capture(&block) if block_given?
+        contents = yield if block_given?
         open_tag(name, attrs) + contents.to_s + close_tag(name)
       end
     
@@ -46,7 +46,7 @@ module DataMapper
       # Note: This tag will need to be closed
       
       def open_tag name, attrs = nil
-        "<#{name}#{ ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty? }>"
+        "<#{name}#{optional_attrs(attrs)}>"
       end
     
       ##
@@ -63,12 +63,25 @@ module DataMapper
       # +attrs+ : a hash where all members will be mapped to key="value"
       
       def self_closing_tag name, attrs = nil
-        "<#{name}#{ ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty? }/>"
+        "<#{name}#{optional_attrs(attrs)}/>"
       end
       
-      def capture &block #:nodoc:
-        value = yield
-        value.to_s
+      private
+      
+      #:stopdoc:
+      
+      def optional_attrs attrs = nil
+        ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty?
+      end
+      
+      def capture &block
+        @buffer = ''
+        if block.arity > 0
+          yield self
+        else
+          instance_eval &block
+        end
+        @buffer
       end
       
     end

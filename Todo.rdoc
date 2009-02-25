@@ -1,6 +1,8 @@
 
 == Major:
 
+* abstract ORM ? rename from dm-forms ... have ORM mixins
+* only one context so dont use all those methods? just capture with optional builder base?
 * self closing tags auto self-close
 * DSL DSL for indentations
 * Add examples / benchmarks again
