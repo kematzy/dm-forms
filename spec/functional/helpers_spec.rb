@@ -63,6 +63,19 @@ describe DataMapper::Form::Helpers do
       end
       markup.should have_tag('form[@method=get]')
     end
+    
+    it "should use multipart encoding when multipart is set" do
+      markup = form :action => '/login', :multipart => true do
+      end
+      markup.should have_tag('form[@enctype=multipart/form-data]')
+    end
+    
+    it "should use multipart encoding a file field is present" do
+      markup = form :action => '/login'do
+        file :name => 'image'
+      end
+      markup.should have_tag('form[@enctype=multipart/form-data]')
+    end
   end
   
   describe "#form" do

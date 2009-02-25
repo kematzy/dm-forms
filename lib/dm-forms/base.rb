@@ -12,8 +12,9 @@ module DataMapper
       end
       
       def form attrs = {}, &block
+        captured = origin.capture &block
         faux_method = process_form_attrs(attrs)
-        origin.buffer << tag(:form, origin.capture(&block), attrs)
+        origin.buffer << tag(:form, captured, attrs)
       end
       
       def fieldset attrs = {}, &block
@@ -29,6 +30,7 @@ module DataMapper
       
       %w( textfield submit file button hidden password radio checkbox ).each do |type|
         define_method :"unbound_#{type}" do |attrs|
+          @multipart = true if type == 'file'
           attrs ||= {}
           attrs[:type] = type
           origin.buffer << self_closing_tag(:input, attrs)
@@ -39,7 +41,7 @@ module DataMapper
       
       def process_form_attrs attrs = {}
         attrs[:method] = :post if !attrs.include?(:method) or attrs[:method] != :get
-        attrs[:enctype] = "multipart/form-data" if attrs.delete(:multipart) || @multipart
+        attrs[:enctype] = 'multipart/form-data' if @multipart || attrs.delete(:multipart)
         attrs[:method].in?(:post, :get) ? '' : faux_method(attrs)
       end
 
