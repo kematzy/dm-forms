@@ -14,7 +14,6 @@ describe DataMapper::Form::Descriptions do
     markup = textfield :name => 'email', :description => 'Please enter a valid email.'
     markup.should have_tag('input[@type=textfield]')
     markup.should have_tag('span[@class=description]')
-    puts markup
   end
   
 end
