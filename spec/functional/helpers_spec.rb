@@ -71,10 +71,21 @@ describe DataMapper::Form::Helpers do
     end
     
     it "should use multipart encoding a file field is present" do
-      markup = form :action => '/login'do
+      markup = form :action => '/login' do
         file :name => 'image'
       end
       markup.should have_tag('form[@enctype=multipart/form-data]')
+    end
+    
+    it "should create a hidden input with _method when anything but get or post" do
+      markup = form :method => :put do
+        file :name => 'image'
+      end
+      markup.should have_tag('form[@method=post]')
+      markup.should have_tag('input[@type=hidden]') do |input|
+        input.attributes['name'].should == '_method'
+        input.attributes['value'].should == 'put'
+      end
     end
   end
   

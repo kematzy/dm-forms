@@ -13,8 +13,8 @@ module DataMapper
       
       def form attrs = {}, &block
         captured = origin.capture &block
-        faux_method = process_form_attrs(attrs)
-        origin.buffer << tag(:form, captured, attrs)
+        faux_method = process_form_attrs attrs 
+        origin.buffer << tag(:form, faux_method + captured, attrs)
       end
       
       def fieldset attrs = {}, &block
@@ -40,14 +40,15 @@ module DataMapper
       private 
       
       def process_form_attrs attrs = {}
-        attrs[:method] = :post if !attrs.include?(:method) or attrs[:method] != :get
+        attrs[:method] ||= :post
+        method = attrs[:method] 
+        attrs[:method] = :post if attrs[:method] != :get
         attrs[:enctype] = 'multipart/form-data' if @multipart || attrs.delete(:multipart)
-        attrs[:method].in?(:post, :get) ? '' : faux_method(attrs)
+        method.in?(:post, :get) ? '' : faux_method(method)
       end
 
-
-      def faux_method attrs = {}
-        self_closing_tag :input, :type => "hidden", :name => "_method", :value => attrs[:method]
+      def faux_method method
+        unbound_hidden :name => '_method', :value => method
       end
 
     end
