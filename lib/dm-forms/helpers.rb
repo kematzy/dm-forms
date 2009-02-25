@@ -11,12 +11,12 @@ module DataMapper
         @__form_context ||= new_form_context *args
       end
       
-      def with_form_context name, attrs = {}, &block
-        new_form_context(name).instance_eval &block
+      def with_form_context model, &block
+        new_form_context(model).instance_eval &block
       end
       
-      def fields_for name, attrs = {}, &block 
-        with_form_context name do
+      def fields_for model, attrs = {}, &block 
+        with_form_context model do
           capture &block
         end
       end
@@ -24,15 +24,15 @@ module DataMapper
       %w( form fieldset ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
           def #{type} *args, &block 
-            form_context(nil, nil).#{type} *args, &block
+            form_context(nil, self).#{type} *args, &block
           end
         EOF
       end
       
       %w( form_for fieldset_for ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
-          def #{type} name, attrs = {}, &block
-            with_form_context name do
+          def #{type} model, attrs = {}, &block
+            with_form_context model do
               #{type} attrs, &block
             end
           end
@@ -43,7 +43,7 @@ module DataMapper
       hidden password radio select textfield ).each do |type|
         define_method type do |*args|
           meth = bound? *args ? "bound_#{type}" : "unbound_#{type}"
-          form_context.send meth, *args
+          form_context(nil, self).send meth, *args
         end
       end
       
