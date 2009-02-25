@@ -4,7 +4,7 @@ module DataMapper
     module Helpers
       
       def new_form_context *args
-        DataMapper::Form::Base.new *args
+        Base.new *args
       end
       
       def form_context *args
