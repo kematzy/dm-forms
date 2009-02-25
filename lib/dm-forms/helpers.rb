@@ -206,24 +206,6 @@ module DataMapper
       #
       
       def hidden; end
-
-      ##
-      # Provides a generic HTML label.
-      #
-      # ==== Parameters
-      # attrs<Hash>:: HTML attributes
-      #
-      # ==== Returns
-      # String:: HTML
-      #
-      # ==== Example
-      #   <%= label "Full Name", :for => "name" %> 
-      #   => <label for="name">Full Name</label>
-      #
-      
-      def label *args 
-        current_form_context.label(*args)
-      end
       
       ##
       # Provides a HTML password input.
@@ -381,6 +363,35 @@ module DataMapper
       def button; end
   
       ##
+      # Generates a HTML submit button.
+      #
+      # ==== Parameters
+      # value<String>:: Sets the value="" attribute
+      # attrs<Hash>:: HTML attributes
+      #
+      # ==== Returns
+      # String:: HTML
+      #
+      # ==== Example
+      #   <%= submit "Process" %>
+      #
+      
+      def submit; end
+
+      # TODO: radio_group helper still needs to be implemented
+      
+      %w( submit button textfield password hidden file
+      textarea select checkbox radio radio_group ).each do |type|
+        define_method type do |*args|
+          if bound? *args
+            current_context.send :"bound_#{type}", *args
+          else
+            current_context.send :"unbound_#{type}", *args
+          end
+        end
+      end
+      
+      ##
       # Generates a HTML delete button.
       #
       # If an object is passed as first parameter, Merb will try to use the resource url for the object
@@ -400,7 +411,7 @@ module DataMapper
       #
       
       def delete_button object_or_url, contents="Delete", attrs = {}
-        # TODO: alter ... since we do not work with mvc route mapping
+        # TODO: alter / clean up / rename ... since we do not work with mvc route mapping
         url = object_or_url.is_a?(String) ? object_or_url : resource(object_or_url)
         button_text = (contents || 'Delete')
         tag :form, :class => 'delete-btn', :action => url, :method => :post do
@@ -408,37 +419,7 @@ module DataMapper
           tag(:input, attrs.merge(:value => button_text, :type => :submit))
         end
       end
-
-      ##
-      # Generates a HTML submit button.
-      #
-      # ==== Parameters
-      # value<String>:: Sets the value="" attribute
-      # attrs<Hash>:: HTML attributes
-      #
-      # ==== Returns
-      # String:: HTML
-      #
-      # ==== Example
-      #   <%= submit "Process" %>
-      #
       
-      def submit; end
-      
-      # TODO: better means of metaprogramming unbound versions
-
-      # TODO: radio_group helper still needs to be implemented
-      %w( submit button textfield password hidden file
-          textarea select checkbox radio radio_group ).each do |type|
-        define_method type do |*args|
-          if bound? *args
-            current_context.send :"bound_#{type}", *args
-          else
-            current_context.send :"unbound_#{type}", *args
-          end
-        end
-      end
-
       private
       
       #:stopdoc:
