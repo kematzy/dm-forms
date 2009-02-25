@@ -44,13 +44,14 @@ describe DataMapper::Form::Helpers do
   end
   
   describe "#form" do
-    it "should create a form" do
+    it "should create a form, defaulting method to post" do
       markup = form :action => '/login' do
         textfield :name => 'name'
         textfield :name => 'pass'
         submit :name => 'op', :value => 'Login'
       end
       markup.should have_tag('form[@action=/login]') do |form|
+        form.attributes['method'].should == 'post'
         form.should have_tag('input[@name=name]')
         form.should have_tag('input[@name=pass]')
         form.should have_tag('input[@name=op]')

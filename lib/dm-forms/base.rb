@@ -13,7 +13,8 @@ module DataMapper
         @model, @origin = model, origin
       end
       
-      def form attrs = {}, &block 
+      def form attrs = {}, &block
+        attrs[:method] ||= :post
         origin.buffer << tag(:form, origin.capture(&block), attrs)
       end
       

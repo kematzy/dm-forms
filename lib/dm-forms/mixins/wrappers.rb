@@ -11,12 +11,13 @@ module DataMapper::Form::Wrappers
   end
   
   def wrapper_open name, attrs = {}
+    return '' if [:form, :fieldset].include? name
     type = attrs.include?(:type) ? attrs[:type] : name
-    %(<div class="form-#{type} form-#{attrs[:name]}">)
+    %(<div class="form-#{type} form-#{attrs[:name]}">\n)
   end
   
   def wrapper_close
-    '</div>'
+    "</div>\n"
   end
   
 end

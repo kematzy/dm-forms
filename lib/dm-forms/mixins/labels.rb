@@ -10,7 +10,7 @@ module DataMapper::Form::Labels
   end
   
   def label_tag attrs = {}
-    (label = attrs.delete(:label)) ? %(<label for="#{attrs[:name]}">#{label}</label>) : ''
+    (label = attrs.delete(:label)) ? %(<label for="#{attrs[:name]}">#{label}</label>\n) : ''
   end
   
 end

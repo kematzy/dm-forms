@@ -53,7 +53,7 @@ module DataMapper
       # Creates a closing tag
       
       def close_tag name 
-        "</#{name}>"
+        "</#{name}>\n"
       end
     
       ##
@@ -63,7 +63,7 @@ module DataMapper
       # +attrs+ : a hash where all members will be mapped to key="value"
       
       def self_closing_tag name, attrs = {}
-        "<#{name}#{optional_attrs(attrs)}/>"
+        "<#{name}#{optional_attrs(attrs)}/>\n"
       end
       
       private

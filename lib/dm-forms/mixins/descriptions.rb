@@ -12,7 +12,7 @@ module DataMapper::Form::Descriptions
   end
   
   def description_tag attrs = {}
-    (description = attrs.delete(:description)) ? %(<span class="description">#{description}</span>) : ''
+    (description = attrs.delete(:description)) ? %(<span class="description">#{description}</span>\n) : ''
   end
   
 end      
