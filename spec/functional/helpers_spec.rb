@@ -23,4 +23,14 @@ describe DataMapper::Form::Helpers do
     end
   end
   
+  %w( textfield submit file button hidden password radio checkbox ).each do |type|
+    describe "##{type}" do
+      it "should create an unbound #{type}" do
+        send(type, :id => 'foo').should have_tag("input[@type=#{type}]") do |tag|
+          tag.attributes['id'].should == 'foo'
+        end
+      end
+    end
+  end
+  
 end

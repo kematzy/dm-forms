@@ -39,11 +39,11 @@ module DataMapper
         EOF
       end
       
-      %w( input checkbox button file textarea submit 
+      %w( checkbox button file textarea submit 
       hidden password radio select textfield ).each do |type|
         define_method type do |*args|
-          meth = bound? *args ? "bound_#{type}" : "unbound_#{type}"
-          form_context(nil, self).send meth, *args
+          method = bound?(*args) ? :"bound_#{type}" : :"unbound_#{type}"
+          form_context(nil, self).send method, *args
         end
       end
       

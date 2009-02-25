@@ -1,6 +1,5 @@
 
 module DataMapper::Form
-  autoload :Elements, 'dm-forms/mixins/elements'
   autoload :FauxMethod, 'dm-forms/mixins/faux_method'
   autoload :Errors, 'dm-forms/mixins/errors'
   autoload :Labels, 'dm-forms/mixins/labels'
