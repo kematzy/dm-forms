@@ -75,6 +75,7 @@ describe DataMapper::Form::Helpers do
         file :name => 'image'
       end
       markup.should have_tag('form[@enctype=multipart/form-data]')
+      markup.should_not have_tag('input[@type=hidden]')
     end
     
     it "should create a hidden input with _method when anything but get or post" do
