@@ -7,8 +7,6 @@ module DataMapper
       
       attr_reader :model, :origin
       
-      # TODO: use origin for params[] etc
-      
       def initialize model = nil, origin = nil
         @model, @origin = model, origin
       end

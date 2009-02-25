@@ -3,8 +3,20 @@ module DataMapper
   module Form
     module Helpers
       
-      def fields_for model, attrs = {}, &block 
-        with_form_context model do
+      def new_form_context *args
+        DataMapper::Form::Base.new *args
+      end
+      
+      def form_context *args
+        @__form_context ||= new_form_context *args
+      end
+      
+      def with_form_context name, attrs = {}, &block
+        new_form_context(name).instance_eval &block
+      end
+      
+      def fields_for name, attrs = {}, &block 
+        with_form_context name do
           capture &block
         end
       end
@@ -19,8 +31,8 @@ module DataMapper
       
       %w( form_for fieldset_for ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
-          def #{type} model, attrs = {}, &block
-            with_form_context model do
+          def #{type} name, attrs = {}, &block
+            with_form_context name do
               #{type} attrs, &block
             end
           end
