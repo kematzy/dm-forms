@@ -1,8 +1,8 @@
 
-describe DataMapper::Form::Wrapper do
+describe DataMapper::Form::Wrappers do
   
   include DataMapper::Form::Helpers
-  DataMapper::Form::Base.send :include, DataMapper::Form::Wrapper
+  DataMapper::Form::Base.send :include, DataMapper::Form::Wrappers
   
   it "should create wrappers around elements for styling" do
     markup = textarea :name => 'comments'

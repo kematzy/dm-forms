@@ -1,5 +1,5 @@
 
-module DataMapper::Form::Wrapper
+module DataMapper::Form::Wrappers
   
   def tag name, contents = nil, attrs = {}, &block
     attrs, contents = contents, nil if contents.is_a? Hash
