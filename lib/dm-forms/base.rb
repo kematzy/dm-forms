@@ -13,9 +13,13 @@ module DataMapper
         @model, @origin = model, origin
       end
       
+      def form attrs = {}, &block 
+        origin.buffer << tag(:form, origin.capture(&block), attrs)
+      end
+      
       %w( textarea select ).each do |type|
         define_method :"unbound_#{type}" do |attrs|
-          tag type, attrs
+          origin.buffer << tag(type, attrs)
         end
       end
       
@@ -23,7 +27,7 @@ module DataMapper
         define_method :"unbound_#{type}" do |attrs|
           attrs ||= {}
           attrs[:type] = type
-          self_closing_tag :input, attrs
+          origin.buffer << self_closing_tag(:input, attrs)
         end
       end
 

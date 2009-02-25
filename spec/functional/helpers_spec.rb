@@ -42,5 +42,20 @@ describe DataMapper::Form::Helpers do
       end
     end
   end
+  
+  describe "#form" do
+    it "should a form" do
+      markup = form :action => '/login' do
+        textfield :name => 'name'
+        textfield :name => 'pass'
+        submit :name => 'op', :value => 'Login'
+      end
+      markup.should have_tag('form[@action=/login]') do |form|
+        form.should have_tag('input[@name=name]')
+        form.should have_tag('input[@name=pass]')
+        form.should have_tag('input[@name=op]')
+      end
+    end
+  end
     
 end
