@@ -3,6 +3,8 @@ module DataMapper
   module Form
     class Base
       
+      SELF_CLOSING_ELEMENTS = :textfield, :submit, :file, :button, :hidden, :password, :radio, :checkbox
+      
       include Tag
       
       attr_reader :model, :origin
@@ -28,16 +30,21 @@ module DataMapper
         end
       end
       
-      %w( textfield submit file button hidden password radio checkbox ).each do |type|
+      SELF_CLOSING_ELEMENTS.each do |type|
         define_method :"unbound_#{type}" do |attrs|
-          @multipart = true if type == 'file'
-          attrs ||= {}
-          attrs[:type] = type
+          process_unbound_element type, attrs
           origin.buffer << self_closing_tag(:input, attrs)
         end
       end
       
       private 
+      #attrs[:checked] = attrs.key?(:on) ? val == attrs[:on] : considered_true?(val)
+      
+      def process_unbound_element type, attrs
+        attrs ||= {}
+        attrs[:type] = type if type.in? SELF_CLOSING_ELEMENTS
+        @multipart = true if type == :file
+      end
       
       def process_form_attrs attrs = {}
         attrs[:method] ||= :post
