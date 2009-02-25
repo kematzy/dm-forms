@@ -4,9 +4,6 @@ describe DataMapper::Form::Tag do
   include DataMapper::Form::Tag
   
   describe "#tag" do
-    it "should " do
-      p tag(:br)
-    end
     it "should create a simple tag" do
       tag(:div).should have_tag('div')
     end

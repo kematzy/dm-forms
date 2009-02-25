@@ -389,58 +389,7 @@ module DataMapper
         end
       end
 
-      module Errorifier
-        def error_messages_for obj, error_class, build_li, header, before 
-          # TODO: clean this up
-          obj ||= @obj
-          return '' unless obj.respond_to?(:errors)
 
-          errors = obj.errors
-
-          return '' if errors.empty?
-
-          header_message = header % [errors.size, errors.size == 1 ? '' : 's']
-          markup = %Q{<div class='#{error_class}'>#{header_message}<ul>}
-          errors.each {|err| markup << (build_li % err.join(" "))}
-          markup << %Q{</ul></div>}
-        end
-
-        private
-
-        def update_bound_controls method, attrs, type 
-          if @obj && !@obj.errors.on(method.to_sym).blank?
-            add_css_class(attrs, "error")
-          end
-          super
-        end
-      end
-
-      class FormWithErrors < Form
-        include Errorifier
-      end
-
-      module Resourceful
-        private
-
-        def process_form_attrs attrs 
-          # TODO: default action to same url since we do not map routes to models
-          # TODO: add required labelifier module, checking nullable on properties
-          # TODO: add div wrapper module
-          # TODO: add support for descriptions
-          # TODO: aliases for textfield etc
-          #attrs[:action] ||= @origin.url(@name, @obj) if @origin
-          super
-        end
-      end
-
-      class ResourcefulForm < Form
-        include Resourceful
-      end
-
-      class ResourcefulFormWithErrors < FormWithErrors
-        include Errorifier
-        include Resourceful
-      end
     end
   end
 end

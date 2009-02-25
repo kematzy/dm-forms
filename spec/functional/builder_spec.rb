@@ -1,14 +1,15 @@
 
 describe DataMapper::Form::Builder do
   
- describe "Base" do
-   before :each do
-     @builder = DataMapper::Form::Builder::Base.new
-   end
-   
-   it "should description" do
-
-   end
- end
+  include DataMapper::Form::Helpers
+  
+  it "should description" do
+    results = form :action => '/login' do
+      text_field :name, :label => 'Username'
+      password_field :pass, :label => 'Password'
+      submit 'Login'
+    end
+    p results
+  end
   
 end

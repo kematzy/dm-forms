@@ -1,38 +1,8 @@
 
 == Major:
 
-* Steal merb helpers ... forms ... timeDSL etc
-* How does datamapper auto-migrate?
-* In sinatra app test mass assignment in 'virtual attribute'
-  * have tasks= or something .. and mass assign them in using form tasks[] =
-
-* Form for :model_name, dont pass a new one!! 
-* fields_for ? ... switching context
-* Default regulars to _tag ... and not _tag will be associated to model attributes via ModelElements ...
-* Remove errors_for? or use as helper ... state is needed
-* Make sure error classes work
-* Best way around putting 'user[name]' for element name etc? or just assume form_for will need this?
-* Meta
-* Checkboxes submit "on" ... bool
-* Fix classes applied when using user[name] etc should be user-name
-* Add destroy element, which is just submit with a special class etc for confirmation usage / DELETE
-* ^ alias as delete
-* <optgroup label
-* Populate defaults when using form_for on a record that exists, have :default for when they do not. consult merb
-* Allow arbitrary errors to be set when dealing with non-model forms / field errors etc
-* Allow :action, :href, and :src to be :url as well, to conform to Rails and others
-* Add; assign :required based on model property
-* Add enctype automatically
-* Fix select option ordering ... poor unordered hashes :(
-* Add support for nesting in select options, and select groups
-* Add; escape xml in attrs
-* Add support for both instance_eval and block
-* Change; wrap all in div class="form-TYPE" and adjust spec...
-* Validate xhtml
-* Add some optional post indenting
-* Change; Use humanize in extlib
-* Change; preview rdoc / finish documenting ...
-* Change; clean up examples
+* Builder mixins
+* Make sure othe frameworks can plug in their functionality
 
 == Minor:
 
