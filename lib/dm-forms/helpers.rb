@@ -8,7 +8,7 @@ module DataMapper
       #++
       
       def _singleton_form_context
-        @_default_builder ||= Builder::ResourcefulFormWithErrors
+        @_default_builder ||= Builder::Base
         @_singleton_form_context ||= @_default_builder.new(nil, nil, self)
       end
 
@@ -37,9 +37,7 @@ module DataMapper
         ret
       end
       
-      def capture &block
-        instance_eval &block
-      end
+
 
       ##
       # Generates a form tag, which accepts a block that is not directly based on resource attributes
@@ -504,9 +502,19 @@ module DataMapper
       alias error_messages error_messages_for
 
       private
-
+      
+      #:stopdoc:
+      
+      def capture &block
+        if block.arity > 0
+          yield self
+        else
+          instance_eval &block
+        end
+      end
+      
       def bound? *args 
-        args.first.is_a?(Symbol)
+        args.first.is_a? Symbol
       end
       
     end
