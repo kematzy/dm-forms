@@ -11,7 +11,7 @@ module DataMapper::Form::Wrappers
   end
   
   def wrapper_open name, attrs = {}
-    return '' if [:form, :fieldset].include? name
+    return '' if name.in?(:form, :fieldset)
     type = attrs.include?(:type) ? attrs[:type] : name
     %(<div class="form-#{type} form-#{attrs[:name]}">\n)
   end

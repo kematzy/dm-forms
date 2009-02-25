@@ -12,7 +12,7 @@ module DataMapper
       end
       
       def form attrs = {}, &block
-        attrs[:method] ||= :post
+        faux_method = process_form_attrs(attrs)
         origin.buffer << tag(:form, origin.capture(&block), attrs)
       end
       
@@ -33,6 +33,19 @@ module DataMapper
           attrs[:type] = type
           origin.buffer << self_closing_tag(:input, attrs)
         end
+      end
+      
+      private 
+      
+      def process_form_attrs attrs = {}
+        attrs[:method] = :post if !attrs.include?(:method) or attrs[:method] != :get
+        attrs[:enctype] = "multipart/form-data" if attrs.delete(:multipart) || @multipart
+        attrs[:method].in?(:post, :get) ? '' : faux_method(attrs)
+      end
+
+
+      def faux_method attrs = {}
+        self_closing_tag :input, :type => "hidden", :name => "_method", :value => attrs[:method]
       end
 
     end
