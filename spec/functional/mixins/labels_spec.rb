@@ -2,7 +2,7 @@
 describe DataMapper::Form::Labels do
   
   include DataMapper::Form::Helpers
-  include DataMapper::Form::Labels
+  DataMapper::Form::Base.send :include, DataMapper::Form::Labels
   
   it "should create elements like normal when labels are not utilized" do
     markup = textfield :name => 'email'

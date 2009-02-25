@@ -2,7 +2,7 @@
 describe DataMapper::Form::Descriptions do
   
   include DataMapper::Form::Helpers
-  include DataMapper::Form::Descriptions
+  DataMapper::Form::Base.send :include, DataMapper::Form::Descriptions
   
   it "should create elements like normal when descriptions are not utilized" do
     markup = textfield :name => 'email'

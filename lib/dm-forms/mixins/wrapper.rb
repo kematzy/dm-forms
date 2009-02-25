@@ -2,6 +2,7 @@
 module DataMapper::Form::Wrapper
   
   def tag name, contents = nil, attrs = {}, &block
+    attrs, contents = contents, nil if contents.is_a? Hash
     wrapper_open(name, attrs) + super + wrapper_close
   end
   
@@ -10,7 +11,7 @@ module DataMapper::Form::Wrapper
   end
   
   def wrapper_open name, attrs = {}
-    type = attrs.include? :type ? attrs[:type] : name
+    type = attrs.include?(:type) ? attrs[:type] : name
     %(<div class="form-#{type} form-#{attrs[:name]}">)
   end
   
