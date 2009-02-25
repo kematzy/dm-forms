@@ -74,16 +74,6 @@ module DataMapper
         ' ' + attrs.to_html_attributes unless attrs.nil? or attrs.empty?
       end
       
-      def capture &block
-        @buffer = ''
-        if block.arity > 0
-          yield self
-        else
-          instance_eval &block
-        end
-        @buffer
-      end
-      
     end
   end
 end
