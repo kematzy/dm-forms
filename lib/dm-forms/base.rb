@@ -13,6 +13,12 @@ module DataMapper
         @model, @origin = model, origin
       end
       
+      %w( textarea select ).each do |type|
+        define_method :"unbound_#{type}" do |attrs|
+          tag type, attrs
+        end
+      end
+      
       %w( textfield submit file button hidden password radio checkbox ).each do |type|
         define_method :"unbound_#{type}" do |attrs|
           attrs ||= {}
