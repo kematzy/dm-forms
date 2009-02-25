@@ -11,23 +11,6 @@ module DataMapper
         Builder::Base.new
       end
       
-      # TODO: private?
-
-      def contexts
-        @__contexts ||= []
-      end
-      
-      def current_context
-        contexts.last
-      end
-
-      def with_context name, &block
-        form_contexts.push new_form_context
-        ret = yield
-        contexts.pop
-        ret
-      end
-
       ##
       # Generates a form tag, which accepts a block that is not directly based on resource attributes
       #
@@ -181,7 +164,7 @@ module DataMapper
       #   <%= check_box :is_activated, :label => "Activated?" %>
       #
       
-      def check_box; end
+      def checkbox; end
 
       ##
       # Provides a HTML file input
@@ -201,7 +184,7 @@ module DataMapper
       #   <%= file_field :file, :label => "Choose a file" %>
       #
       
-      def file_field; end
+      def file; end
 
       ##
       # Provides a HTML hidden input field
@@ -222,7 +205,7 @@ module DataMapper
       #   # => <input type="hidden" id="person_identifier" name="person[identifier]" value="#{@person.identifier}" />
       #
       
-      def hidden_field; end
+      def hidden; end
 
       ##
       # Provides a generic HTML label.
@@ -261,7 +244,7 @@ module DataMapper
       #   <%= password_field :password, :label => 'New Password' %>
       #
       
-      def password_field; end
+      def password; end
 
       ##
       # Provides a HTML radio input tag
@@ -285,7 +268,7 @@ module DataMapper
       #   <% end =%>
       #
       
-      def radio_button; end
+      def radio; end
 
       ##
       # Provides a radio group based on a resource attribute.
@@ -350,7 +333,7 @@ module DataMapper
       #   <%= text_area :comments %>
       #
       
-      def text_area; end
+      def textarea; end
 
       ##
       # Provides a HTML text input tag
@@ -373,25 +356,8 @@ module DataMapper
       #   <% end =%>
       #
       
-      def text_field; end
+      def textfield; end
       
-      # TODO: better means of metaprogramming unbound versions
-      # TODO: pull them into this... not Base
-
-      # @todo radio_group helper still needs to be implemented
-      %w(text_field password_field hidden_field file_field
-      text_area select check_box radio_button radio_group).each do |kind|
-        self.class_eval <<-RUBY, __FILE__, __LINE__ + 1
-          def #{kind}(*args)
-            if bound?(*args)
-              current_context.bound_#{kind}(*args)
-            else
-              current_context.unbound_#{kind}(*args)
-            end
-          end
-        RUBY
-      end
-
       ##
       # Generates a HTML button.
       #
@@ -412,9 +378,7 @@ module DataMapper
       #   <%= button "Initiate Launch Sequence" %>
       #
       
-      def button contents, attrs = {} 
-        current_form_context.button contents, attrs 
-      end
+      def button; end
   
       ##
       # Generates a HTML delete button.
@@ -459,13 +423,40 @@ module DataMapper
       #   <%= submit "Process" %>
       #
       
-      def submit contents, attrs = {} 
-        current_form_context.submit(contents, attrs)
+      def submit; end
+      
+      # TODO: better means of metaprogramming unbound versions
+
+      # TODO: radio_group helper still needs to be implemented
+      %w( submit button textfield password hidden file
+          textarea select checkbox radio radio_group ).each do |type|
+        define_method type do |*args|
+          if bound? *args
+            current_context.send :"bound_#{type}", *args
+          else
+            current_context.send :"unbound_#{type}", *args
+          end
+        end
       end
 
       private
       
       #:stopdoc:
+      
+      def contexts
+        @__contexts ||= []
+      end
+      
+      def current_context
+        contexts.last
+      end
+
+      def with_context name, &block
+        form_contexts.push new_form_context
+        ret = yield
+        contexts.pop
+        ret
+      end
       
       def capture &block
         if block.arity > 0
