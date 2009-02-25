@@ -17,6 +17,11 @@ module DataMapper
         origin.buffer << tag(:form, origin.capture(&block), attrs)
       end
       
+      def fieldset attrs = {}, &block
+        legend_tag = (legend = attrs.delete(:legend)) ? tag(:legend, legend) : ''
+        origin.buffer << tag(:fieldset, legend_tag + origin.capture(&block), attrs)
+      end
+      
       %w( textarea select ).each do |type|
         define_method :"unbound_#{type}" do |attrs|
           origin.buffer << tag(type, attrs)

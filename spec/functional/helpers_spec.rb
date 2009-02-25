@@ -44,7 +44,7 @@ describe DataMapper::Form::Helpers do
   end
   
   describe "#form" do
-    it "should a form" do
+    it "should create a form" do
       markup = form :action => '/login' do
         textfield :name => 'name'
         textfield :name => 'pass'
@@ -54,6 +54,35 @@ describe DataMapper::Form::Helpers do
         form.should have_tag('input[@name=name]')
         form.should have_tag('input[@name=pass]')
         form.should have_tag('input[@name=op]')
+      end
+    end
+  end
+  
+  describe "#form" do
+    it "should create a form using yeild syntax" do
+      markup = form :action => '/login' do |f|
+        f.textfield :name => 'name'
+        f.textfield :name => 'pass'
+        f.submit :name => 'op', :value => 'Login'
+      end
+      markup.should have_tag('form[@action=/login]') do |form|
+        form.should have_tag('input[@name=name]')
+        form.should have_tag('input[@name=pass]')
+        form.should have_tag('input[@name=op]')
+      end
+    end
+  end
+  
+  describe "#fieldset" do
+    it "should a fieldset with optional legend" do
+      markup = fieldset :legend => 'User Details' do
+        textfield :name => 'name'
+        textfield :name => 'email'
+      end
+      markup.should have_tag('fieldset') do |fieldset|
+        fieldset.should have_tag('legend', 'User Details')
+        fieldset.should have_tag('input[@name=name]')
+        fieldset.should have_tag('input[@name=email]')
       end
     end
   end
