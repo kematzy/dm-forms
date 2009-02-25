@@ -1,10 +1,14 @@
 
 module DataMapper
   module Form
-    module Builder
-      class Base
-
+    class Base
+      
+      attr_reader :model, :origin
+      
+      def initialize model = nil, origin = nil
+        @model, @origin = model, origin
       end
+      
     end
   end
 end
