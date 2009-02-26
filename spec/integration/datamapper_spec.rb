@@ -67,14 +67,20 @@ describe DataMapper::Form::Helpers do
   
   describe "#fieldset_for" do
     it "should create a fieldset in context to a model" do
-      markup = fieldset_for @valid_user, :legend => 'User Details' do
-        textfield :name => 'name'
-        textfield :name => 'email'
+      markup = form_for @valid_user do
+        textfield :name, :id => 'username'
+        fieldset_for @admin_role, :legend => 'Role' do
+          textfield :name, :id => 'role-name'
+        end
+        textfield :pass, :id => 'password'
       end
-      markup.should have_tag('fieldset') do |fieldset|
-        fieldset.should have_tag('legend', 'User Details')
-        fieldset.should have_tag('input[@name=name]')
-        fieldset.should have_tag('input[@name=email]')
+      markup.should have_tag('form') do |form|
+        form.should have_tag('input[@name=user[name]]')
+        form.should have_tag('input[@name=user[pass]]')
+        form.should have_tag('fieldset') do |fieldset|
+          fieldset.should have_tag('legend', 'Role')
+          fieldset.should have_tag('input[@name=role[name]]')
+        end
       end
     end
   end
