@@ -8,6 +8,7 @@
 * self closing tags auto self-close to maximize mixin DRYness
 * Add examples / benchmarks again
 * Make sure othe frameworks can plug in their functionality
+* better naming conventions / refactor / release
 
 == Minor:
 

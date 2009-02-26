@@ -34,7 +34,10 @@ describe DataMapper::Form::Helpers do
         textfield :name, :id => 'username'
         textfield :pass, :id => 'password'
       end
-      puts markup
+      markup.should have_tag('form') do |form|
+        form.should have_tag('input[@name=user[name]]')
+        form.should have_tag('input[@name=user[pass]]')
+      end
     end
   end
   
