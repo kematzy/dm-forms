@@ -67,7 +67,7 @@ module DataMapper
           attrs[:name]  ||= 'submit'
           attrs[:value] ||= 'Submit'
         end
-        raise ArgumentError, 'form elements must have a name', caller(2) unless attrs.include? :name
+        raise ArgumentError, 'form elements must have a name', caller unless attrs.include? :name
       end
       
       def process_form_attrs attrs = {}
