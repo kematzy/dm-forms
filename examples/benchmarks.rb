@@ -6,7 +6,7 @@ require 'rgauge'
 
 include DataMapper::Form::Helpers
 
-benchmark 'Entire forms', :times => 10 do
+benchmark 'Entire forms', :times => 30 do
   report 'Login' do 
     form :action => '/login' do
       textfield :name, :id => 'username'
