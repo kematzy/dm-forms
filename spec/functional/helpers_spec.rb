@@ -54,6 +54,12 @@ describe DataMapper::Form::Helpers do
     end
   end
   
+  describe "#textarea" do
+    it "should default its contents using origin #params" do
+      textarea(:name => 'comments').should have_tag('textarea[@name=comments]', 'comments')
+    end
+  end
+  
   describe "#form" do
     it "should create a form, defaulting method to post" do
       markup = form :action => '/login' do

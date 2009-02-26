@@ -30,7 +30,11 @@ module DataMapper
       REGULAR_ELEMENTS.each do |type|
         define_method :"unbound_#{type}" do |attrs|
           process_unbound_element type, attrs
-          origin.buffer << tag(type, attrs)
+          if type == :textarea
+            origin.buffer << tag(type, element_value(attrs), attrs)
+          else
+            origin.buffer << tag(type, attrs)
+          end
         end
       end
       
@@ -61,7 +65,7 @@ module DataMapper
         attrs[:type] = type if type.in? SELF_CLOSING_ELEMENTS
         attrs[:value] = element_value attrs if type.in?(DEFAULT_VALUE_ELEMENTS - REGULAR_ELEMENTS)
         case type
-        when :file   
+        when :file
           @multipart = true
         when :submit 
           attrs[:name]  ||= 'submit'
