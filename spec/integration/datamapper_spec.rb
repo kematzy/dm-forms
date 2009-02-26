@@ -6,9 +6,10 @@ DataMapper.setup :default, 'sqlite3::memory:'
 
 class User
   include DataMapper::Resource
-  property :id,    Serial
-  property :name,  String, :format => /^[\w]+$/
-  property :email, String, :format => :email_address
+  property :id,        Serial
+  property :name,      String, :format => /^[\w]+$/
+  property :email,     String, :format => :email_address
+  property :signature, Text,   :nullable => true, :lazy => false
 end
 
 class User::Role
@@ -24,8 +25,8 @@ describe DataMapper::Form::Helpers do
   include DataMapper::Form::Helpers
   
   before :each do
-    @valid_user = User.new :name => 'foo bar', :email => 'is-valid@email.com'
-    @invalid_user = User.new :name => 'foobar',  :email => 'is-valid@email.com'
+    @valid_user = User.new :name => 'foo bar', :email => 'is-valid@email.com', :signature => 'i like cookies'
+    @invalid_user = User.new :name => 'foobar',  :email => 'is-valid@email.com', :signature => 'i like cookies'
     @admin_role = User::Role.new :name => 'admin'
   end
   
@@ -82,6 +83,15 @@ describe DataMapper::Form::Helpers do
           fieldset.should have_tag('input[@name=role[name]]')
         end
       end
+    end
+  end
+  
+  describe "#textarea" do
+    it "should default its contents using the models method" do
+      markup = fields_for @valid_user do
+        textarea :signature
+      end
+      markup.should have_tag('textarea[@name=user[signature]]', 'i like cookies')
     end
   end
   
