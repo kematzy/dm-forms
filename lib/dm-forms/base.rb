@@ -8,11 +8,11 @@ module DataMapper
       REGULAR_ELEMENTS = :textarea, :select
       SELF_CLOSING_ELEMENTS = :textfield, :submit, :file, :button, :hidden, :password, :radio, :checkbox
       
-      attr_reader :model, :origin
+      attr_reader :model, :origin, :name
       
       def initialize model = nil, origin = nil
         @model, @origin = model, origin
-        @name = @model.class.name.snake_case.split('/').last
+        @name = @model.class.name.downcase.split('::').last
       end
       
       def form attrs = {}, &block
