@@ -3,20 +3,8 @@ module DataMapper
   module Form
     module Helpers
       
-      def new_form_context *args
-        DataMapper::Form::Base.new *args
-      end
-      
-      def form_context *args
-        @__form_context ||= new_form_context *args
-      end
-      
-      def with_form_context name, attrs = {}, &block
-        new_form_context(name).instance_eval &block
-      end
-      
-      def fields_for name, attrs = {}, &block 
-        with_form_context name do
+      def fields_for model, attrs = {}, &block 
+        with_form_context model do
           capture &block
         end
       end
@@ -31,9 +19,9 @@ module DataMapper
       
       %w( form_for fieldset_for ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
-          def #{type} name, attrs = {}, &block
-            with_form_context name do
-              #{type} attrs, &block
+          def #{type} model, attrs = {}, &block
+            with_form_context model do
+              #{type.sub(/_for/, '')} attrs, &block
             end
           end
         EOF
@@ -57,15 +45,14 @@ module DataMapper
         @__form_context ||= new_form_context *args
       end
       
-      def with_form_context model, &block
-        new_form_context(model, self).instance_eval &block
+      def with_form_context model, attrs = {}, &block
+        @__form_context = nil
+        form_context(model, self).instance_eval &block
       end
       
       def bound? *args 
         args.first.is_a? Symbol
       end
-      
-      # TODO: how did merb do this part?
       
       def buffer string = nil
         @buffer ||= ''

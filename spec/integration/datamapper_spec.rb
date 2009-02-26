@@ -13,7 +13,7 @@ end
 
 DataMapper.auto_migrate!
 
-describe DataMapper::Form::Base do
+describe DataMapper::Form::Helpers do
   
   include DataMapper::Form::Helpers
   
@@ -25,6 +25,24 @@ describe DataMapper::Form::Base do
   describe "#new_form_context" do
     it "should generate a name used for prefixing form element names" do
       new_form_context(@valid_user, self).name.should == 'user'
+    end
+  end
+  
+  describe "#form_for" do
+    it "should create a form in context to a model" do
+      markup = form_for @valid_user do
+        textfield :name, :id => 'username'
+        textfield :pass, :id => 'password'
+      end
+      puts markup
+    end
+  end
+  
+  %w( textfield submit file button hidden password radio checkbox ).each do |type|
+    describe "##{type}" do
+      it "should create a bound #{type}" do
+        
+      end
     end
   end
   

@@ -12,7 +12,7 @@ module DataMapper
       
       def initialize model = nil, origin = nil
         @model, @origin = model, origin
-        @name = @model.class.name.downcase.split('::').last
+        @name = model.class.name.downcase.split('::').last
       end
       
       def form attrs = {}, &block
@@ -41,7 +41,8 @@ module DataMapper
       end
       
       (SELF_CLOSING_ELEMENTS | REGULAR_ELEMENTS).each do |type|
-        define_method :"bound_#{type}" do |method, attrs|
+        define_method :"bound_#{type}" do |*args|
+          method, attrs = args.shift, args.shift || {}
           process_bound_element type, method, attrs
           send :"unbound_#{type}", attrs
         end
@@ -50,7 +51,6 @@ module DataMapper
       private 
       
       def process_bound_element type, method, attrs
-        attrs ||= {}
         attrs[:name] = element_name method
       end
       
@@ -77,12 +77,12 @@ module DataMapper
       end
       
       def element_name method 
-        @model ? "#{@name}[#{method}]" : method
+        model ? "#{name}[#{method}]" : method
       end
       
-      def element_value method 
+      def element_value method
         # TODO: fix params issue
-        value = @model ? @model.send(method) : origin.params[method]
+        value = model ? model.send(method) : origin.params[method]
         value.to_s.escape_html
       end
       
