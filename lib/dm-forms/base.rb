@@ -12,6 +12,7 @@ module DataMapper
       
       def initialize model = nil, origin = nil
         @model, @origin = model, origin
+        @name = 'test' # TODO: generate name from model
       end
       
       def form attrs = {}, &block
@@ -39,7 +40,19 @@ module DataMapper
         end
       end
       
+      (SELF_CLOSING_ELEMENTS | REGULAR_ELEMENTS).each do |type|
+        define_method :"bound_#{type}" do |method, attrs|
+          process_bound_element type, method, attrs
+          send :"unbound_#{type}", attrs
+        end
+      end
+      
       private 
+      
+      def process_bound_element type, method, attrs
+        attrs ||= {}
+        attrs[:name] = element_name method
+      end
       
       def process_unbound_element type, attrs
         attrs ||= {}
@@ -62,7 +75,11 @@ module DataMapper
       def considered_true? value 
         value && value != "0" && value != 0
       end
-
+      
+      def element_name method 
+        @model ? "#{@name}[#{method}]" : method
+      end
+      
     end
   end
 end
