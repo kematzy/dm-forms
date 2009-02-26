@@ -46,8 +46,11 @@ module DataMapper
       end
       
       def with_form_context model, attrs = {}, &block
-        @__form_context = nil
-        form_context(model, self).instance_eval &block
+        last_context = form_context
+        @__form_context = new_form_context(model, self)
+        captured = instance_eval &block
+        @__form_context = last_context
+        captured
       end
       
       def bound? *args 

@@ -1,6 +1,8 @@
 
 == Major:
 
+* use stack (array) method for contexts ... cleaner than manual toggling
+* allow explicit context names, not just auto-generated from class names
 * fix elements duplicating above the form
 * view merb form helper specs to see what was missed
 * abstract ORM ? rename from dm-forms ... have ORM mixins
