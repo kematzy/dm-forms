@@ -41,6 +41,21 @@ describe DataMapper::Form::Helpers do
     end
   end
   
+  describe "#fieldset_for" do
+    it "should create a fieldset in context to a model" do
+      markup = fieldset_for @valid_user, :legend => 'User Details' do
+        textfield :name => 'name'
+        textfield :name => 'email'
+      end
+      puts markup
+      markup.should have_tag('fieldset') do |fieldset|
+        fieldset.should have_tag('legend', 'User Details')
+        fieldset.should have_tag('input[@name=name]')
+        fieldset.should have_tag('input[@name=email]')
+      end
+    end
+  end
+  
   %w( textfield submit file button hidden password radio checkbox ).each do |type|
     describe "##{type}" do
       it "should create a bound #{type}" do

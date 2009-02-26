@@ -104,7 +104,7 @@ describe DataMapper::Form::Helpers do
   end
   
   describe "#fieldset" do
-    it "should a fieldset with optional legend" do
+    it "should create a fieldset with optional legend" do
       markup = fieldset :legend => 'User Details' do
         textfield :name => 'name'
         textfield :name => 'email'
