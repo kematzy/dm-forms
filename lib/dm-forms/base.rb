@@ -3,10 +3,10 @@ module DataMapper
   module Form
     class Base
       
+      include Tag
+
       REGULAR_ELEMENTS = :textarea, :select
       SELF_CLOSING_ELEMENTS = :textfield, :submit, :file, :button, :hidden, :password, :radio, :checkbox
-      
-      include Tag
       
       attr_reader :model, :origin
       
