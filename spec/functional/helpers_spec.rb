@@ -116,5 +116,12 @@ describe DataMapper::Form::Helpers do
       end
     end
   end
-    
+  
+  describe "#submit" do
+    it "should default value to Submit, and name to submit" do
+      submit.should have_tag('input[@name=submit]')
+      submit.should have_tag('input[@value=Submit]')
+    end
+  end
+  
 end

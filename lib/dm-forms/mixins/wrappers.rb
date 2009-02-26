@@ -11,7 +11,7 @@ module DataMapper::Form::Wrappers
   end
   
   def self_closing_tag name, attrs = {}
-     wrapper_open(name, attrs) + super + wrapper_close
+    wrapper_open(name, attrs) + super + wrapper_close
   end
   
   def wrapper_open name, attrs = {}

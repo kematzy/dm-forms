@@ -8,6 +8,10 @@ module DataMapper
           capture &block
         end
       end
+      
+      def submit attrs = {}
+        form_context(nil, self).unbound_submit attrs
+      end
             
       %w( form fieldset ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
@@ -27,7 +31,7 @@ module DataMapper
         EOF
       end
       
-      %w( checkbox button file textarea submit 
+      %w( checkbox button file textarea 
       hidden password radio select textfield ).each do |type|
         define_method type do |*args|
           method = bound?(*args) ? :"bound_#{type}" : :"unbound_#{type}"

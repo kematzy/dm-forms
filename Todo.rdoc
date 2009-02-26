@@ -1,6 +1,8 @@
 
 == Major:
 
+* op or submit?
+* remove bound submit? others?
 * use stack (array) method for contexts ... cleaner than manual toggling
 * allow explicit context names, not just auto-generated from class names
 * fix elements duplicating above the form

@@ -57,7 +57,13 @@ module DataMapper
       def process_unbound_element type, attrs
         attrs ||= {}
         attrs[:type] = type if type.in? SELF_CLOSING_ELEMENTS
-        @multipart = true if type == :file
+        case type
+        when :file   
+          @multipart = true
+        when :submit 
+          attrs[:name]  ||= 'submit'
+          attrs[:value] ||= 'Submit'
+        end
       end
       
       def process_form_attrs attrs = {}
