@@ -2,7 +2,6 @@
 == Major:
 
 * fix elements duplicating above the form
-* have wrapper mixin do user-email classes instead of form-email
 * view merb form helper specs to see what was missed
 * abstract ORM ? rename from dm-forms ... have ORM mixins
 * only one context so dont use all those methods? just capture with optional builder base?
