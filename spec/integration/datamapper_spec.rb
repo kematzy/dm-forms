@@ -39,10 +39,10 @@ describe DataMapper::Form::Helpers do
     it "should create a form in context to a model" do
       markup = form_for @valid_user do
         textfield :name, :id => 'username'
-        textfield :pass, :id => 'password'
+        password :pass, :id => 'password'
       end
       markup.should have_tag('form') do |form|
-        form.should have_tag('input[@name=user[name]]')
+        form.should have_tag('input[@name=user[name]]') { |name| name.attributes['value'].should == 'foo bar' }
         form.should have_tag('input[@name=user[pass]]')
       end
     end
@@ -55,10 +55,10 @@ describe DataMapper::Form::Helpers do
         fields_for @admin_role do
           textfield :name, :id => 'role-name'
         end
-        textfield :pass, :id => 'password'
+        password :pass, :id => 'password'
       end
       markup.should have_tag('form') do |form|
-        form.should have_tag('input[@name=user[name]]')
+        form.should have_tag('input[@name=user[name]]') { |name| name.attributes['value'].should == 'foo bar' }
         form.should have_tag('input[@name=user[pass]]')
         form.should have_tag('input[@name=role[name]]')
       end
@@ -72,23 +72,15 @@ describe DataMapper::Form::Helpers do
         fieldset_for @admin_role, :legend => 'Role' do
           textfield :name, :id => 'role-name'
         end
-        textfield :pass, :id => 'password'
+        password :pass, :id => 'password'
       end
       markup.should have_tag('form') do |form|
-        form.should have_tag('input[@name=user[name]]')
-        form.should have_tag('input[@name=user[pass]]')
+        form.should have_tag('input[@name=user[name]]') { |name| name.attributes['value'].should == 'foo bar' }
+        form.should have_tag('input[@name=user[pass]]') 
         form.should have_tag('fieldset') do |fieldset|
           fieldset.should have_tag('legend', 'Role')
           fieldset.should have_tag('input[@name=role[name]]')
         end
-      end
-    end
-  end
-  
-  %w( textfield submit file button hidden password radio checkbox ).each do |type|
-    describe "##{type}" do
-      it "should create a bound #{type}" do
-        
       end
     end
   end

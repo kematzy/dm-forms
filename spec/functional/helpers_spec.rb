@@ -1,4 +1,9 @@
 
+def params
+  Hash.new { |h, k| k }
+end
+public :params
+
 describe DataMapper::Form::Helpers do
   
   include DataMapper::Form::Helpers
@@ -28,10 +33,14 @@ describe DataMapper::Form::Helpers do
       it "should create an unbound #{type}" do
         send(type, :name => 'foo').should have_tag("input[@type=#{type}]")
       end
-      
+    end
+  end
+  
+  %w( textfield radio checkbox ).each do |type|
+    describe "##{type}" do
       it "should use origin #params method to grab the default value when present" do
         send(type, :name => 'foo').should have_tag("input[@type=#{type}]") do |tag|
-          #tag.attributes['value'].should == type
+          tag.attributes['value'].should == 'foo'
         end
       end
     end

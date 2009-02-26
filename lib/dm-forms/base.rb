@@ -7,6 +7,7 @@ module DataMapper
 
       REGULAR_ELEMENTS = :textarea, :select
       SELF_CLOSING_ELEMENTS = :textfield, :submit, :file, :button, :hidden, :password, :radio, :checkbox
+      DEFAULT_VALUE_ELEMENTS = :textarea, :select, :textfield, :radio, :checkbox
       
       attr_reader :model, :origin, :name
       
@@ -28,8 +29,6 @@ module DataMapper
       
       REGULAR_ELEMENTS.each do |type|
         define_method :"unbound_#{type}" do |attrs|
-          raise ArgumentError, 'form elements must have a name' unless attrs.include? :name
-          attrs[:value] = element_value attrs[:name]
           process_unbound_element type, attrs
           origin.buffer << tag(type, attrs)
         end
@@ -53,12 +52,14 @@ module DataMapper
       private 
       
       def process_bound_element type, method, attrs
+        attrs[:__name] = method
         attrs[:name] = element_name method
       end
       
       def process_unbound_element type, attrs
         attrs ||= {}
         attrs[:type] = type if type.in? SELF_CLOSING_ELEMENTS
+        attrs[:value] = element_value attrs if type.in?(DEFAULT_VALUE_ELEMENTS - REGULAR_ELEMENTS)
         case type
         when :file   
           @multipart = true
@@ -66,6 +67,7 @@ module DataMapper
           attrs[:name]  ||= 'submit'
           attrs[:value] ||= 'Submit'
         end
+        raise ArgumentError, 'form elements must have a name', caller(2) unless attrs.include? :name
       end
       
       def process_form_attrs attrs = {}
@@ -88,9 +90,9 @@ module DataMapper
         model ? "#{name}[#{method}]" : method
       end
       
-      def element_value method
+      def element_value attrs = {}
         # TODO: escape HTML
-        model ? model.send(method) : origin.params[method]
+        model ? model.send(attrs[:__name]) : origin.params[attrs[:name]]
       end
       
     end
