@@ -6,6 +6,11 @@ require 'rgauge'
 
 include DataMapper::Form::Helpers
 
+def params
+  Hash.new { |h, k| k }
+end
+public :params
+
 benchmark 'Entire forms', :times => 30 do
   report 'Login' do 
     form :action => '/login' do
