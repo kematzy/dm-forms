@@ -88,9 +88,7 @@ describe DataMapper::Form::Helpers do
         input.attributes['value'].should == 'put'
       end
     end
-  end
-  
-  describe "#form" do
+    
     it "should create a form using yeild syntax" do
       markup = form :action => '/login' do |f|
         f.textfield :name => 'name'
