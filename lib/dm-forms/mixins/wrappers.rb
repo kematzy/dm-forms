@@ -15,7 +15,11 @@ module DataMapper::Form::Wrappers
   end
   
   def wrapper_open name, attrs = {}
-    type = attrs.include?(:type) ? attrs[:type] : name
+    if !attrs.nil? and attrs.include?(:type)
+      type = attrs[:type]
+    else
+      type = name
+    end
     classes = "form-#{type}".add_class 'form-' << classify_name(attrs[:name])
     %(<div class="#{classes}">\n)
   end

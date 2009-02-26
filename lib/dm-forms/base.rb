@@ -28,6 +28,8 @@ module DataMapper
       
       REGULAR_ELEMENTS.each do |type|
         define_method :"unbound_#{type}" do |attrs|
+          raise ArgumentError, 'form elements must have a name' unless attrs.include? :name
+          attrs[:value] = element_value attrs[:name]
           process_unbound_element type, attrs
           origin.buffer << tag(type, attrs)
         end
@@ -87,9 +89,8 @@ module DataMapper
       end
       
       def element_value method
-        # TODO: fix params issue
-        value = model ? model.send(method) : origin.params[method]
-        value.to_s.escape_html
+        # TODO: escape HTML
+        model ? model.send(method) : origin.params[method]
       end
       
     end

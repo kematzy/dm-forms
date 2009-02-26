@@ -26,8 +26,12 @@ describe DataMapper::Form::Helpers do
   %w( textfield submit file button hidden password radio checkbox ).each do |type|
     describe "##{type}" do
       it "should create an unbound #{type}" do
-        send(type, :id => 'foo').should have_tag("input[@type=#{type}]") do |tag|
-          tag.attributes['id'].should == 'foo'
+        send(type, :name => 'foo').should have_tag("input[@type=#{type}]")
+      end
+      
+      it "should use origin #params method to grab the default value when present" do
+        send(type, :name => 'foo').should have_tag("input[@type=#{type}]") do |tag|
+          #tag.attributes['value'].should == type
         end
       end
     end
@@ -36,9 +40,7 @@ describe DataMapper::Form::Helpers do
   %w( textarea select ).each do |type|
     describe "##{type}" do
       it "should create an unbound #{type}" do
-        send(type, :id => 'foo').should have_tag(type) do |tag|
-          tag.attributes['id'].should == 'foo'
-        end
+        send(type, :name => 'foo').should have_tag(type)
       end
     end
   end
