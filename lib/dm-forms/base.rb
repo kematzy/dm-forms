@@ -12,7 +12,7 @@ module DataMapper
       
       def initialize model = nil, origin = nil
         @model, @origin = model, origin
-        @name = 'test' # TODO: generate name from model
+        @name = @model.class.name.snake_case.split('/').last
       end
       
       def form attrs = {}, &block
