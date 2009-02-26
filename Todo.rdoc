@@ -1,6 +1,13 @@
 
 == Major:
 
+%self     total     self     wait    child    calls  name
+79.15      4.50     4.50     0.00     0.00      174  String#+
+13.24      0.75     0.75     0.00     0.00       84  String#<<
+ 2.23      5.41     0.13     0.00     5.29       21  DataMapper::Form::Helpers#form
+
+* get rid of origin.buffer ... causing the memory issues .. what is merbs technique?
+* memory error in benchmarks?
 * remove bound submit? others?
 * use stack (array) method for contexts ... cleaner than manual toggling
 * allow explicit context names, not just auto-generated from class names
