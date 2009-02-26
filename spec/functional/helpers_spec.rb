@@ -58,6 +58,11 @@ describe DataMapper::Form::Helpers do
     it "should default its contents using origin #params" do
       textarea(:name => 'comments').should have_tag('textarea[@name=comments]', 'comments')
     end
+    
+    it "should allow contents to be passed as a first argument" do
+      def params; {} end
+      textarea('Whatever', :name => 'comments').should have_tag('textarea[@name=comments]', 'Whatever')
+    end
   end
   
   describe "#form" do

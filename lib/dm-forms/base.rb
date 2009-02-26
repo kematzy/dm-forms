@@ -28,10 +28,11 @@ module DataMapper
       end
       
       REGULAR_ELEMENTS.each do |type|
-        define_method :"unbound_#{type}" do |attrs|
+        define_method :"unbound_#{type}" do |*args|
+          contents, attrs = split_args *args
           process_unbound_element type, attrs
           if type == :textarea
-            origin.buffer << tag(type, element_value(attrs), attrs)
+            origin.buffer << tag(type, element_value(attrs) || contents, attrs)
           else
             origin.buffer << tag(type, attrs)
           end
@@ -53,10 +54,17 @@ module DataMapper
         end
       end
       
-      private 
+      private
+      
+      def split_args *args
+        if args.first.is_a? Hash
+          return nil, args.shift
+        else
+          return *args
+        end
+      end
       
       def process_bound_element type, method, attrs
-        attrs[:__name] = method
         attrs[:name] = element_name method
       end
       
@@ -96,7 +104,8 @@ module DataMapper
       
       def element_value attrs = {}
         # TODO: escape HTML
-        model ? model.send(attrs[:__name]) : origin.params[attrs[:name]]
+        # TODO: dont use this name hack... better positioning to assign element_name to prevent this
+        model ? model.send(attrs[:name].gsub(/\w+\[|\]/, '')) : origin.params[attrs[:name]]
       end
       
     end
