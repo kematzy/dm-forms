@@ -47,7 +47,6 @@ describe DataMapper::Form::Helpers do
         textfield :name => 'name'
         textfield :name => 'email'
       end
-      puts markup
       markup.should have_tag('fieldset') do |fieldset|
         fieldset.should have_tag('legend', 'User Details')
         fieldset.should have_tag('input[@name=name]')
