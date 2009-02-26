@@ -80,6 +80,12 @@ module DataMapper
         @model ? "#{@name}[#{method}]" : method
       end
       
+      def element_value method 
+        # TODO: fix params issue
+        value = @model ? @model.send(method) : origin.params[method]
+        value.to_s.escape_html
+      end
+      
     end
   end
 end
