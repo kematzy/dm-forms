@@ -144,6 +144,10 @@ describe DataMapper::Form::Helpers do
       submit.should have_tag('input[@name=submit]')
       submit.should have_tag('input[@value=Submit]')
     end
+    
+    it "should allow the first arg to be a value string" do
+      submit('Login').should have_tag('input[@value=Login]')
+    end
   end
   
 end
