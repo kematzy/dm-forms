@@ -162,6 +162,18 @@ describe DataMapper::Form::Helpers do
         end
       end
     end
+    
+    it "should allow setting of the selected option" do
+      select(:name => 'days', :options => @days, :selected => 2).should have_tag('select[@name=days]') do |select|
+        select.should have_tag('option[@value=2]') do |option|
+          option.attributes['selected'].should == 'selected'
+        end
+        @days.each do |value, contents|
+          select.should have_tag("option[@value=#{value}]", contents)
+        end
+      end      
+    end
+    
   end
   
 end
