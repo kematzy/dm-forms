@@ -3,7 +3,7 @@ module DataMapper::Form::Wrappers
   
   def tag name, contents = nil, attrs = {}, &block
     attrs, contents = contents, nil if contents.is_a? Hash
-    if name.in? :form, :fieldset, :legend
+    if name.in? :form, :fieldset, :legend, :span, :div
       super
     else
       wrapper_open(name, attrs) + super + wrapper_close
