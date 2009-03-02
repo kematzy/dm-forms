@@ -13,7 +13,7 @@ module DataMapper
         attrs[:value] = value unless value.blank?
         form_context(nil, self).unbound_submit attrs
       end
-            
+      
       %w( form fieldset ).each do |type|
         class_eval <<-EOF, __FILE__, __LINE__ + 1
           def #{type} *args, &block

@@ -46,14 +46,6 @@ describe DataMapper::Form::Helpers do
     end
   end
   
-  %w( textarea select ).each do |type|
-    describe "##{type}" do
-      it "should create an unbound #{type}" do
-        send(type, :name => 'foo').should have_tag(type)
-      end
-    end
-  end
-  
   describe "#textarea" do
     it "should default its contents using origin #params" do
       textarea(:name => 'comments').should have_tag('textarea[@name=comments]', 'comments')
@@ -147,6 +139,28 @@ describe DataMapper::Form::Helpers do
     
     it "should allow the first arg to be a value string" do
       submit('Login').should have_tag('input[@value=Login]')
+    end
+  end
+  
+  describe "#select" do
+    before :each do
+      @days = {
+        1 => 'Mon',
+        2 => 'Tue',
+        3 => 'Wed',
+        4 => 'Thu',
+        5 => 'Fri',
+        6 => 'Sat',
+        7 => 'Sun',
+      }
+    end
+    
+    it "should populate options" do
+      select(:name => 'days', :options => @days).should have_tag('select[@name=days]') do |select|
+        @days.each do |value, contents|
+          select.should have_tag("option[@value=#{value}]", contents)
+        end
+      end
     end
   end
   

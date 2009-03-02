@@ -28,6 +28,12 @@ module DataMapper
         origin.buffer << tag(:fieldset, legend_tag + origin.capture(&block), attrs)
       end
       
+      def select_options options, selected = nil, prompt = nil
+        options.map do |value, contents|
+          tag(:option, contents, :value => value)
+        end.join("\n")
+      end
+      
       def unbound_textarea *args
         contents, attrs = split_args *args
         process_unbound_element :textarea, attrs
@@ -35,8 +41,9 @@ module DataMapper
       end
       
       def unbound_select attrs = {}
+        options = select_options *attrs.extract!(:options, :selected, :prompt)
         process_unbound_element :select, attrs
-        origin.buffer << tag(:select, attrs)
+        origin.buffer << tag(:select, options, attrs)
       end
       
       SELF_CLOSING_ELEMENTS.each do |type|
