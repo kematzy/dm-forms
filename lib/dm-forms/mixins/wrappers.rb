@@ -6,26 +6,17 @@ module DataMapper::Form::Wrappers
     if name.in? :form, :fieldset, :legend, :span, :div
       super
     else
-      wrapper_open(name, attrs) + super + wrapper_close
+      tag(:div, super, :class => wrapper_classes(name, attrs))
     end
   end
   
   def self_closing_tag name, attrs = {}
-    wrapper_open(name, attrs) + super + wrapper_close
+    tag(:div, super, :class => wrapper_classes(name, attrs))
   end
   
-  def wrapper_open name, attrs = {}
-    if !attrs.nil? and attrs.include?(:type)
-      type = attrs[:type]
-    else
-      type = name
-    end
-    classes = "form-#{type}".add_class 'form-' << classify_name(attrs[:name])
-    %(<div class="#{classes}">\n)
-  end
-  
-  def wrapper_close
-    "</div>\n"
+  def wrapper_classes name, attrs = {}
+    classes = attrs.include?(:type) ? "form-#{attrs[:type]}" : "form-#{name}"
+    classes.add_class "form-#{classify_name(attrs[:name])}"
   end
   
   def classify_name name
