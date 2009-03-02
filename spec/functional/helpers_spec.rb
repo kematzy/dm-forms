@@ -70,7 +70,7 @@ describe DataMapper::Form::Helpers do
       markup = form :action => '/login' do
         textfield :name => 'name'
         textfield :name => 'pass'
-        submit :name => 'op', :value => 'Login'
+        submit 'Login', :name => 'op'
       end
       markup.should have_tag('form[@action=/login]') do |form|
         form.attributes['method'].should == 'post'
@@ -115,12 +115,12 @@ describe DataMapper::Form::Helpers do
       markup = form :action => '/login' do |f|
         f.textfield :name => 'name'
         f.textfield :name => 'pass'
-        f.submit :name => 'op', :value => 'Login'
+        f.submit 'Login'
       end
       markup.should have_tag('form[@action=/login]') do |form|
         form.should have_tag('input[@name=name]')
         form.should have_tag('input[@name=pass]')
-        form.should have_tag('input[@name=op]')
+        form.should have_tag('input[@name=submit]')
       end
     end
   end

@@ -9,7 +9,8 @@ module DataMapper
         end
       end
       
-      def submit attrs = {}
+      def submit value = nil, attrs = {}
+        attrs[:value] = value unless value.blank?
         form_context(nil, self).unbound_submit attrs
       end
             

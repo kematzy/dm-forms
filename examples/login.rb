@@ -14,7 +14,7 @@ public :params
 markup = form :action => '/login' do
   textfield :name, :label => 'Username', :description => 'Enter your username.'
   textfield :pass, :label => 'Password', :description => 'Enter your password.'
-  submit :value => 'Login'
+  submit 'Login'
 end
 
 puts markup
