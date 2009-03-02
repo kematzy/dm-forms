@@ -17,8 +17,8 @@
 * abstract ORM ? rename from dm-forms ... have ORM mixins
 * only one context so dont use all those methods? just capture with optional builder base?
 * self closing tags auto self-close to maximize mixin DRYness
-* Add examples / benchmarks again
 * Make sure othe frameworks can plug in their functionality
+* documentation per method generated
 * better naming conventions / refactor / release
 
 == Minor:
