@@ -168,12 +168,14 @@ describe DataMapper::Form::Helpers do
         select.should have_tag('option[@value=2]') do |option|
           option.attributes['selected'].should == 'selected'
         end
-        @days.each do |value, contents|
-          select.should have_tag("option[@value=#{value}]", contents)
-        end
       end      
     end
     
+    it "should allow a prompt option" do
+      select(:name => 'days', :options => @days, :prompt => 'Select day').should have_tag('select[@name=days]') do |select|
+        select.should have_tag('option[@selected=selected]', 'Select day') 
+      end      
+    end
   end
   
 end
