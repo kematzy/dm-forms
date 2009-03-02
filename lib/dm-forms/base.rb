@@ -20,7 +20,7 @@ module DataMapper
         origin.clear_buffer
         captured = origin.capture &block
         faux_method = process_form_attrs attrs 
-        origin.buffer << tag(:form, faux_method + captured, attrs)
+        tag :form, faux_method + captured, attrs 
       end
       
       def fieldset attrs = {}, &block
