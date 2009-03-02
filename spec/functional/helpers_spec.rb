@@ -165,15 +165,20 @@ describe DataMapper::Form::Helpers do
     
     it "should allow setting of the selected option" do
       select(:name => 'days', :options => @days, :selected => 2).should have_tag('select[@name=days]') do |select|
-        select.should have_tag('option[@value=2]') do |option|
-          option.attributes['selected'].should == 'selected'
-        end
+        select.should have_tag('option[@selected=selected]', 'Tue')
       end      
     end
     
-    it "should allow a prompt option" do
+    it "should allow a prompt option, defaulting it to selected" do
       select(:name => 'days', :options => @days, :prompt => 'Select day').should have_tag('select[@name=days]') do |select|
         select.should have_tag('option[@selected=selected]', 'Select day') 
+      end      
+    end
+    
+    it "should allow a prompt option, but allowing selection of other options" do
+      select(:name => 'days', :options => @days, :prompt => 'Select day', :selected => 7).should have_tag('select[@name=days]') do |select|
+        select.should have_tag('option[@selected=selected]', 'Sun')
+        select.should have_tag('option:not(selected)', 'Select day')
       end      
     end
   end
