@@ -30,7 +30,11 @@ module DataMapper
       
       def select_options options, selected = nil, prompt = nil
         options.map do |value, contents|
-          tag(:option, contents, :value => value)
+          if value == selected or contents == selected
+            tag(:option, contents, :value => value, :selected => 'selected')
+          else
+            tag(:option, contents, :value => value)
+          end
         end.join("\n")
       end
       
