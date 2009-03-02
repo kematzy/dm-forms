@@ -28,16 +28,15 @@ module DataMapper
         origin.buffer << tag(:fieldset, legend_tag + origin.capture(&block), attrs)
       end
       
-      REGULAR_ELEMENTS.each do |type|
-        define_method :"unbound_#{type}" do |*args|
-          contents, attrs = split_args *args
-          process_unbound_element type, attrs
-          if type == :textarea
-            origin.buffer << tag(type, element_value(attrs) || contents, attrs)
-          else
-            origin.buffer << tag(type, attrs)
-          end
-        end
+      def unbound_textarea *args
+        contents, attrs = split_args *args
+        process_unbound_element :textarea, attrs
+        origin.buffer << tag(:textarea, element_value(attrs) || contents, attrs)
+      end
+      
+      def unbound_select attrs = {}
+        process_unbound_element :select, attrs
+        origin.buffer << tag(:select, attrs)
       end
       
       SELF_CLOSING_ELEMENTS.each do |type|
