@@ -50,8 +50,7 @@ module DataMapper
       end
       
       def with_form_context model, attrs = {}, &block
-        last_context = form_context
-        @__form_context = new_form_context(model, self)
+        last_context, @__form_context = form_context, new_form_context(model, self)
         captured = instance_eval &block
         @__form_context = last_context
         captured
@@ -59,6 +58,10 @@ module DataMapper
       
       def bound? *args 
         args.first.is_a? Symbol
+      end
+      
+      def clear_buffer
+        @buffer = ''
       end
       
       def buffer string = nil
