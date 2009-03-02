@@ -7,6 +7,8 @@ module DataMapper
       # Borrowed / adapted from Merb
       #++
       
+      BOOL_ATTRIBUTES = :selected, :checked, :multiple
+      
       ##
       # Creates a generic tag. You can invoke it a variety of ways.
       #   
@@ -71,7 +73,15 @@ module DataMapper
       #:stopdoc:
       
       def optional_attrs attrs = {}
-        ' ' + attrs.to_html_attributes unless attrs.blank?
+        ' ' + boolean_attrs(attrs).to_html_attributes unless attrs.blank?
+      end
+      
+      def boolean_attrs attrs = {}
+        attrs.each do |key, value|
+          if key.in? BOOL_ATTRIBUTES
+            value.to_bool ? attrs[key] = key : attrs.delete(key)
+          end
+        end
       end
       
     end

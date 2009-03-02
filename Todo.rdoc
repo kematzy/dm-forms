@@ -10,6 +10,7 @@
 * benchmark with mixins as well
 * get rid of origin.buffer..what is merbs technique?
 * remove bound submit? others?
+* select optgroups
 * use stack (array) method for contexts ... cleaner than manual toggling
 * allow explicit context names, not just auto-generated from class names
 * view merb form helper specs to see what was missed

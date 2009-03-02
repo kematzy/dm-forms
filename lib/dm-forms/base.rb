@@ -35,7 +35,7 @@ module DataMapper
         end
         options.map do |value, contents|
           if value == selected or contents == selected
-            tag(:option, contents, :value => value, :selected => 'selected')
+            tag(:option, contents, :value => value, :selected => true)
           else
             tag(:option, contents, :value => value)
           end
@@ -107,10 +107,6 @@ module DataMapper
 
       def faux_method method
         unbound_hidden :name => '_method', :value => method
-      end
-      
-      def considered_true? value 
-        value && value != "0" && value != 0
       end
       
       def element_name method 
