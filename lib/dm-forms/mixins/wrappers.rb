@@ -11,7 +11,7 @@ module DataMapper::Form::Wrappers
   end
   
   def self_closing_tag name, attrs = {}
-    tag(:div, super, :class => wrapper_classes(name, attrs))
+    tag :div, super, :class => wrapper_classes(name, attrs)
   end
   
   def wrapper_classes name, attrs = {}
