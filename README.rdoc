@@ -3,6 +3,10 @@
 
 DataMapper model form generation.
 
+== Features
+
+* Coming soon
+
 == License:
 
 (The MIT License)
