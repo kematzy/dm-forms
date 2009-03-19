@@ -15,7 +15,7 @@ module DataMapper
       end
       
       %w( form fieldset ).each do |type|
-        class_eval <<-EOF, __FILE__, __LINE__ + 1
+        class_eval <<-EOF
           def #{type} *args, &block
             form_context(nil, self).#{type} *args, &block
           end
@@ -23,7 +23,7 @@ module DataMapper
       end
       
       %w( form_for fieldset_for ).each do |type|
-        class_eval <<-EOF, __FILE__, __LINE__ + 1
+        class_eval <<-EOF
           def #{type} model, attrs = {}, &block
             with_form_context model do
               #{type.sub(/_for/, '')} attrs, &block
