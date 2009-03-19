@@ -29,10 +29,8 @@ module DataMapper
       end
       
       def select_options options, selected = nil, prompt = nil
-        unless prompt.nil?
-          options[''] = prompt
-          selected ||= prompt
-        end
+        options[''] = prompt unless prompt.nil?
+        selected ||= prompt || nil
         options.map do |value, contents|
           tag :option, contents, :value => value, :selected => (value == selected or contents == selected)
         end.join("\n")
