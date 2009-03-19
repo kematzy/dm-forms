@@ -11,7 +11,7 @@ def params
 end
 public :params
 
-benchmark 'Entire forms', :times => 80 do
+benchmark 'Entire forms', :times => 400 do
   report 'Login' do 
     form :action => '/login' do
       textfield :name, :id => 'username'
