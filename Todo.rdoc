@@ -2,7 +2,6 @@
 == Major:
 
 * major refactor with processing of elements since some allow contents param, and some do not etc
-* benchmark with mixins as well
 * get rid of origin.buffer..what is merbs technique?
 * remove bound submit? others?
 * select optgroups
