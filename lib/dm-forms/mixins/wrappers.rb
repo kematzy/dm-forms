@@ -3,10 +3,10 @@ module DataMapper::Form::Wrappers
   
   def tag name, contents = nil, attrs = {}, &block
     attrs, contents = contents, nil if contents.is_a? Hash
-    if name.in? :form, :fieldset, :legend, :span, :div, :option, :optgroup
-      super
-    else
+    unless name.in? :form, :fieldset, :legend, :span, :div, :option, :optgroup
       tag(:div, super, :class => wrapper_classes(name, attrs))
+    else
+      super
     end
   end
   
