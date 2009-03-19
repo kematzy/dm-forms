@@ -34,11 +34,7 @@ module DataMapper
           selected ||= prompt
         end
         options.map do |value, contents|
-          if value == selected or contents == selected
-            tag(:option, contents, :value => value, :selected => true)
-          else
-            tag(:option, contents, :value => value)
-          end
+          tag :option, contents, :value => value, :selected => (value == selected or contents == selected)
         end.join("\n")
       end
       
