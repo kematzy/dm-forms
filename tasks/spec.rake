@@ -22,4 +22,9 @@ namespace :spec do
     t.spec_opts = ["--color", "--format", "specdoc", "--require", "spec/spec_helper.rb"]
   end
   
+  desc 'Bind specs'
+  task :bind do
+    sh %(rbind to spec/**/*.rb lib/**/*.rb -i 1 -e 'system "clear && rake spec"')
+  end
+  
 end

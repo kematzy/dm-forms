@@ -1,11 +1,6 @@
 
 == Major:
 
-%self     total     self     wait    child    calls  name
-79.15      4.50     4.50     0.00     0.00      174  String#+
-13.24      0.75     0.75     0.00     0.00       84  String#<<
- 2.23      5.41     0.13     0.00     5.29       21  DataMapper::Form::Helpers#form
-
 * major refactor with processing of elements since some allow contents param, and some do not etc
 * benchmark with mixins as well
 * get rid of origin.buffer..what is merbs technique?
