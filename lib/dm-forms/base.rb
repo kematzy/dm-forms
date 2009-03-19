@@ -66,11 +66,8 @@ module DataMapper
       private
       
       def split_args *args
-        if args.first.is_a? Hash
-          return nil, args.shift
-        else
-          return *args
-        end
+        return nil, args.shift if args.first.is_a? Hash
+        return *args
       end
       
       def process_bound_element type, method, attrs
