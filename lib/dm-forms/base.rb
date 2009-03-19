@@ -31,7 +31,7 @@ module DataMapper
       def select_options options, selected = nil, prompt = nil
         unless prompt.nil?
           options[''] = prompt
-          selected = prompt unless selected
+          selected ||= prompt
         end
         options.map do |value, contents|
           if value == selected or contents == selected
