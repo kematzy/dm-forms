@@ -1,5 +1,5 @@
 
-describe "String" do
+describe String do
   
   describe "#merge_word" do
     it "should add a word if it is not present" do
