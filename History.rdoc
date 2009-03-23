@@ -1,4 +1,8 @@
 
+=== 0.0.3 / 2009-03-23
+
+* Refactored everything :)
+
 === 0.0.1 / 2009-01-13
 
 * Initial release
