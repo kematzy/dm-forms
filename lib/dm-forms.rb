@@ -21,9 +21,6 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
-$:.unshift File.dirname(__FILE__)
-
-require 'rubygems'
 require 'extlib'
 require 'dm-forms/version'
 require 'dm-forms/core_ext'

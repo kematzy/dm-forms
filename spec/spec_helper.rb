@@ -1,4 +1,5 @@
 
+require 'rubygems'
 require 'dm-forms'
 require 'rspec_hpricot_matchers'
 

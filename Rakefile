@@ -2,9 +2,10 @@
 require 'rubygems'
 require 'rake'
 require 'echoe'
-require './lib/dm-forms.rb'
+$:.unshift 'lib'
+require 'dm-forms'
 
-Echoe.new("dm-forms", DataMapper::Form::VERSION) do |p|
+Echoe.new "dm-forms", DataMapper::Form::VERSION do |p|
   p.author = "TJ Holowaychuk"
   p.email = "tj@vision-media.ca"
   p.summary = "DataMapper model form generation"
