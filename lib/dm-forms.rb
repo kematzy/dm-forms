@@ -22,6 +22,7 @@
 #++
 
 require 'extlib'
+require 'rext/all'
 require 'dm-forms/version'
 require 'dm-forms/core_ext'
 require 'dm-forms/tag'
